@@ -8,6 +8,7 @@ message Response {
   bytes data = 1;
   uint64 code = 2;
   map<string, HeaderValue> headers = 3;
+  string timestamp = 4;
 }
 
 message HeaderValue {

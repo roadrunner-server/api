@@ -15,7 +15,7 @@ test: ## Run application tests
 	go test -v -race -tags=debug ./plugins/v2/jobs/pipeline
 
 generate-proto:
-	protoc -I./api/proto/jobs/v1beta --go_out=./api/proto/jobs/v1beta jobs.proto
-	protoc -I./api/proto/kv/v1beta --go_out=./api/proto/kv/v1beta kv.proto
-	protoc -I./api/proto/websockets/v1beta --go_out=./api/proto/websockets/v1beta websockets.proto
-	protoc -I./api/proto/cache/v1beta --go_out=./api/proto/cache/v1beta response.proto
+	protoc -I./proto/jobs/v1beta --go_out=./proto/jobs/v1beta jobs.proto
+	protoc -I./proto/kv/v1beta --go_out=./proto/kv/v1beta kv.proto
+	protoc -I./proto/websockets/v1beta --go_out=./proto/websockets/v1beta websockets.proto
+	protoc -I./proto/cache/v1beta --go_out=./proto/cache/v1beta response.proto
