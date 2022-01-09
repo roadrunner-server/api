@@ -2,8 +2,6 @@ package config
 
 import (
 	"time"
-
-	"github.com/hashicorp/go-version"
 )
 
 type Configurer interface {
@@ -34,5 +32,5 @@ type Configurer interface {
 	GracefulTimeout() time.Duration
 
 	// RRVersion returns running RR version
-	RRVersion() *version.Version
+	RRVersion() string
 }
