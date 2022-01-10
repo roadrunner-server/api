@@ -3,7 +3,7 @@ package jobs
 import (
 	"context"
 
-	"github.com/roadrunner-server/api/v2/plugins/v2/jobs/pipeline"
+	"github.com/roadrunner-server/api/v2/plugins/jobs/pipeline"
 	priorityqueue "github.com/spiral/roadrunner/v2/priority_queue"
 )
 
