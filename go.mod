@@ -1,10 +1,9 @@
-module github.com/roadrunner-server/api
+module github.com/roadrunner-server/api/v2
 
 go 1.17
 
 require (
 	github.com/goccy/go-json v0.9.0
-	github.com/hashicorp/go-version v1.4.0
 	github.com/prometheus/client_golang v1.11.0
 	github.com/spiral/roadrunner/v2 v2.7.0-beta.1
 	github.com/stretchr/testify v1.7.0
