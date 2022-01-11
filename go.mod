@@ -3,9 +3,9 @@ module github.com/roadrunner-server/api/v2
 go 1.17
 
 require (
-	github.com/goccy/go-json v0.9.0
+	github.com/goccy/go-json v0.9.1
 	github.com/prometheus/client_golang v1.11.0
-	github.com/spiral/roadrunner/v2 v2.7.0-beta.1
+	github.com/spiral/roadrunner/v2 v2.7.0-rc.2
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/zap v1.20.0
 	google.golang.org/protobuf v1.27.1
@@ -37,6 +37,6 @@ require (
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
-	golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e // indirect
+	golang.org/x/sys v0.0.0-20220111092808-5a964db01320 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
