@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/goccy/go-json v0.9.1
 	github.com/prometheus/client_golang v1.11.0
-	github.com/spiral/roadrunner/v2 v2.7.0-rc.2
+	github.com/roadrunner-server/sdk/v2 v2.0.0-rc.1
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/zap v1.20.0
 	google.golang.org/protobuf v1.27.1
@@ -28,15 +28,15 @@ require (
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.32.1 // indirect
 	github.com/prometheus/procfs v0.7.3 // indirect
+	github.com/roadrunner-server/errors v1.1.0 // indirect
+	github.com/roadrunner-server/goridge/v3 v3.3.0 // indirect
+	github.com/roadrunner-server/tcplisten v1.1.0 // indirect
 	github.com/shirou/gopsutil v3.21.11+incompatible // indirect
-	github.com/spiral/errors v1.0.12 // indirect
-	github.com/spiral/goridge/v3 v3.2.4 // indirect
-	github.com/spiral/tcplisten v1.0.0 // indirect
 	github.com/tklauser/go-sysconf v0.3.9 // indirect
 	github.com/tklauser/numcpus v0.3.0 // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
-	golang.org/x/sys v0.0.0-20220111092808-5a964db01320 // indirect
+	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )

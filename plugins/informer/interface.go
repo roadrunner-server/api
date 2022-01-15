@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/roadrunner-server/api/v2/plugins/jobs"
-	"github.com/spiral/roadrunner/v2/state/process"
+	"github.com/roadrunner-server/sdk/v2/state/process"
 )
 
 // Statistic interfaces ==============

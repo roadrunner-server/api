@@ -4,8 +4,8 @@ import (
 	"context"
 	"os/exec"
 
-	"github.com/spiral/roadrunner/v2/pool"
-	"github.com/spiral/roadrunner/v2/worker"
+	"github.com/roadrunner-server/sdk/v2/pool"
+	"github.com/roadrunner-server/sdk/v2/worker"
 )
 
 // Server creates workers for the application.
