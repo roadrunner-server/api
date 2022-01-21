@@ -3,8 +3,8 @@ module github.com/roadrunner-server/api/v2
 go 1.17
 
 require (
-	github.com/goccy/go-json v0.9.1
-	github.com/prometheus/client_golang v1.11.0
+	github.com/goccy/go-json v0.9.4
+	github.com/prometheus/client_golang v1.12.0
 	github.com/roadrunner-server/sdk/v2 v2.0.0-rc.1
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/zap v1.20.0
