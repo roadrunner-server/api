@@ -19,3 +19,4 @@ generate-proto:
 	protoc -I./proto/kv/v1beta --go_out=./proto/kv/v1beta kv.proto
 	protoc -I./proto/websockets/v1beta --go_out=./proto/websockets/v1beta websockets.proto
 	protoc -I./proto/cache/v1beta --go_out=./proto/cache/v1beta response.proto
+	protoc -I./proto/http/v1beta --go_out=./proto/http/v1beta http.proto
