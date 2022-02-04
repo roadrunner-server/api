@@ -27,12 +27,3 @@ updates:
       - "rustatian"
     assignees:
       - "rustatian"
-
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: daily
-    reviewers:
-      - "rustatian"
-    assignees:
-      - "rustatian"
