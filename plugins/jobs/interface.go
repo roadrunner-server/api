@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/roadrunner-server/api/v2/plugins/jobs/pipeline"
-	priorityqueue "github.com/roadrunner-server/sdk/v2/priority_queue"
+	"github.com/roadrunner-server/api/v2/pq"
 )
 
 // Consumer represents a single jobs driver interface
@@ -38,6 +38,6 @@ type Acknowledger interface {
 
 // Constructor constructs Consumer interface. Endure abstraction.
 type Constructor interface {
-	ConsumerFromConfig(configKey string, queue priorityqueue.Queue) (Consumer, error)
-	ConsumerFromPipeline(pipe *pipeline.Pipeline, queue priorityqueue.Queue) (Consumer, error)
+	ConsumerFromConfig(configKey string, queue pq.Queue) (Consumer, error)
+	ConsumerFromPipeline(pipe *pipeline.Pipeline, queue pq.Queue) (Consumer, error)
 }
