@@ -2,7 +2,7 @@ package pipeline
 
 import (
 	"github.com/goccy/go-json"
-	"github.com/roadrunner-server/sdk/v2/utils"
+	"github.com/roadrunner-server/api/v2/internal"
 )
 
 // Pipeline defines pipeline options.
@@ -140,7 +140,7 @@ func (p Pipeline) Bool(name string, d bool) bool {
 func (p Pipeline) Map(name string, out map[string]string) error {
 	if value, ok := p[name]; ok {
 		if m, ok := value.(string); ok {
-			err := json.Unmarshal(utils.AsBytes(m), &out)
+			err := json.Unmarshal(internal.AsBytes(m), &out)
 			if err != nil {
 				return err
 			}
@@ -151,7 +151,7 @@ func (p Pipeline) Map(name string, out map[string]string) error {
 			if rv, ok := val.(map[string]interface{}); ok {
 				if val, ok := rv[name]; ok {
 					if m, ok := val.(string); ok {
-						err := json.Unmarshal(utils.AsBytes(m), &out)
+						err := json.Unmarshal(internal.AsBytes(m), &out)
 						if err != nil {
 							return err
 						}
