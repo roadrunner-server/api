@@ -30,3 +30,8 @@ type Pool interface {
 	// Destroy all underlying stack (but let them to complete the task).
 	Destroy(ctx context.Context)
 }
+
+type Queuer interface {
+	// QueueSize can be implemented on the pool to provide the requests queue information
+	QueueSize() uint64
+}
