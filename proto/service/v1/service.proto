@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package service.V1;
+option go_package = "./;serviceV1";
+
+message Response {
+  string message = 1;
+  bool ok = 2;
+}
+
+message Create {
+  string name = 1;
+  string command = 2;
+  int64 process_num = 3;
+  int64 exec_timeout = 4;
+  bool remain_after_exit = 5;
+  map<string, string> env = 6;
+  uint64 restart_sec = 7;
+  string working_dir = 8;
+}
+
+message Status {
+  float CPUPercent = 1;
+  int32 pid = 2;
+  uint64 memoryUsage = 3;
+  string command = 4;
+}
+
+message Service {
+  string name = 1;
+}
+
+message List {
+  repeated string services = 1;
+}
