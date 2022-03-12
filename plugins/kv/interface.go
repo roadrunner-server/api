@@ -1,6 +1,6 @@
 package kv
 
-import kvv1 "github.com/roadrunner-server/api/v2/proto/kv/v1beta"
+import kvv1 "github.com/roadrunner-server/api/v2/proto/kv/v1"
 
 // Storage represents single abstract storage.
 type Storage interface {
