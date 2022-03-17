@@ -31,7 +31,11 @@ type Pool interface {
 	Destroy(ctx context.Context)
 }
 
-type Queuer interface {
-	// QueueSize can be implemented on the pool to provide the requests queue information
-	QueueSize() uint64
+// Streamer managed set of inner worker processes.
+type Streamer interface {
+	// ExecStream executes task with payload
+	ExecStream(rqs *payload.Payload, resp chan *payload.Payload) error
+
+	// ExecStreamWithTTL executes task with context which is used with timeout
+	ExecStreamWithTTL(ctx context.Context, rqs *payload.Payload, resp chan *payload.Payload) error
 }

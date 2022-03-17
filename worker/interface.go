@@ -10,7 +10,29 @@ import (
 )
 
 // Allocator is responsible for worker allocation in the pool
-type Allocator func() (SyncWorker, error)
+type Allocator func() (BaseProcess, error)
+
+type Streamer interface {
+	// BaseProcess provides basic functionality for the SyncWorker
+	BaseProcess
+	// ExecStream used to execute payload on the SyncWorker, there is no TIMEOUTS
+	ExecStream(rqs *payload.Payload, resp chan *payload.Payload) error
+	// ExecStreamWithTTL used to handle Exec with TTL
+	ExecStreamWithTTL(ctx context.Context, p *payload.Payload, resp chan *payload.Payload) error
+}
+
+// Worker is a non-bc replacement for the SDK
+type Worker = SyncWorker
+
+// SyncWorker is not a good name, since it's just a sync executor, but not all worker is sync
+type SyncWorker interface {
+	// BaseProcess provides basic functionality for the SyncWorker
+	BaseProcess
+	// Exec used to execute payload on the SyncWorker, there is no TIMEOUTS
+	Exec(rqs *payload.Payload) (*payload.Payload, error)
+	// ExecWithTTL used to handle Exec with TTL
+	ExecWithTTL(ctx context.Context, p *payload.Payload) (*payload.Payload, error)
+}
 
 // State represents WorkerProcess status and updated time.
 type State interface {
@@ -65,13 +87,4 @@ type BaseProcess interface {
 
 	// AttachRelay used to attach goridge relay to the worker process
 	AttachRelay(rl relay.Relay)
-}
-
-type SyncWorker interface {
-	// BaseProcess provides basic functionality for the SyncWorker
-	BaseProcess
-	// Exec used to execute payload on the SyncWorker, there is no TIMEOUTS
-	Exec(rqs *payload.Payload) (*payload.Payload, error)
-	// ExecWithTTL used to handle Exec with TTL
-	ExecWithTTL(ctx context.Context, p *payload.Payload) (*payload.Payload, error)
 }
