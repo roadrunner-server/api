@@ -9,7 +9,7 @@ require (
 	github.com/stretchr/testify v1.7.1
 	github.com/valyala/fasthttp v1.34.0
 	go.uber.org/zap v1.21.0
-	google.golang.org/protobuf v1.27.1
+	google.golang.org/protobuf v1.28.0
 )
 
 require (
