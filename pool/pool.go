@@ -32,6 +32,7 @@ type Pool interface {
 }
 
 // Streamer managed set of inner worker processes.
+// [BETA] interface, might be changed later
 type Streamer interface {
 	// ExecStream executes task with payload
 	ExecStream(rqs *payload.Payload, resp chan *payload.Payload, stopCh chan struct{}) error

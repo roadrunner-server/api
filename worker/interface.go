@@ -12,6 +12,8 @@ import (
 // Allocator is responsible for worker allocation in the pool
 type Allocator func() (BaseProcess, error)
 
+// Streamer interface adds streams capabilities to the pool
+// [BETA] interface, might be changed later
 type Streamer interface {
 	// BaseProcess provides basic functionality for the SyncWorker
 	BaseProcess
