@@ -16,9 +16,9 @@ type Streamer interface {
 	// BaseProcess provides basic functionality for the SyncWorker
 	BaseProcess
 	// ExecStream used to execute payload on the SyncWorker, there is no TIMEOUTS
-	ExecStream(rqs *payload.Payload, resp chan *payload.Payload) error
+	ExecStream(rqs *payload.Payload, resp chan *payload.Payload, stopCh chan struct{}) error
 	// ExecStreamWithTTL used to handle Exec with TTL
-	ExecStreamWithTTL(ctx context.Context, p *payload.Payload, resp chan *payload.Payload) error
+	ExecStreamWithTTL(ctx context.Context, p *payload.Payload, resp chan *payload.Payload, stopCh chan struct{}) error
 }
 
 // Worker is a non-bc replacement for the SDK
