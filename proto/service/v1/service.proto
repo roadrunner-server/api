@@ -16,7 +16,6 @@ message Create {
   bool remain_after_exit = 5;
   map<string, string> env = 6;
   uint64 restart_sec = 7;
-  string working_dir = 8;
 }
 
 message Status {
