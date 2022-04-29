@@ -44,7 +44,7 @@ type Options struct {
 	// Delay defines time duration to delay execution for. Defaults to none.
 	Delay int64 `json:"delay,omitempty"`
 
-	//
+	// AutoAck use to ack a job right after it arrived from the driver
 	AutoAck bool `json:"auto_ack"`
 }
 
