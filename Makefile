@@ -4,16 +4,6 @@
 
 SHELL = /bin/sh
 
-test_coverage:
-	rm -rf coverage-ci
-	mkdir ./coverage-ci
-	go test -v -race -cover -tags=debug -coverpkg=./... -failfast -coverprofile=./coverage-ci/pipeline_jobs.out -covermode=atomic ./plugins/jobs/pipeline
-	echo 'mode: atomic' > ./coverage-ci/summary.txt
-	tail -q -n +2 ./coverage-ci/*.out >> ./coverage-ci/summary.txt
-
-test: ## Run application tests
-	go test -v -race -tags=debug ./plugins/jobs/pipeline
-
 generate-proto:
 	protoc -I./proto/jobs/v1 --go_out=./proto/jobs/v1 jobs.proto
 	protoc -I./proto/kv/v1 --go_out=./proto/kv/v1 kv.proto

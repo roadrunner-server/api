@@ -1,7 +1,8 @@
 package pipeline
 
 import (
-	"github.com/goccy/go-json"
+	"encoding/json"
+
 	"github.com/roadrunner-server/api/v2/internal"
 )
 

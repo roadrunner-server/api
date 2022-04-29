@@ -12,6 +12,7 @@ const (
 	RRPipeline string = "rr_pipeline"
 	RRDelay    string = "rr_delay"
 	RRPriority string = "rr_priority"
+	RRAutoAck  string = "rr_auto_ack"
 )
 
 // Job carries information about single job.
