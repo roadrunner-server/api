@@ -1,7 +1,6 @@
 syntax = "proto3";
 
-package service.V1;
-option go_package = "./;serviceV1";
+package service.v1;
 
 message Response {
   string message = 1;
@@ -19,9 +18,9 @@ message Create {
 }
 
 message Status {
-  float CPUPercent = 1;
+  float cpu_percent = 1;
   int32 pid = 2;
-  uint64 memoryUsage = 3;
+  uint64 memory_usage = 3;
   string command = 4;
 }
 

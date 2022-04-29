@@ -37,18 +37,26 @@ Here as you see, our `package foo` depends only on the `api` repository, thus yo
 
 ---
 
+## ALL protobuf API located here: [Buf](https://buf.build/roadrunner-server/api)  
+To install and use generated packages:
+```bash
+go get go.buf.build/protocolbuffers/go/roadrunner-server/api
+```
+
 Proto API used for the external integrations for the RPC (mostly) or as the internal communications. For example:
 
 ```go
 package foo
 
 import (
-	jobsv1beta "github.com/roadrunner-server/api/v2/proto/jobs/v1beta"
+	jobsv1 "go.buf.build/protocolbuffers/go/roadrunner-server/api"
 )
 
-func Push(in *jobsv1beta.PushRequest, out *jobsv1beta.Empty) error {
+func Push(in *jobsv1.PushRequest, out *jobsv1.Empty) error {
 	return nil
 }
 ```
 
 Here is the method used in the RR to accept the `Job` from the external system.
+
+You may also navigate to the [`DOCS`](https://buf.build/roadrunner-server/api/docs) tab and inspect the full API. 

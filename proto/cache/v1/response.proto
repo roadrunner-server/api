@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package cache.v1beta;
+package cache.v1;
 
 message Response {
   bytes data = 1;

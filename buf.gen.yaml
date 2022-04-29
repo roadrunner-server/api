@@ -1,0 +1,13 @@
+version: v1
+
+plugins:
+  - name: go
+    opt:
+      - paths=source_relative
+    out: proto
+
+  - name: go-grpc
+    out: proto
+    opt:
+      - paths=source_relative
+      - require_unimplemented_servers=false

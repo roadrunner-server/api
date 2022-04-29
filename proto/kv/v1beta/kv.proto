@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 package kv.v1beta;
-option go_package = "./;kvv1beta";
 
 message Request {
     // could be an enum in the future

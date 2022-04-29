@@ -1,7 +1,6 @@
 syntax = "proto3";
 
-package websockets.V1;
-option go_package = "./;websocketsV1";
+package websockets.v1;
 
 message Message {
     string command = 1;

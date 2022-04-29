@@ -3,7 +3,6 @@ syntax = "proto3";
 import "google/protobuf/any.proto";
 
 package http.v1beta;
-option go_package = "./;httpV1beta";
 
 message Request {
   string remote_addr = 1;
@@ -15,7 +14,7 @@ message Request {
   string raw_query = 7;
   bool parsed = 8;
   map<string, HeaderValue> attributes = 9;
-  Uploads Uploads = 10;
+  Uploads uploads = 10;
 }
 
 message Response {

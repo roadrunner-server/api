@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 package jobs.v1beta;
-option go_package = "./;jobsv1beta";
 
 // single job request
 message PushRequest {
@@ -45,7 +44,7 @@ message HeaderValue {
 }
 
 message Stats {
-    repeated Stat Stats = 1;
+    repeated Stat stats = 1;
 }
 
 // Stat used as a response for the Stats RPC call
