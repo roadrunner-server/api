@@ -43,6 +43,9 @@ type Options struct {
 
 	// Delay defines time duration to delay execution for. Defaults to none.
 	Delay int64 `json:"delay,omitempty"`
+
+	//
+	AutoAck bool `json:"auto_ack"`
 }
 
 // DelayDuration returns delay duration in a form of time.Duration.
