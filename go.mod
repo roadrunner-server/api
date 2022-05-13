@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/goccy/go-json v0.9.7
-	github.com/prometheus/client_golang v1.12.1
+	github.com/prometheus/client_golang v1.12.2
 	github.com/roadrunner-server/goridge/v3 v3.4.1
 	github.com/valyala/fasthttp v1.36.0
 	go.buf.build/protocolbuffers/go/roadrunner-server/api v1.2.3
