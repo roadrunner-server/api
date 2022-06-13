@@ -58,4 +58,6 @@ message Stat {
   int64 delayed = 5;
   int64 reserved = 6;
   bool ready = 7;
+  // new in 2.10.5
+  uint64 priority = 8;
 }

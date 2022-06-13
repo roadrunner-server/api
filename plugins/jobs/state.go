@@ -16,4 +16,6 @@ type State struct {
 	Reserved int64
 	// Status - 1 Ready, 0 - Paused
 	Ready bool
+	// New in 2.10.5, pipeline priority
+	Priority uint64
 }
