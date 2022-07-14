@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+option go_package = "websockets/v1";
 package websockets.v1;
 
 message Message {

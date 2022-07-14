@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+option go_package = "cache/v1beta";
 package cache.v1beta;
 
 message Response {

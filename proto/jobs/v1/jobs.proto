@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+option go_package = "jobs/v1";
 package jobs.v1;
 
 // single job request

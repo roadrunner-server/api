@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+option go_package = "service/v1";
 package service.v1;
 
 message Response {

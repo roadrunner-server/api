@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+option go_package = "kv/v1";
 package kv.v1;
 
 message Request {
