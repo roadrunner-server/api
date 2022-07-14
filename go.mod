@@ -7,7 +7,7 @@ require (
 	github.com/prometheus/client_golang v1.12.2
 	github.com/roadrunner-server/goridge/v3 v3.4.5
 	github.com/valyala/fasthttp v1.38.0
-	go.buf.build/protocolbuffers/go/roadrunner-server/api v1.2.6
+	go.buf.build/protocolbuffers/go/roadrunner-server/api v1.2.7
 	go.uber.org/zap v1.21.0
 )
 
@@ -20,7 +20,7 @@ require (
 	github.com/klauspost/compress v1.15.8 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/prometheus/client_model v0.2.0 // indirect
-	github.com/prometheus/common v0.36.0 // indirect
+	github.com/prometheus/common v0.37.0 // indirect
 	github.com/prometheus/procfs v0.7.3 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
