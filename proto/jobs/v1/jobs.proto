@@ -41,8 +41,9 @@ message Options {
   //--------------
   // new in 2.11 (kafka related)
   string topic = 7;
-  int32 partition = 8;
-  int32 offset = 9;
+  string metadata = 8;
+  int64 offset = 9;
+  int32 partition = 10;
   // -------------
 }
 
