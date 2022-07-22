@@ -7,7 +7,7 @@ require (
 	github.com/prometheus/client_golang v1.12.2
 	github.com/roadrunner-server/goridge/v3 v3.4.5
 	github.com/valyala/fasthttp v1.38.0
-	go.buf.build/protocolbuffers/go/roadrunner-server/api v1.2.9
+	go.buf.build/protocolbuffers/go/roadrunner-server/api v1.2.10
 	go.uber.org/zap v1.21.0
 )
 
@@ -25,6 +25,6 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
-	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
+	golang.org/x/sys v0.0.0-20220721230656-c6bc011c0c49 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
 )
