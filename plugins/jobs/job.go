@@ -47,6 +47,16 @@ type Options struct {
 
 	// AutoAck use to ack a job right after it arrived from the driver
 	AutoAck bool `json:"auto_ack"`
+
+	// kafka specific fields
+	// Topic is kafka topic
+	Topic string `json:"topic"`
+	// Optional metadata
+	Metadata string `json:"metadata"`
+	// Kafka partition
+	Partition int32 `json:"partition"`
+	// Kafka offset
+	Offset int64 `json:"offset"`
 }
 
 // DelayDuration returns delay duration in a form of time.Duration.
