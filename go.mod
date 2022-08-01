@@ -24,6 +24,6 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
-	golang.org/x/sys v0.0.0-20220730100132-1609e554cd39 // indirect
+	golang.org/x/sys v0.0.0-20220731174439-a90be440212d // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 )
