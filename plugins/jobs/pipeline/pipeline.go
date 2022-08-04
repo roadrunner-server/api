@@ -186,6 +186,7 @@ func (p *Pipeline) Priority() int64 {
 	return 10
 }
 
+// Get used to get the data associated with the key
 func (p *Pipeline) Get(key string) any {
 	return (*p)[key]
 }
