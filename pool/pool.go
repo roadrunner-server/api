@@ -10,7 +10,7 @@ import (
 // Pool managed set of inner worker processes.
 type Pool interface {
 	// GetConfig returns pool configuration.
-	GetConfig() interface{}
+	GetConfig() any
 
 	// Exec executes task with payload
 	Exec(rqs *payload.Payload) (*payload.Payload, error)

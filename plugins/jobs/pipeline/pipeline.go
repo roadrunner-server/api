@@ -7,7 +7,7 @@ import (
 )
 
 // Pipeline defines pipeline options.
-type Pipeline map[string]interface{}
+type Pipeline map[string]any
 
 const (
 	priority string = "priority"
@@ -20,12 +20,12 @@ const (
 )
 
 // With pipeline value
-func (p *Pipeline) With(name string, value interface{}) {
+func (p *Pipeline) With(name string, value any) {
 	(*p)[name] = value
 }
 
 // Name returns pipeline name.
-func (p Pipeline) Name() string {
+func (p *Pipeline) Name() string {
 	// https://github.com/spiral/roadrunner-jobs/blob/master/src/Queue/CreateInfo.php#L81
 	// In the PHP client library used the wrong key name
 	// should be "name" instead of "queue"
@@ -37,18 +37,18 @@ func (p Pipeline) Name() string {
 }
 
 // Driver associated with the pipeline.
-func (p Pipeline) Driver() string {
+func (p *Pipeline) Driver() string {
 	return p.String(driver, "")
 }
 
 // Has checks if value presented in pipeline.
-func (p Pipeline) Has(name string) bool {
-	if _, ok := p[name]; ok {
+func (p *Pipeline) Has(name string) bool {
+	if _, ok := (*p)[name]; ok {
 		return true
 	} else {
 		// check the config section if exists
-		if val, ok := p[config]; ok {
-			if rv, ok := val.(map[string]interface{}); ok {
+		if val, ok := (*p)[config]; ok {
+			if rv, ok := val.(map[string]any); ok {
 				if _, ok := rv[name]; ok {
 					return true
 				}
@@ -61,15 +61,15 @@ func (p Pipeline) Has(name string) bool {
 }
 
 // String must return option value as string or return default value.
-func (p Pipeline) String(name string, d string) string {
-	if value, ok := p[name]; ok {
+func (p *Pipeline) String(name string, d string) string {
+	if value, ok := (*p)[name]; ok {
 		if str, ok := value.(string); ok {
 			return str
 		}
 	} else {
 		// check the config section if exists
-		if val, ok := p[config]; ok {
-			if rv, ok := val.(map[string]interface{}); ok {
+		if val, ok := (*p)[config]; ok {
+			if rv, ok := val.(map[string]any); ok {
 				if rv[name] != "" {
 					return rv[name].(string)
 				}
@@ -81,15 +81,15 @@ func (p Pipeline) String(name string, d string) string {
 }
 
 // Int must return option value as string or return default value.
-func (p Pipeline) Int(name string, d int) int {
-	if value, ok := p[name]; ok {
+func (p *Pipeline) Int(name string, d int) int {
+	if value, ok := (*p)[name]; ok {
 		if i, ok := value.(int); ok {
 			return i
 		}
 	} else {
 		// check the config section if exists
-		if val, ok := p[config]; ok {
-			if rv, ok := val.(map[string]interface{}); ok {
+		if val, ok := (*p)[config]; ok {
+			if rv, ok := val.(map[string]any); ok {
 				if rv[name] != nil {
 					return rv[name].(int)
 				}
@@ -101,8 +101,8 @@ func (p Pipeline) Int(name string, d int) int {
 }
 
 // Bool must return option value as bool or return default value.
-func (p Pipeline) Bool(name string, d bool) bool {
-	if value, ok := p[name]; ok {
+func (p *Pipeline) Bool(name string, d bool) bool {
+	if value, ok := (*p)[name]; ok {
 		if i, ok := value.(string); ok {
 			switch i {
 			case "true":
@@ -115,8 +115,8 @@ func (p Pipeline) Bool(name string, d bool) bool {
 		}
 	} else {
 		// check the config section if exists
-		if val, ok := p[config]; ok {
-			if rv, ok := val.(map[string]interface{}); ok {
+		if val, ok := (*p)[config]; ok {
+			if rv, ok := val.(map[string]any); ok {
 				if rv[name] != nil {
 					if i, ok := value.(string); ok {
 						switch i {
@@ -138,8 +138,8 @@ func (p Pipeline) Bool(name string, d bool) bool {
 
 // Map must return nested map value or empty config.
 // Here might be sqs attributes or tags for example
-func (p Pipeline) Map(name string, out map[string]string) error {
-	if value, ok := p[name]; ok {
+func (p *Pipeline) Map(name string, out map[string]string) error {
+	if value, ok := (*p)[name]; ok {
 		if m, ok := value.(string); ok {
 			err := json.Unmarshal(internal.AsBytes(m), &out)
 			if err != nil {
@@ -148,8 +148,8 @@ func (p Pipeline) Map(name string, out map[string]string) error {
 		}
 	} else {
 		// check the config section if exists
-		if val, ok := p[config]; ok {
-			if rv, ok := val.(map[string]interface{}); ok {
+		if val, ok := (*p)[config]; ok {
+			if rv, ok := val.(map[string]any); ok {
 				if val, ok := rv[name]; ok {
 					if m, ok := val.(string); ok {
 						err := json.Unmarshal(internal.AsBytes(m), &out)
@@ -167,15 +167,15 @@ func (p Pipeline) Map(name string, out map[string]string) error {
 }
 
 // Priority returns default pipeline priority
-func (p Pipeline) Priority() int64 {
-	if value, ok := p[priority]; ok {
+func (p *Pipeline) Priority() int64 {
+	if value, ok := (*p)[priority]; ok {
 		if v, ok := value.(int64); ok {
 			return v
 		}
 	} else {
 		// check the config section if exists
-		if val, ok := p[config]; ok {
-			if rv, ok := val.(map[string]interface{}); ok {
+		if val, ok := (*p)[config]; ok {
+			if rv, ok := val.(map[string]any); ok {
 				if rv[name] != nil {
 					return rv[name].(int64)
 				}
@@ -184,4 +184,8 @@ func (p Pipeline) Priority() int64 {
 	}
 
 	return 10
+}
+
+func (p *Pipeline) Get(key string) any {
+	return (*p)[key]
 }

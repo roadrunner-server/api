@@ -13,17 +13,17 @@ type Configurer interface {
 	//         return err
 	//     }
 	// }
-	UnmarshalKey(name string, out interface{}) error
+	UnmarshalKey(name string, out any) error
 
 	// Unmarshal unmarshal the config into a Struct. Make sure that the tags
 	// on the fields of the structure are properly set.
-	Unmarshal(out interface{}) error
+	Unmarshal(out any) error
 
 	// Get used to get config section
-	Get(name string) interface{}
+	Get(name string) any
 
 	// Overwrite used to overwrite particular values in the unmarshalled config
-	Overwrite(values map[string]interface{}) error
+	Overwrite(values map[string]any) error
 
 	// Has checks if config section exists.
 	Has(name string) bool
