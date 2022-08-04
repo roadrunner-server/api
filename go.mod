@@ -1,6 +1,6 @@
 module github.com/roadrunner-server/api/v2
 
-go 1.19
+go 1.18
 
 require (
 	github.com/goccy/go-json v0.9.10
@@ -24,6 +24,6 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
-	golang.org/x/sys v0.0.0-20220731174439-a90be440212d // indirect
+	golang.org/x/sys v0.0.0-20220803195053-6e608f9ce704 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 )
