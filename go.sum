@@ -212,8 +212,8 @@ github.com/valyala/tcplisten v1.0.0/go.mod h1:T0xQ8SeCZGxckz9qRXTfG43PvQ/mcWh7Fw
 github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
-go.buf.build/protocolbuffers/go/roadrunner-server/api v1.3.11 h1:o3u17XK/ku9zZajqgRXOZHF66h92N2QAMFrAkzM0xnM=
-go.buf.build/protocolbuffers/go/roadrunner-server/api v1.3.11/go.mod h1:CfIAvR+W2N+Y0WXMzwT80Eh83CmBPWplgFQDA5HftC4=
+go.buf.build/protocolbuffers/go/roadrunner-server/api v1.3.12 h1:FYKxBvxYcSr60jI/n/tclPA0H6zk0jUXmL2fWBiQswg=
+go.buf.build/protocolbuffers/go/roadrunner-server/api v1.3.12/go.mod h1:CfIAvR+W2N+Y0WXMzwT80Eh83CmBPWplgFQDA5HftC4=
 go.opencensus.io v0.21.0/go.mod h1:mSImk1erAIZhrmZN+AvHh14ztQfjbGwt4TtuofqLduU=
 go.opencensus.io v0.22.0/go.mod h1:+kGneAE2xo2IficOXnaByMWTGM9T73dGwxeWcUqIpI8=
 go.opencensus.io v0.22.2/go.mod h1:yxeiOL68Rb0Xd1ddK5vPZ/oVn4vY4Ynel7k9FzqtOIw=
