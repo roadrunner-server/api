@@ -191,8 +191,6 @@ github.com/prometheus/procfs v0.6.0/go.mod h1:cz+aTbrPOrUb4q7XlbU9ygM+/jj0fzG6c1
 github.com/prometheus/procfs v0.7.3/go.mod h1:cz+aTbrPOrUb4q7XlbU9ygM+/jj0fzG6c1xBZuNvfVA=
 github.com/prometheus/procfs v0.8.0 h1:ODq8ZFEaYeCaZOJlZZdJA2AbQR98dSHSM1KW/You5mo=
 github.com/prometheus/procfs v0.8.0/go.mod h1:z7EfXMXOkbkqb9IINtpCn86r/to3BnA0uaxHdg830/4=
-github.com/roadrunner-server/goridge/v3 v3.5.1 h1:qpsmaLSZLxS3kOQPhkYTbUGG4vX0mVcM1uW49s5cw4k=
-github.com/roadrunner-server/goridge/v3 v3.5.1/go.mod h1:qC5nRtwk4jtkTmAARv3iS/wmaXPP4Vk3FIAPsTcZ8jc=
 github.com/roadrunner-server/goridge/v3 v3.5.2 h1:I0GK/LQmlTOs8fd3F4grq5nKQBArLQrON7xla+84xLE=
 github.com/roadrunner-server/goridge/v3 v3.5.2/go.mod h1:ju0NNhhw9G1M8aCNsC0T0/2+aQ9yEHztrWIMlzv4LpE=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
