@@ -36,25 +36,6 @@ type SyncWorker interface {
 	ExecWithTTL(ctx context.Context, p *payload.Payload) (*payload.Payload, error)
 }
 
-// State represents WorkerProcess status and updated time.
-type State interface {
-	fmt.Stringer
-	// Value returns StateImpl value
-	Value() int64
-	// Set sets the StateImpl
-	Set(value int64)
-	// NumExecs shows how many times WorkerProcess was invoked
-	NumExecs() uint64
-	// IsActive returns true if WorkerProcess not Inactive or Stopped
-	IsActive() bool
-	// RegisterExec using to registering php executions
-	RegisterExec()
-	// SetLastUsed sets worker last used time
-	SetLastUsed(lu uint64)
-	// LastUsed return worker last used time
-	LastUsed() uint64
-}
-
 type BaseProcess interface {
 	fmt.Stringer
 

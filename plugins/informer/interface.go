@@ -11,7 +11,7 @@ import (
 
 // Informer used to get workers from particular plugin or set of plugins
 type Informer interface {
-	Workers() []process.State
+	Workers() []*process.State
 }
 
 // JobsStat interface provide statistic for the jobs plugin
