@@ -46,8 +46,8 @@ type State struct {
 	CPUPercent float64 `json:"CPUPercent"`
 
 	// Command used in the service plugin and shows a command for the particular service
-	Command string `json:"Command"`
+	Command string `json:"command"`
 
 	// Status
-	StatusStr string
+	StatusStr string `json:"statusStr"`
 }
