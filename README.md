@@ -12,31 +12,6 @@
 
 # RoadRunner API
 
-RR API consists of 2 parts:
-
-1. Plugin interfaces.
-2. Proto API for the PHP clients, at the moment released as **V1Beta**.
-
-Plugins should depend only on this repo, but not on each other. For example:
-
-```go
-package foo
-
-import (
-    "github.com/roadrunner-server/api/v2/plugins/config"
-)
-
-type Plugin struct {}
-
-func (p *Plugin) Init(cfg config.Configurer) error {
-	return nil
-}
-```
-
-Here as you see, our `package foo` depends only on the `api` repository, thus you can easily switch between implementations.
-
----
-
 ## ALL protobuf API located here: [Buf](https://buf.build/roadrunner-server/api)  
 To install and use generated packages:
 ```bash
