@@ -1,3 +1,3 @@
-module github.com/roadrunner-server/api/v2
+module github.com/roadrunner-server/api/v3
 
 go 1.19
