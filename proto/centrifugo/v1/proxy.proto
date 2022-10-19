@@ -5,7 +5,7 @@ package centrifugo.v1;
 option go_package = "centrifugo/v1";
 
 // sync with centrifugo/internal/proxyproto/proxy.proto
-service CentrifugoProxy {
+service CentrifugoProxyService {
   rpc Connect(ConnectRequest) returns (ConnectResponse);
   rpc Refresh(RefreshRequest) returns (RefreshResponse);
   rpc Subscribe(SubscribeRequest) returns (SubscribeResponse);
