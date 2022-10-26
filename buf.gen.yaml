@@ -4,10 +4,10 @@ plugins:
   - name: go
     opt:
       - paths=source_relative
-    out: proto
+    out: build
 
   - name: go-grpc
-    out: proto
+    out: build
     opt:
       - paths=source_relative
       - require_unimplemented_servers=false
