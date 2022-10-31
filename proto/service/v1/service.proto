@@ -1,6 +1,9 @@
 syntax = "proto3";
 
+import "proto/shared/status.proto";
+
 option go_package = "service/v1";
+
 package service.v1;
 
 message Response {
@@ -23,6 +26,9 @@ message Status {
   int32 pid = 2;
   uint64 memory_usage = 3;
   string command = 4;
+
+  // error state
+  shared.status.Status status = 5;
 }
 
 message Service {

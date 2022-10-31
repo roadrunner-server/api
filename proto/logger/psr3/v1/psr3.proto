@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-option go_package = "psr3/v1";
-package psr3.v1;
+option go_package = "logger.psr3/v1";
+package logger.psr3.v1;
 
 message Message {
   string message = 1;
