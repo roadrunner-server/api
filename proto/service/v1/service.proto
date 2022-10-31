@@ -21,6 +21,10 @@ message Create {
   uint64 restart_sec = 7;
 }
 
+message Statuses {
+  repeated Status status = 1;
+}
+
 message Status {
   float cpu_percent = 1;
   int32 pid = 2;
