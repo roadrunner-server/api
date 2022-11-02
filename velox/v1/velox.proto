@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package velox.v1;
+
+option go_package = "velox/v1";
+
+service BuilderService {
+  rpc Build (BuildRequest) returns (BuildResponse) {}
+}
+
+message BuildRequest {
+  bytes config = 1;
+}
+
+message BuildResponse {
+  string path = 1;
+}
