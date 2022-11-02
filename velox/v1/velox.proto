@@ -31,10 +31,11 @@ message GitLab {
 }
 
 message Plugin {
-  string ref = 2;
-  string owner = 3;
-  string repository = 4;
-  string folder = 5;
+  string ref = 1;
+  string owner = 2;
+  string repository = 3;
+  string folder = 4;
+  string replace = 5;
 }
 
 message BuildResponse {
