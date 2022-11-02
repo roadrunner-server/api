@@ -9,7 +9,32 @@ service BuilderService {
 }
 
 message BuildRequest {
-  bytes config = 1;
+  string roadrunner_ref = 1;
+  string meta_version = 2;
+  string build_time = 3;
+
+  // github
+  GitHub github = 4;
+  // gitlab
+  GitLab gitlab = 5;
+}
+
+message GitHub {
+  string token = 1;
+  repeated Plugin plugins = 3;
+}
+
+message GitLab {
+  string token = 1;
+  string endpoint = 2;
+  repeated Plugin plugins = 3;
+}
+
+message Plugin {
+  string ref = 2;
+  string owner = 3;
+  string repository = 4;
+  string folder = 5;
 }
 
 message BuildResponse {
