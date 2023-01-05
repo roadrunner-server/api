@@ -1,6 +1,18 @@
 package kv
 
-import kvv1 "go.buf.build/protocolbuffers/go/roadrunner-server/api/kv/v1"
+/*
+  string key = 1;
+  bytes value = 2;
+  // RFC 3339
+  string timeout = 3;
+*/
+
+// Item represents a single KV entry
+type Item interface {
+	Key() string
+	Value() string
+	Timeout() string
+}
 
 // Storage represents single abstract storage.
 type Storage interface {
@@ -16,10 +28,10 @@ type Storage interface {
 
 	// Set used to upload item to KV with TTL
 	// 0 value in TTL means no TTL
-	Set(items ...*kvv1.Item) error
+	Set(items ...Item) error
 
 	// MExpire sets the TTL for multiply keys
-	MExpire(items ...*kvv1.Item) error
+	MExpire(items ...Item) error
 
 	// TTL return the rest time to live for provided keys
 	// Not supported for the memcached
