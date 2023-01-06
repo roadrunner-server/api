@@ -10,7 +10,7 @@ package kv
 // Item represents a single KV entry
 type Item interface {
 	Key() string
-	Value() string
+	Value() []byte
 	Timeout() string
 }
 
