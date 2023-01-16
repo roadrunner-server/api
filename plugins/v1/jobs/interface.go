@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/roadrunner-server/api/v3/plugins/v1/priority_queue"
-	"go.uber.org/zap"
 )
 
 // constant keys to pack/unpack messages from different drivers
@@ -38,24 +37,6 @@ type State struct {
 	Priority uint64
 }
 
-type Configurer interface {
-	// UnmarshalKey takes a single key and unmarshals it into a Struct.
-	UnmarshalKey(name string, out any) error
-
-	// Has checks if config section exists.
-	Has(name string) bool
-}
-
-type Logger interface {
-	Debug(msg string, fields ...zap.Field)
-	Warn(msg string, fields ...zap.Field)
-	Error(msg string, fields ...zap.Field)
-	Info(msg string, fields ...zap.Field)
-	DPanic(msg string, fields ...zap.Field)
-	Panic(msg string, fields ...zap.Field)
-	Fatal(msg string, fields ...zap.Field)
-}
-
 type Job interface {
 	Name() string
 	ID() string
@@ -67,7 +48,12 @@ type Job interface {
 	Delay() int64
 	AutoAck() bool
 
-	SetPriority(int64)
+	Offset() int64
+	Partition() int32
+	Topic() string
+	Metadata() string
+
+	UpdatePriority(int64)
 }
 
 type Pipeline interface {
@@ -112,13 +98,10 @@ type Consumer interface {
 type Acknowledger interface {
 	// Ack - acknowledge the Item after processing
 	Ack() error
-
 	// Nack - discard the Item
 	Nack() error
-
 	// Requeue - put the message back to the queue with the optional delay
 	Requeue(headers map[string][]string, delay int64) error
-
 	// Respond to the queue
 	Respond(payload []byte, queue string) error
 }
