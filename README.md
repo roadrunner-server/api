@@ -11,7 +11,6 @@
 	<a href="https://pkg.go.dev/github.com/roadrunner-server/api/v2?tab=doc"><img src="https://godoc.org/github.com/roadrunner-server/api/v2?status.svg"></a>
 	<a href="https://github.com/roadrunner-server/api/actions"><img src="https://github.com/roadrunner-server/api/workflows/Linters/badge.svg" alt=""></a>
 	<a href="https://goreportcard.com/report/github.com/roadrunner-server/api"><img src="https://goreportcard.com/badge/github.com/roadrunner-server/api"></a>
-	<a href="https://lgtm.com/projects/g/roadrunner-server/api/alerts/"><img alt="Total alerts" src="https://img.shields.io/lgtm/alerts/g/roadrunner-server/api.svg?logo=lgtm&logoWidth=18"/></a>
 	<a href="https://discord.gg/TFeEmCs"><img src="https://img.shields.io/badge/discord-chat-magenta.svg"></a>
 </p>
 
