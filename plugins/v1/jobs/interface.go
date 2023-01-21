@@ -3,7 +3,7 @@ package jobs
 import (
 	"context"
 
-	pq "github.com/roadrunner-server/api/v3/plugins/v1/priority_queue"
+	pq "github.com/roadrunner-server/api/v4/plugins/v1/priority_queue"
 )
 
 // constant keys to pack/unpack messages from different drivers
@@ -131,8 +131,8 @@ type Acknowledger interface {
 	Respond(payload []byte, queue string) error
 }
 
-// Commanders provides the ability to send a command to the Jobs plugin
-type Commanders interface {
+// Commander provides the ability to send a command to the Jobs plugin
+type Commander interface {
 	// Command returns the command name
 	Command() Command
 	// Pipeline returns the associated command pipeline
@@ -144,7 +144,7 @@ type Constructor interface {
 	// Name returns the name of the driver
 	Name() string
 	// DriverFromConfig constructs a driver (e.g. kafka, amqp) from the configuration using the provided configKey
-	DriverFromConfig(configKey string, queue pq.Queue, pipeline Pipeline, cmder chan<- Commanders) (Driver, error)
+	DriverFromConfig(configKey string, queue pq.Queue, pipeline Pipeline, cmder chan<- Commander) (Driver, error)
 	// DriverFromPipeline constructs a driver (e.g. kafka, amqp) from the pipeline. All configuration is provided by the pipeline
-	DriverFromPipeline(pipe Pipeline, queue pq.Queue, cmder chan<- Commanders) (Driver, error)
+	DriverFromPipeline(pipe Pipeline, queue pq.Queue, cmder chan<- Commander) (Driver, error)
 }

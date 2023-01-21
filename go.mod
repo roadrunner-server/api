@@ -1,4 +1,4 @@
-module github.com/roadrunner-server/api/v3
+module github.com/roadrunner-server/api/v4
 
 go 1.19
 
