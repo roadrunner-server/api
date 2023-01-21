@@ -1,5 +1,10 @@
 <p align="center">
- <img src="https://user-images.githubusercontent.com/796136/50286124-6f7f3780-046f-11e9-9f45-e8fedd4f786d.png" height="75px" alt="RoadRunner">
+ <a href="https://roadrunner.dev" target="_blank">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/7326800/205905278-3899e2c8-5c15-4347-820b-a8ea4c5ba2d7.png">
+    <img align="center" src="https://user-images.githubusercontent.com/796136/50286124-6f7f3780-046f-11e9-9f45-e8fedd4f786d.png">
+  </picture>
+</a>
 </p>
 <p align="center">
  <a href="https://packagist.org/packages/spiral/roadrunner"><img src="https://poser.pugx.org/spiral/roadrunner/version"></a>
@@ -18,8 +23,7 @@ To install and use generated packages:
 go get go.buf.build/protocolbuffers/go/roadrunner-server/api
 ```
 
-Proto API used for the external integrations for the RPC (mostly) or as the internal communications. For example:
-
+The Proto API is used for external integrations, mostly for RPC or as internal communications. For example:
 ```go
 package foo
 
@@ -31,7 +35,5 @@ func Push(in *jobsv1.PushRequest, out *jobsv1.Empty) error {
 	return nil
 }
 ```
-
-Here is the method used in the RR to accept the `Job` from the external system.
-
-You may also navigate to the [`DOCS`](https://buf.build/roadrunner-server/api/docs) tab and inspect the full API. 
+ 
+- You can also navigate to the [`DOCS`](https://buf.build/roadrunner-server/api/docs) tab to inspect the full API.
