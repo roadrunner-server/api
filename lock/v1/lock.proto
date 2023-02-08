@@ -1,0 +1,27 @@
+syntax = "proto3";
+package lock.v1;
+
+option go_package = "lock/v1";
+
+message Lock {
+  string resource = 1;
+  string id = 2;
+  optional int64 ttl = 3;
+  optional int64 wait = 4;
+}
+
+message Release {
+  string resource = 1;
+  string id = 2;
+}
+
+message Exists {
+  string resource = 1;
+  string id = 2;
+}
+
+message UpdateTTL {
+  string resource = 1;
+  string id = 2;
+  optional int64 ttl = 3;
+}
