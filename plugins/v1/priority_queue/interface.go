@@ -2,9 +2,11 @@ package priorityqueue
 
 // Queue is a binary heap interface
 type Queue interface {
+	// PeekPriority returns the highest priority
+	PeekPriority() int64
 	// Insert adds an item to the queue
 	Insert(item Item)
-	// ExtractMin returns the item with the lowest priority
+	// ExtractMin returns the item with the highest priority (less value is the highest priority)
 	ExtractMin() Item
 	// Len returns the number of items in the queue
 	Len() uint64
