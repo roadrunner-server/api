@@ -10,6 +10,10 @@ message Lock {
   optional int64 wait = 4;
 }
 
+message Response {
+  bool ok = 1;
+}
+
 message Release {
   string resource = 1;
   string id = 2;
