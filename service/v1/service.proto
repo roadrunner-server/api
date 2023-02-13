@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 import "shared/v1/status.proto";
-
 option go_package = "service/v1";
 
 package service.v1;
@@ -32,7 +31,7 @@ message Status {
   string command = 4;
 
   // error state
-  shared.v1.status.Status status = 5;
+  shared.v1.Status status = 5;
 }
 
 message Service {

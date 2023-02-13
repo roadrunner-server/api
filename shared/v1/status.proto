@@ -2,8 +2,8 @@ syntax = "proto3";
 
 import "google/protobuf/any.proto";
 
-option go_package = "shared/v1/status";
-package shared.v1.status;
+option go_package = "status/v1";
+package shared.v1;
 
 // The `Status` type defines a logical error model that is suitable for
 // different programming environments, including REST APIs and RPC APIs.
