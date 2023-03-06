@@ -2,6 +2,8 @@ package priorityqueue
 
 // Queue is a binary heap interface
 type Queue interface {
+	// Remove removes element with provided ID (if exists) and returns that elements
+	Remove(id string) []Item
 	// PeekPriority returns the highest priority
 	PeekPriority() int64
 	// Insert adds an item to the queue
@@ -18,6 +20,8 @@ type Item interface {
 	ID() string
 	// Priority returns the priority level used to sort the item
 	Priority() int64
+	// Metadata returns the metadata for the item
+	Metadata() map[string][]string
 	// Body returns the payload associated with the item
 	Body() []byte
 	// Context returns any meta-information associated with the item
