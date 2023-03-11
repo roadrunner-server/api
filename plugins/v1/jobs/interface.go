@@ -41,6 +41,8 @@ type State struct {
 	Ready bool
 	// New in 2.10.5, pipeline priority
 	Priority uint64
+	// ErrorMessage New in 2023.1
+	ErrorMessage string
 }
 
 // Job represents the unit of work that a user may push to the Jobs plugin
