@@ -9,3 +9,5 @@ breaking:
 lint:
   use:
     - DEFAULT
+  ignore:
+    - centrifugo
