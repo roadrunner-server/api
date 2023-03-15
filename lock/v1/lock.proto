@@ -1,8 +1,8 @@
 syntax = "proto3";
 package lock.v1;
 
-option php_namespace = "RoadRunner\\Lock\\DTO\\V1";
 option go_package = "lock/v1";
+option php_namespace = "RoadRunner\\Lock\\DTO\\V1";
 
 message Lock {
   string resource = 1;
@@ -13,20 +13,4 @@ message Lock {
 
 message Response {
   bool ok = 1;
-}
-
-message Release {
-  string resource = 1;
-  string id = 2;
-}
-
-message Exists {
-  string resource = 1;
-  string id = 2;
-}
-
-message UpdateTTL {
-  string resource = 1;
-  string id = 2;
-  optional int64 ttl = 3;
 }
