@@ -1,8 +1,10 @@
 syntax = "proto3";
-package lock.v1beta1;
 
+package lock.v1beta1;
 option go_package = "lock/v1beta1";
+
 option php_namespace = "RoadRunner\\Lock\\DTO\\V1BETA1";
+option php_metadata_namespace = "RoadRunner\\Lock\\DTO\\V1BETA1\\GPBMetadata";
 
 message Request {
   string resource = 1;

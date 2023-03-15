@@ -11,3 +11,6 @@ plugins:
     opt:
       - paths=source_relative
       - require_unimplemented_servers=false
+
+  - name: php
+    out: api-php

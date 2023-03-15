@@ -1,7 +1,10 @@
 syntax = "proto3";
 
-option go_package = "jobs/v1";
 package jobs.v1;
+
+option go_package = "jobs/v1";
+option php_metadata_namespace = "RoadRunner\\Jobs\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Jobs\\DTO\\V1";
 
 // REQUESTS -------------------
 
@@ -97,7 +100,6 @@ message Stat {
   // new in 2.10.5
   uint64 priority = 8;
 }
-
 
 // ---------------------------------------------
 // request to pause/resume/list/destroy/declare

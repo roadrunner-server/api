@@ -1,0 +1,33 @@
+AMQP:
+
+"exchange"
+"exchange_type"
+"queue"
+"routing_key"
+"consume_all"
+"prefetch"
+"exclusive"
+"durable"
+"delete_queue_on_stop"
+"priority"
+"multiple_ask"
+"requeue_on_fail"
+
+// new in 2.12
+"redial_timeout"
+"exchange_durable"
+"exchange_auto_delete"
+"queue_auto_delete"
+"x-dead-letter-exchange"
+"x-dead-letter-routing-key"
+"x-message-ttl"
+"x-expires"
+
+// new in 2.12.2
+"queue_headers"
+
+// new in 2023.1.0
+"consumer_id"
+"application/octet-stream"
+
+BEANSTALK:

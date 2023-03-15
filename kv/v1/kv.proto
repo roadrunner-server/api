@@ -1,7 +1,10 @@
 syntax = "proto3";
 
-option go_package = "kv/v1";
 package kv.v1;
+option go_package = "kv/v1";
+
+option php_metadata_namespace = "RoadRunner\\KV\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\KV\\DTO\\V1";
 
 message Request {
   // could be an enum in the future
