@@ -1,6 +1,7 @@
 syntax = "proto3";
 package lock.v1;
 
+option php_namespace = "RoadRunner\\Lock\\DTO\\V1";
 option go_package = "lock/v1";
 
 message Lock {
