@@ -1,6 +1,6 @@
 {
   "name": "roadrunner-php/api",
-  "type": "metapackage",
+  "type": "library",
   "description": "RoadRunner PHP API",
   "license": "MIT",
   "homepage": "https://roadrunner.dev/",
