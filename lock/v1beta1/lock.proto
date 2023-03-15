@@ -4,7 +4,7 @@ package lock.v1beta1;
 option go_package = "lock/v1beta1";
 option php_namespace = "RoadRunner\\Lock\\DTO\\V1BETA1";
 
-message Lock {
+message Request {
   string resource = 1;
   string id = 2;
   optional int64 ttl = 3;
