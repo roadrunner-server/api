@@ -5,8 +5,6 @@ package service.v1;
 import "shared/v1/status.proto";
 
 option go_package = "service/v1";
-option php_metadata_namespace = "RoadRunner\\Service\\DTO\\V1\\GPBMetadata";
-option php_namespace = "RoadRunner\\Service\\DTO\\V1";
 
 message Response {
   string message = 1;

@@ -3,8 +3,6 @@ syntax = "proto3";
 package status.v1beta1;
 
 option go_package = "status/v1beta1";
-option php_metadata_namespace = "RoadRunner\\Status\\DTO\\V1BETA1\\GPBMetadata";
-option php_namespace = "RoadRunner\\Status\\DTO\\V1BETA1";
 
 message Request {
   string plugin = 1;

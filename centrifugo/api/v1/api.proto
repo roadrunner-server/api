@@ -3,31 +3,29 @@ syntax = "proto3";
 package centrifugal.centrifugo.api;
 
 option go_package = "centrifugo/api/v1";
-option php_namespace = "RoadRunner\\Centrifugal\\API\\DTO\\V1";
-option php_metadata_namespace = "RoadRunner\\Centrifugal\\API\\DTO\\V1\\GPBMetadata";
 
 service CentrifugoApi {
-  rpc Publish (PublishRequest) returns (PublishResponse) {}
-  rpc Broadcast (BroadcastRequest) returns (BroadcastResponse) {}
-  rpc Subscribe (SubscribeRequest) returns (SubscribeResponse) {}
-  rpc Unsubscribe (UnsubscribeRequest) returns (UnsubscribeResponse) {}
-  rpc Disconnect (DisconnectRequest) returns (DisconnectResponse) {}
-  rpc Presence (PresenceRequest) returns (PresenceResponse) {}
-  rpc PresenceStats (PresenceStatsRequest) returns (PresenceStatsResponse) {}
-  rpc History (HistoryRequest) returns (HistoryResponse) {}
-  rpc HistoryRemove (HistoryRemoveRequest) returns (HistoryRemoveResponse) {}
-  rpc Info (InfoRequest) returns (InfoResponse) {}
-  rpc RPC (RPCRequest) returns (RPCResponse) {}
-  rpc Refresh (RefreshRequest) returns (RefreshResponse) {}
-  rpc Channels (ChannelsRequest) returns (ChannelsResponse) {}
-  rpc Connections (ConnectionsRequest) returns (ConnectionsResponse) {}
-  rpc UpdateUserStatus (UpdateUserStatusRequest) returns (UpdateUserStatusResponse) {}
-  rpc GetUserStatus (GetUserStatusRequest) returns (GetUserStatusResponse) {}
-  rpc DeleteUserStatus (DeleteUserStatusRequest) returns (DeleteUserStatusResponse) {}
-  rpc BlockUser (BlockUserRequest) returns (BlockUserResponse) {}
-  rpc UnblockUser (UnblockUserRequest) returns (UnblockUserResponse) {}
-  rpc RevokeToken (RevokeTokenRequest) returns (RevokeTokenResponse) {}
-  rpc InvalidateUserTokens (InvalidateUserTokensRequest) returns (InvalidateUserTokensResponse) {}
+  rpc Publish(PublishRequest) returns (PublishResponse) {}
+  rpc Broadcast(BroadcastRequest) returns (BroadcastResponse) {}
+  rpc Subscribe(SubscribeRequest) returns (SubscribeResponse) {}
+  rpc Unsubscribe(UnsubscribeRequest) returns (UnsubscribeResponse) {}
+  rpc Disconnect(DisconnectRequest) returns (DisconnectResponse) {}
+  rpc Presence(PresenceRequest) returns (PresenceResponse) {}
+  rpc PresenceStats(PresenceStatsRequest) returns (PresenceStatsResponse) {}
+  rpc History(HistoryRequest) returns (HistoryResponse) {}
+  rpc HistoryRemove(HistoryRemoveRequest) returns (HistoryRemoveResponse) {}
+  rpc Info(InfoRequest) returns (InfoResponse) {}
+  rpc RPC(RPCRequest) returns (RPCResponse) {}
+  rpc Refresh(RefreshRequest) returns (RefreshResponse) {}
+  rpc Channels(ChannelsRequest) returns (ChannelsResponse) {}
+  rpc Connections(ConnectionsRequest) returns (ConnectionsResponse) {}
+  rpc UpdateUserStatus(UpdateUserStatusRequest) returns (UpdateUserStatusResponse) {}
+  rpc GetUserStatus(GetUserStatusRequest) returns (GetUserStatusResponse) {}
+  rpc DeleteUserStatus(DeleteUserStatusRequest) returns (DeleteUserStatusResponse) {}
+  rpc BlockUser(BlockUserRequest) returns (BlockUserResponse) {}
+  rpc UnblockUser(UnblockUserRequest) returns (UnblockUserResponse) {}
+  rpc RevokeToken(RevokeTokenRequest) returns (RevokeTokenResponse) {}
+  rpc InvalidateUserTokens(InvalidateUserTokensRequest) returns (InvalidateUserTokensResponse) {}
 }
 
 message Command {
@@ -418,15 +416,15 @@ message DeleteUserStatusResponse {
   DeleteUserStatusResult result = 2;
 }
 
-message DeleteUserStatusResult {
-}
+message DeleteUserStatusResult {}
 
 message BlockUserRequest {
   int64 expire_at = 1;
   string user = 2;
 }
 
-message BlockUserResult {}
+mes
+sage BlockUserResult {}
 
 message BlockUserResponse {
   Error error = 1;
