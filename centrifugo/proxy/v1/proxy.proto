@@ -4,6 +4,9 @@ package centrifugal.centrifugo.proxy;
 
 option go_package = "centrifugo/proxy/v1";
 
+option php_namespace = "RoadRunner\\Centrifugal\\Proxy\\DTO\\V1";
+option php_metadata_namespace = "RoadRunner\\Centrifugal\\Proxy\\DTO\\V1\\GPBMetadata";
+
 service CentrifugoProxy {
   rpc Connect(ConnectRequest) returns (ConnectResponse);
   rpc Refresh(RefreshRequest) returns (RefreshResponse);

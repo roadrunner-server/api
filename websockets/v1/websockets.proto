@@ -4,6 +4,9 @@ package websockets.v1;
 
 option go_package = "websockets/v1";
 
+option php_metadata_namespace = "RoadRunner\\Websockets\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Websockets\\DTO\\V1";
+
 message Message {
   string command = 1;
   repeated string topics = 2;

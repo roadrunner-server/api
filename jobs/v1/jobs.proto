@@ -4,6 +4,9 @@ package jobs.v1;
 
 option go_package = "jobs/v1";
 
+option php_metadata_namespace = "RoadRunner\\Jobs\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Jobs\\DTO\\V1";
+
 // REQUESTS -------------------
 
 // single job request (jobs.Push RPC endpoint) -> Push(j *jobsProto.PushRequest, _ *jobsProto.Empty)
