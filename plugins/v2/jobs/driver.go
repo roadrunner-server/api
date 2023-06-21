@@ -1,6 +1,8 @@
 package jobs
 
-import "context"
+import (
+	"context"
+)
 
 // Driver represents the interface for a single jobs driver
 type Driver interface {
