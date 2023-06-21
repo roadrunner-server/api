@@ -1,10 +1,42 @@
 package jobs
 
+import (
+	pq "github.com/roadrunner-server/api/v4/plugins/v2/priority_queue"
+)
+
+// Queue represents JOBS plugin queue with it's elements types inside
+type Queue interface {
+	// Remove removes element with provided ID (if exists) and returns that elements
+	Remove(id string) []Job
+	// Insert adds an item to the queue
+	Insert(item Job)
+	// ExtractMin returns the item with the highest priority (less value is the highest priority)
+	ExtractMin() Job
+	// Len returns the number of items in the queue
+	Len() uint64
+}
+
+// Job represents a binary heap item
+type Job interface {
+	pq.Item
+	// Ack acknowledges the item after processing
+	Ack() error
+	// Nack discards the item
+	Nack() error
+	// Requeue puts the message back to the queue with an optional delay
+	Requeue(headers map[string][]string, delay int64) error
+	// Body returns the payload associated with the item
+	Body() []byte
+	// Context returns any meta-information associated with the item
+	Context() ([]byte, error)
+	// Headers returns the metadata for the item
+	Headers() map[string][]string
+}
+
 // Message represents the protobuf message received from the RPC call
 type Message interface {
-	Base
+	pq.Item
 	KafkaOptions
-
 	// Name returns the name of the Job
 	Name() string
 	// Payload returns the data associated with the job
@@ -16,6 +48,8 @@ type Message interface {
 	// UpdatePriority sets the priority of the Job. Priority is optional but cannot be set to 0.
 	// The default priority is 10
 	UpdatePriority(int64)
+	// Headers returns the metadata for the item
+	Headers() map[string][]string
 }
 
 // KAFKA options (leave them empty for other drivers)
