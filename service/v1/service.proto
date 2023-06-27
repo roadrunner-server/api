@@ -22,6 +22,10 @@ message Create {
   bool remain_after_exit = 5;
   map<string, string> env = 6;
   uint64 restart_sec = 7;
+
+  // new in 2023.2
+  bool service_name_in_logs = 8;
+  uint64 timeout_stop_sec = 9;
 }
 
 message Statuses {
