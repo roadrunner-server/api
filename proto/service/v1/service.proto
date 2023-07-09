@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package service.v1;
+
+import "shared/v1/status.proto";
+
+option go_package = "service/v1";
+option php_metadata_namespace = "RoadRunner\\Service\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Service\\DTO\\V1";
+
+message Response {
+  string message = 1;
+  bool ok = 2;
+}
+
+message Create {
+  string name = 1;
+  string command = 2;
+  int64 process_num = 3;
+  int64 exec_timeout = 4;
+  bool remain_after_exit = 5;
+  map<string, string> env = 6;
+  uint64 restart_sec = 7;
+
+  // new in 2023.2
+  bool service_name_in_logs = 8;
+  uint64 timeout_stop_sec = 9;
+}
+
+message Statuses {
+  repeated Status status = 1;
+}
+
+message Status {
+  float cpu_percent = 1;
+  int32 pid = 2;
+  uint64 memory_usage = 3;
+  string command = 4;
+
+  // error state
+  shared.v1.Status status = 5;
+}
+
+message Service {
+  string name = 1;
+}
+
+message List {
+  repeated string services = 1;
+}
