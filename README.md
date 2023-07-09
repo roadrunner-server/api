@@ -18,7 +18,7 @@
 
 To install and use generated packages:
 ```bash
-go get github.com/roadrunner-server/api/build/<API_NAME>/v1
+go get github.com/roadrunner-server/api/v4/build/<API_NAME>/v1
 ```
 
 The Proto API is used for external integrations, mostly for RPC or as internal communications. For example:
@@ -26,7 +26,7 @@ The Proto API is used for external integrations, mostly for RPC or as internal c
 package foo
 
 import (
-	jobsv1 "github.com/roadrunner-server/api/build/jobs/v1"
+	jobsv1 "github.com/roadrunner-server/api/v4/build/jobs/v1"
 )
 
 func Push(in *jobsv1.PushRequest, out *jobsv1.Empty) error {
