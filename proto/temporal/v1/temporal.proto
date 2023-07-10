@@ -5,7 +5,7 @@ option go_package = "temporal/v1";
 option php_metadata_namespace = "RoadRunner\\Temporal\\DTO\\V1\\GPBMetadata";
 option php_namespace = "RoadRunner\\Temporal\\DTO\\V1";
 
-import "shared/v1/status.proto";
+import "common/v1/grpc_status.proto";
 import "temporal/api/common/v1/message.proto";
 import "temporal/api/failure/v1/message.proto";
 

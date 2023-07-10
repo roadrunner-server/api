@@ -4,7 +4,7 @@ package shared.v1;
 
 import "google/protobuf/any.proto";
 
-option go_package = "status/v1";
+option go_package = "github.com/roadrunner-server/api/v4/build/shared/v1;shared";
 option php_metadata_namespace = "RoadRunner\\Shared\\DTO\\V1\\GPBMetadata";
 option php_namespace = "RoadRunner\\Shared\\DTO\\V1";
 
