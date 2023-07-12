@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package shared.v1;
+package common.v1;
 
 import "google/protobuf/any.proto";
 
-option go_package = "github.com/roadrunner-server/api/v4/build/shared/v1;shared";
-option php_metadata_namespace = "RoadRunner\\Shared\\DTO\\V1\\GPBMetadata";
-option php_namespace = "RoadRunner\\Shared\\DTO\\V1";
+option go_package = "github.com/roadrunner-server/api/v4/build/common/v1;common";
+option php_metadata_namespace = "RoadRunner\\Common\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Common\\DTO\\V1";
 
 // The `Status` type defines a logical error model that is suitable for
 // different programming environments, including REST APIs and RPC APIs.

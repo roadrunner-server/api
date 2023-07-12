@@ -38,7 +38,7 @@ message Status {
   string command = 4;
 
   // error state
-  shared.v1.Status status = 5;
+  common.v1.Status status = 5;
 }
 
 message Service {

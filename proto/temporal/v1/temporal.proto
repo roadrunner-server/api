@@ -29,6 +29,8 @@ message Message {
   temporal.api.common.v1.Header header = 6;
   // workflow history length
   int64 history_length = 7;
+	// rr_run id
+	string run_id = 8;
 }
 
 message ReplayRequest {
@@ -39,5 +41,5 @@ message ReplayRequest {
 
 // https://cloud.google.com/apis/design/errors
 message ReplayResponse {
-       shared.v1.Status status = 1;
+       common.v1.Status status = 1;
 }
