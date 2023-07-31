@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package lock.v1beta1;
+
+option go_package = "lock/v1beta1";
+option php_metadata_namespace = "RoadRunner\\Lock\\DTO\\V1BETA1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Lock\\DTO\\V1BETA1";
+
+message Request {
+  string resource = 1;
+  string id = 2;
+  optional int64 ttl = 3;
+  optional int64 wait = 4;
+}
+
+message Response {
+  bool ok = 1;
+}

@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package temporal.v1;
+option go_package = "temporal/v1";
+option php_metadata_namespace = "RoadRunner\\Temporal\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Temporal\\DTO\\V1";
+
+import "common/v1/grpc_status.proto";
+import "temporal/api/common/v1/message.proto";
+import "temporal/api/failure/v1/message.proto";
+
+message Frame {
+  repeated Message messages = 1;
+}
+
+// Single communication message.
+message Message {
+  // unique ID of the message (counter)
+  uint64 id = 1;
+  // command name (if any)
+  string command = 2;
+  // command options in json format.
+  bytes options = 3;
+  // error response.
+  temporal.api.failure.v1.Failure failure = 4;
+  // invocation or result payloads.
+  temporal.api.common.v1.Payloads payloads = 5;
+  // invocation or result payloads.
+  temporal.api.common.v1.Header header = 6;
+  // workflow history length
+  int64 history_length = 7;
+	// rr_run id
+	string run_id = 8;
+}
+
+message ReplayRequest {
+	temporal.api.common.v1.WorkflowExecution workflow_execution = 1;
+	temporal.api.common.v1.WorkflowType workflow_type = 2;
+	string save_path = 3;
+}
+
+// https://cloud.google.com/apis/design/errors
+message ReplayResponse {
+       common.v1.Status status = 1;
+}

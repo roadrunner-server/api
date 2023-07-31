@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package status.v1;
+
+option go_package = "github.com/roadrunner-server/api/v4/build/status/v1;status";
+option php_metadata_namespace = "RoadRunner\\Status\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Status\\DTO\\V1";
+
+message Request {
+  string plugin = 1;
+}
+
+message Response {
+  int64 code = 1;
+  string message = 2;
+}

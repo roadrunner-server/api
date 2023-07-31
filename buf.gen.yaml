@@ -1,13 +1,13 @@
 version: v1
 
 plugins:
-  - name: go
+  - plugin: buf.build/protocolbuffers/go:v1.31.0
     opt:
       - paths=source_relative
     out: build
 
-  - name: go-grpc
+  - plugin: buf.build/grpc/go:v1.3.0
     out: build
     opt:
-      - paths=source_relative
+      - paths=source_relative 
       - require_unimplemented_servers=false
