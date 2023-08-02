@@ -37,6 +37,7 @@ message ReplayRequest {
 	temporal.api.common.v1.WorkflowExecution workflow_execution = 1;
 	temporal.api.common.v1.WorkflowType workflow_type = 2;
 	string save_path = 3;
+	int64 last_event_id = 4;
 }
 
 // https://cloud.google.com/apis/design/errors
