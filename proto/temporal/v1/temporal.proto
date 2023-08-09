@@ -8,6 +8,7 @@ option php_namespace = "RoadRunner\\Temporal\\DTO\\V1";
 import "common/v1/grpc_status.proto";
 import "temporal/api/common/v1/message.proto";
 import "temporal/api/failure/v1/message.proto";
+import "temporal/api/history/v1/message.proto";
 
 message Frame {
   repeated Message messages = 1;
@@ -42,5 +43,10 @@ message ReplayRequest {
 
 // https://cloud.google.com/apis/design/errors
 message ReplayResponse {
-       common.v1.Status status = 1;
+  common.v1.Status status = 1;
+}
+
+message History {
+  temporal.api.history.v1.History history = 1;
+	temporal.api.common.v1.WorkflowType workflow_type = 2;
 }
