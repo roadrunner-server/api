@@ -27,7 +27,7 @@ message Job {
   // unique job id
   string id = 2;
   // payload, might be embedded json or just byte-string
-  string payload = 3;
+  bytes payload = 3;
   // headers map[string][]string
   map<string, HeaderValue> headers = 4;
   // job options, contains common and driver specific fields
