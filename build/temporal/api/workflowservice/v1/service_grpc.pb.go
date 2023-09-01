@@ -117,20 +117,16 @@ type WorkflowServiceClient interface {
 	ListNamespaces(ctx context.Context, in *ListNamespacesRequest, opts ...grpc.CallOption) (*ListNamespacesResponse, error)
 	// UpdateNamespace is used to update the information and configuration of a registered
 	// namespace.
-	//
-	// (-- api-linter: core::0134::method-signature=disabled
-	//
-	//	aip.dev/not-precedent: UpdateNamespace RPC doesn't follow Google API format. --)
-	//
-	// (-- api-linter: core::0134::response-message-name=disabled
-	//
-	//	aip.dev/not-precedent: UpdateNamespace RPC doesn't follow Google API format. --)
 	UpdateNamespace(ctx context.Context, in *UpdateNamespaceRequest, opts ...grpc.CallOption) (*UpdateNamespaceResponse, error)
 	// DeprecateNamespace is used to update the state of a registered namespace to DEPRECATED.
 	//
 	// Once the namespace is deprecated it cannot be used to start new workflow executions. Existing
 	// workflow executions will continue to run on deprecated namespaces.
 	// Deprecated.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: Deprecated. --)
 	DeprecateNamespace(ctx context.Context, in *DeprecateNamespaceRequest, opts ...grpc.CallOption) (*DeprecateNamespaceResponse, error)
 	// StartWorkflowExecution starts a new workflow execution.
 	//
@@ -151,6 +147,10 @@ type WorkflowServiceClient interface {
 	// tasks. The worker is expected to call `RespondWorkflowTaskCompleted` when it is done
 	// processing the task. The service will create a `WorkflowTaskStarted` event in the history for
 	// this task before handing it to the worker.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	PollWorkflowTaskQueue(ctx context.Context, in *PollWorkflowTaskQueueRequest, opts ...grpc.CallOption) (*PollWorkflowTaskQueueResponse, error)
 	// RespondWorkflowTaskCompleted is called by workers to successfully complete workflow tasks
 	// they received from `PollWorkflowTaskQueue`.
@@ -158,6 +158,10 @@ type WorkflowServiceClient interface {
 	// Completing a WorkflowTask will write a `WORKFLOW_TASK_COMPLETED` event to the workflow's
 	// history, along with events corresponding to whatever commands the SDK generated while
 	// executing the task (ex timer started, activity task scheduled, etc).
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	RespondWorkflowTaskCompleted(ctx context.Context, in *RespondWorkflowTaskCompletedRequest, opts ...grpc.CallOption) (*RespondWorkflowTaskCompletedResponse, error)
 	// RespondWorkflowTaskFailed is called by workers to indicate the processing of a workflow task
 	// failed.
@@ -168,6 +172,10 @@ type WorkflowServiceClient interface {
 	//
 	// Temporal will only append first WorkflowTaskFailed event to the history of workflow execution
 	// for consecutive failures.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	RespondWorkflowTaskFailed(ctx context.Context, in *RespondWorkflowTaskFailedRequest, opts ...grpc.CallOption) (*RespondWorkflowTaskFailedResponse, error)
 	// PollActivityTaskQueue is called by workers to process activity tasks from a specific task
 	// queue.
@@ -181,6 +189,10 @@ type WorkflowServiceClient interface {
 	// (`ACTIVITY_TASK_COMPLETED` / `ACTIVITY_TASK_FAILED` / `ACTIVITY_TASK_TIMED_OUT`) will both be
 	// written permanently to Workflow execution history when Activity is finished. This is done to
 	// avoid writing many events in the case of a failure/retry loop.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	PollActivityTaskQueue(ctx context.Context, in *PollActivityTaskQueueRequest, opts ...grpc.CallOption) (*PollActivityTaskQueueResponse, error)
 	// RecordActivityTaskHeartbeat is optionally called by workers while they execute activities.
 	//
@@ -275,33 +287,50 @@ type WorkflowServiceClient interface {
 	// WorkflowExecution.run_id is provided) or the latest Workflow Execution (when
 	// WorkflowExecution.run_id is not provided). If the Workflow Execution is Running, it will be
 	// terminated before deletion.
-	// (-- api-linter: core::0135::method-signature=disabled
 	//
-	//	aip.dev/not-precedent: DeleteNamespace RPC doesn't follow Google API format. --)
+	// (-- api-linter: core::0127::http-annotation=disabled
 	//
-	// (-- api-linter: core::0135::response-message-name=disabled
-	//
-	//	aip.dev/not-precedent: DeleteNamespace RPC doesn't follow Google API format. --)
+	//	aip.dev/not-precedent: Workflow deletion not exposed to HTTP, users should use cancel or terminate. --)
 	DeleteWorkflowExecution(ctx context.Context, in *DeleteWorkflowExecutionRequest, opts ...grpc.CallOption) (*DeleteWorkflowExecutionResponse, error)
 	// ListOpenWorkflowExecutions is a visibility API to list the open executions in a specific namespace.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: HTTP users should use ListWorkflowExecutions instead. --)
 	ListOpenWorkflowExecutions(ctx context.Context, in *ListOpenWorkflowExecutionsRequest, opts ...grpc.CallOption) (*ListOpenWorkflowExecutionsResponse, error)
 	// ListClosedWorkflowExecutions is a visibility API to list the closed executions in a specific namespace.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: HTTP users should use ListWorkflowExecutions instead. --)
 	ListClosedWorkflowExecutions(ctx context.Context, in *ListClosedWorkflowExecutionsRequest, opts ...grpc.CallOption) (*ListClosedWorkflowExecutionsResponse, error)
 	// ListWorkflowExecutions is a visibility API to list workflow executions in a specific namespace.
 	ListWorkflowExecutions(ctx context.Context, in *ListWorkflowExecutionsRequest, opts ...grpc.CallOption) (*ListWorkflowExecutionsResponse, error)
 	// ListArchivedWorkflowExecutions is a visibility API to list archived workflow executions in a specific namespace.
 	ListArchivedWorkflowExecutions(ctx context.Context, in *ListArchivedWorkflowExecutionsRequest, opts ...grpc.CallOption) (*ListArchivedWorkflowExecutionsResponse, error)
 	// ScanWorkflowExecutions is a visibility API to list large amount of workflow executions in a specific namespace without order.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: HTTP users should use ListWorkflowExecutions instead. --)
 	ScanWorkflowExecutions(ctx context.Context, in *ScanWorkflowExecutionsRequest, opts ...grpc.CallOption) (*ScanWorkflowExecutionsResponse, error)
 	// CountWorkflowExecutions is a visibility API to count of workflow executions in a specific namespace.
 	CountWorkflowExecutions(ctx context.Context, in *CountWorkflowExecutionsRequest, opts ...grpc.CallOption) (*CountWorkflowExecutionsResponse, error)
 	// GetSearchAttributes is a visibility API to get all legal keys that could be used in list APIs
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose this search attribute API to HTTP (but may expose on OperatorService). --)
 	GetSearchAttributes(ctx context.Context, in *GetSearchAttributesRequest, opts ...grpc.CallOption) (*GetSearchAttributesResponse, error)
 	// RespondQueryTaskCompleted is called by workers to complete queries which were delivered on
 	// the `query` (not `queries`) field of a `PollWorkflowTaskQueueResponse`.
 	//
 	// Completing the query will unblock the corresponding client call to `QueryWorkflow` and return
 	// the query result a response.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	RespondQueryTaskCompleted(ctx context.Context, in *RespondQueryTaskCompletedRequest, opts ...grpc.CallOption) (*RespondQueryTaskCompletedResponse, error)
 	// ResetStickyTaskQueue resets the sticky task queue related information in the mutable state of
 	// a given workflow. This is prudent for workers to perform if a workflow has been paged out of
@@ -310,6 +339,10 @@ type WorkflowServiceClient interface {
 	// Things cleared are:
 	// 1. StickyTaskQueue
 	// 2. StickyScheduleToStartTimeout
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	ResetStickyTaskQueue(ctx context.Context, in *ResetStickyTaskQueueRequest, opts ...grpc.CallOption) (*ResetStickyTaskQueueResponse, error)
 	// QueryWorkflow requests a query be executed for a specified workflow execution.
 	QueryWorkflow(ctx context.Context, in *QueryWorkflowRequest, opts ...grpc.CallOption) (*QueryWorkflowResponse, error)
@@ -321,46 +354,21 @@ type WorkflowServiceClient interface {
 	GetClusterInfo(ctx context.Context, in *GetClusterInfoRequest, opts ...grpc.CallOption) (*GetClusterInfoResponse, error)
 	// GetSystemInfo returns information about the system.
 	GetSystemInfo(ctx context.Context, in *GetSystemInfoRequest, opts ...grpc.CallOption) (*GetSystemInfoResponse, error)
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose this low-level API to HTTP. --)
 	ListTaskQueuePartitions(ctx context.Context, in *ListTaskQueuePartitionsRequest, opts ...grpc.CallOption) (*ListTaskQueuePartitionsResponse, error)
 	// Creates a new schedule.
-	// (-- api-linter: core::0133::method-signature=disabled
-	//
-	//	aip.dev/not-precedent: CreateSchedule doesn't follow Google API format --)
-	//
-	// (-- api-linter: core::0133::response-message-name=disabled
-	//
-	//	aip.dev/not-precedent: CreateSchedule doesn't follow Google API format --)
-	//
-	// (-- api-linter: core::0133::http-uri-parent=disabled
-	//
-	//	aip.dev/not-precedent: CreateSchedule doesn't follow Google API format --)
 	CreateSchedule(ctx context.Context, in *CreateScheduleRequest, opts ...grpc.CallOption) (*CreateScheduleResponse, error)
 	// Returns the schedule description and current state of an existing schedule.
 	DescribeSchedule(ctx context.Context, in *DescribeScheduleRequest, opts ...grpc.CallOption) (*DescribeScheduleResponse, error)
 	// Changes the configuration or state of an existing schedule.
-	// (-- api-linter: core::0134::response-message-name=disabled
-	//
-	//	aip.dev/not-precedent: UpdateSchedule RPC doesn't follow Google API format. --)
-	//
-	// (-- api-linter: core::0134::method-signature=disabled
-	//
-	//	aip.dev/not-precedent: UpdateSchedule RPC doesn't follow Google API format. --)
 	UpdateSchedule(ctx context.Context, in *UpdateScheduleRequest, opts ...grpc.CallOption) (*UpdateScheduleResponse, error)
 	// Makes a specific change to a schedule or triggers an immediate action.
-	// (-- api-linter: core::0134::synonyms=disabled
-	//
-	//	aip.dev/not-precedent: we have both patch and update. --)
 	PatchSchedule(ctx context.Context, in *PatchScheduleRequest, opts ...grpc.CallOption) (*PatchScheduleResponse, error)
 	// Lists matching times within a range.
 	ListScheduleMatchingTimes(ctx context.Context, in *ListScheduleMatchingTimesRequest, opts ...grpc.CallOption) (*ListScheduleMatchingTimesResponse, error)
 	// Deletes a schedule, removing it from the system.
-	// (-- api-linter: core::0135::method-signature=disabled
-	//
-	//	aip.dev/not-precedent: DeleteSchedule doesn't follow Google API format --)
-	//
-	// (-- api-linter: core::0135::response-message-name=disabled
-	//
-	//	aip.dev/not-precedent: DeleteSchedule doesn't follow Google API format --)
 	DeleteSchedule(ctx context.Context, in *DeleteScheduleRequest, opts ...grpc.CallOption) (*DeleteScheduleResponse, error)
 	// List all schedules in a namespace.
 	ListSchedules(ctx context.Context, in *ListSchedulesRequest, opts ...grpc.CallOption) (*ListSchedulesResponse, error)
@@ -377,15 +385,15 @@ type WorkflowServiceClient interface {
 	// NOTE: The number of task queues mapped to a single build id is limited by the `limit.taskQueuesPerBuildId`
 	// (default is 20), if this limit is exceeded this API will error with a FailedPrecondition.
 	//
-	// (-- api-linter: core::0134::response-message-name=disabled
+	// (-- api-linter: core::0127::http-annotation=disabled
 	//
-	//	aip.dev/not-precedent: UpdateWorkerBuildIdCompatibility RPC doesn't follow Google API format. --)
-	//
-	// (-- api-linter: core::0134::method-signature=disabled
-	//
-	//	aip.dev/not-precedent: UpdateWorkerBuildIdCompatibility RPC doesn't follow Google API format. --)
+	//	aip.dev/not-precedent: We do yet expose versioning API to HTTP. --)
 	UpdateWorkerBuildIdCompatibility(ctx context.Context, in *UpdateWorkerBuildIdCompatibilityRequest, opts ...grpc.CallOption) (*UpdateWorkerBuildIdCompatibilityResponse, error)
 	// Fetches the worker build id versioning sets for a task queue.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do yet expose versioning API to HTTP. --)
 	GetWorkerBuildIdCompatibility(ctx context.Context, in *GetWorkerBuildIdCompatibilityRequest, opts ...grpc.CallOption) (*GetWorkerBuildIdCompatibilityResponse, error)
 	// Fetches task reachability to determine whether a worker may be retired.
 	// The request may specify task queues to query for or let the server fetch all task queues mapped to the given
@@ -399,19 +407,21 @@ type WorkflowServiceClient interface {
 	//
 	// Open source users can adjust this limit by setting the server's dynamic config value for
 	// `limit.reachabilityTaskQueueScan` with the caveat that this call can strain the visibility store.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do yet expose versioning API to HTTP. --)
 	GetWorkerTaskReachability(ctx context.Context, in *GetWorkerTaskReachabilityRequest, opts ...grpc.CallOption) (*GetWorkerTaskReachabilityResponse, error)
 	// Invokes the specified update function on user workflow code.
-	// (-- api-linter: core::0134=disabled
-	//
-	//	aip.dev/not-precedent: UpdateWorkflowExecution doesn't follow Google API format --)
 	UpdateWorkflowExecution(ctx context.Context, in *UpdateWorkflowExecutionRequest, opts ...grpc.CallOption) (*UpdateWorkflowExecutionResponse, error)
 	// Polls a workflow execution for the outcome of a workflow execution update
 	// previously issued through the UpdateWorkflowExecution RPC. The effective
 	// timeout on this call will be shorter of the the caller-supplied gRPC
 	// timeout and the server's configured long-poll timeout.
-	// (-- api-linter: core::0134=disabled
 	//
-	//	aip.dev/not-precedent: UpdateWorkflowExecution doesn't follow Google API format --)
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We don't expose update polling API to HTTP in favor of a potential future non-blocking form. --)
 	PollWorkflowExecutionUpdate(ctx context.Context, in *PollWorkflowExecutionUpdateRequest, opts ...grpc.CallOption) (*PollWorkflowExecutionUpdateResponse, error)
 	// StartBatchOperation starts a new batch operation
 	StartBatchOperation(ctx context.Context, in *StartBatchOperationRequest, opts ...grpc.CallOption) (*StartBatchOperationResponse, error)
@@ -961,20 +971,16 @@ type WorkflowServiceServer interface {
 	ListNamespaces(context.Context, *ListNamespacesRequest) (*ListNamespacesResponse, error)
 	// UpdateNamespace is used to update the information and configuration of a registered
 	// namespace.
-	//
-	// (-- api-linter: core::0134::method-signature=disabled
-	//
-	//	aip.dev/not-precedent: UpdateNamespace RPC doesn't follow Google API format. --)
-	//
-	// (-- api-linter: core::0134::response-message-name=disabled
-	//
-	//	aip.dev/not-precedent: UpdateNamespace RPC doesn't follow Google API format. --)
 	UpdateNamespace(context.Context, *UpdateNamespaceRequest) (*UpdateNamespaceResponse, error)
 	// DeprecateNamespace is used to update the state of a registered namespace to DEPRECATED.
 	//
 	// Once the namespace is deprecated it cannot be used to start new workflow executions. Existing
 	// workflow executions will continue to run on deprecated namespaces.
 	// Deprecated.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: Deprecated. --)
 	DeprecateNamespace(context.Context, *DeprecateNamespaceRequest) (*DeprecateNamespaceResponse, error)
 	// StartWorkflowExecution starts a new workflow execution.
 	//
@@ -995,6 +1001,10 @@ type WorkflowServiceServer interface {
 	// tasks. The worker is expected to call `RespondWorkflowTaskCompleted` when it is done
 	// processing the task. The service will create a `WorkflowTaskStarted` event in the history for
 	// this task before handing it to the worker.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	PollWorkflowTaskQueue(context.Context, *PollWorkflowTaskQueueRequest) (*PollWorkflowTaskQueueResponse, error)
 	// RespondWorkflowTaskCompleted is called by workers to successfully complete workflow tasks
 	// they received from `PollWorkflowTaskQueue`.
@@ -1002,6 +1012,10 @@ type WorkflowServiceServer interface {
 	// Completing a WorkflowTask will write a `WORKFLOW_TASK_COMPLETED` event to the workflow's
 	// history, along with events corresponding to whatever commands the SDK generated while
 	// executing the task (ex timer started, activity task scheduled, etc).
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	RespondWorkflowTaskCompleted(context.Context, *RespondWorkflowTaskCompletedRequest) (*RespondWorkflowTaskCompletedResponse, error)
 	// RespondWorkflowTaskFailed is called by workers to indicate the processing of a workflow task
 	// failed.
@@ -1012,6 +1026,10 @@ type WorkflowServiceServer interface {
 	//
 	// Temporal will only append first WorkflowTaskFailed event to the history of workflow execution
 	// for consecutive failures.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	RespondWorkflowTaskFailed(context.Context, *RespondWorkflowTaskFailedRequest) (*RespondWorkflowTaskFailedResponse, error)
 	// PollActivityTaskQueue is called by workers to process activity tasks from a specific task
 	// queue.
@@ -1025,6 +1043,10 @@ type WorkflowServiceServer interface {
 	// (`ACTIVITY_TASK_COMPLETED` / `ACTIVITY_TASK_FAILED` / `ACTIVITY_TASK_TIMED_OUT`) will both be
 	// written permanently to Workflow execution history when Activity is finished. This is done to
 	// avoid writing many events in the case of a failure/retry loop.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	PollActivityTaskQueue(context.Context, *PollActivityTaskQueueRequest) (*PollActivityTaskQueueResponse, error)
 	// RecordActivityTaskHeartbeat is optionally called by workers while they execute activities.
 	//
@@ -1119,33 +1141,50 @@ type WorkflowServiceServer interface {
 	// WorkflowExecution.run_id is provided) or the latest Workflow Execution (when
 	// WorkflowExecution.run_id is not provided). If the Workflow Execution is Running, it will be
 	// terminated before deletion.
-	// (-- api-linter: core::0135::method-signature=disabled
 	//
-	//	aip.dev/not-precedent: DeleteNamespace RPC doesn't follow Google API format. --)
+	// (-- api-linter: core::0127::http-annotation=disabled
 	//
-	// (-- api-linter: core::0135::response-message-name=disabled
-	//
-	//	aip.dev/not-precedent: DeleteNamespace RPC doesn't follow Google API format. --)
+	//	aip.dev/not-precedent: Workflow deletion not exposed to HTTP, users should use cancel or terminate. --)
 	DeleteWorkflowExecution(context.Context, *DeleteWorkflowExecutionRequest) (*DeleteWorkflowExecutionResponse, error)
 	// ListOpenWorkflowExecutions is a visibility API to list the open executions in a specific namespace.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: HTTP users should use ListWorkflowExecutions instead. --)
 	ListOpenWorkflowExecutions(context.Context, *ListOpenWorkflowExecutionsRequest) (*ListOpenWorkflowExecutionsResponse, error)
 	// ListClosedWorkflowExecutions is a visibility API to list the closed executions in a specific namespace.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: HTTP users should use ListWorkflowExecutions instead. --)
 	ListClosedWorkflowExecutions(context.Context, *ListClosedWorkflowExecutionsRequest) (*ListClosedWorkflowExecutionsResponse, error)
 	// ListWorkflowExecutions is a visibility API to list workflow executions in a specific namespace.
 	ListWorkflowExecutions(context.Context, *ListWorkflowExecutionsRequest) (*ListWorkflowExecutionsResponse, error)
 	// ListArchivedWorkflowExecutions is a visibility API to list archived workflow executions in a specific namespace.
 	ListArchivedWorkflowExecutions(context.Context, *ListArchivedWorkflowExecutionsRequest) (*ListArchivedWorkflowExecutionsResponse, error)
 	// ScanWorkflowExecutions is a visibility API to list large amount of workflow executions in a specific namespace without order.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: HTTP users should use ListWorkflowExecutions instead. --)
 	ScanWorkflowExecutions(context.Context, *ScanWorkflowExecutionsRequest) (*ScanWorkflowExecutionsResponse, error)
 	// CountWorkflowExecutions is a visibility API to count of workflow executions in a specific namespace.
 	CountWorkflowExecutions(context.Context, *CountWorkflowExecutionsRequest) (*CountWorkflowExecutionsResponse, error)
 	// GetSearchAttributes is a visibility API to get all legal keys that could be used in list APIs
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose this search attribute API to HTTP (but may expose on OperatorService). --)
 	GetSearchAttributes(context.Context, *GetSearchAttributesRequest) (*GetSearchAttributesResponse, error)
 	// RespondQueryTaskCompleted is called by workers to complete queries which were delivered on
 	// the `query` (not `queries`) field of a `PollWorkflowTaskQueueResponse`.
 	//
 	// Completing the query will unblock the corresponding client call to `QueryWorkflow` and return
 	// the query result a response.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	RespondQueryTaskCompleted(context.Context, *RespondQueryTaskCompletedRequest) (*RespondQueryTaskCompletedResponse, error)
 	// ResetStickyTaskQueue resets the sticky task queue related information in the mutable state of
 	// a given workflow. This is prudent for workers to perform if a workflow has been paged out of
@@ -1154,6 +1193,10 @@ type WorkflowServiceServer interface {
 	// Things cleared are:
 	// 1. StickyTaskQueue
 	// 2. StickyScheduleToStartTimeout
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	ResetStickyTaskQueue(context.Context, *ResetStickyTaskQueueRequest) (*ResetStickyTaskQueueResponse, error)
 	// QueryWorkflow requests a query be executed for a specified workflow execution.
 	QueryWorkflow(context.Context, *QueryWorkflowRequest) (*QueryWorkflowResponse, error)
@@ -1165,46 +1208,21 @@ type WorkflowServiceServer interface {
 	GetClusterInfo(context.Context, *GetClusterInfoRequest) (*GetClusterInfoResponse, error)
 	// GetSystemInfo returns information about the system.
 	GetSystemInfo(context.Context, *GetSystemInfoRequest) (*GetSystemInfoResponse, error)
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose this low-level API to HTTP. --)
 	ListTaskQueuePartitions(context.Context, *ListTaskQueuePartitionsRequest) (*ListTaskQueuePartitionsResponse, error)
 	// Creates a new schedule.
-	// (-- api-linter: core::0133::method-signature=disabled
-	//
-	//	aip.dev/not-precedent: CreateSchedule doesn't follow Google API format --)
-	//
-	// (-- api-linter: core::0133::response-message-name=disabled
-	//
-	//	aip.dev/not-precedent: CreateSchedule doesn't follow Google API format --)
-	//
-	// (-- api-linter: core::0133::http-uri-parent=disabled
-	//
-	//	aip.dev/not-precedent: CreateSchedule doesn't follow Google API format --)
 	CreateSchedule(context.Context, *CreateScheduleRequest) (*CreateScheduleResponse, error)
 	// Returns the schedule description and current state of an existing schedule.
 	DescribeSchedule(context.Context, *DescribeScheduleRequest) (*DescribeScheduleResponse, error)
 	// Changes the configuration or state of an existing schedule.
-	// (-- api-linter: core::0134::response-message-name=disabled
-	//
-	//	aip.dev/not-precedent: UpdateSchedule RPC doesn't follow Google API format. --)
-	//
-	// (-- api-linter: core::0134::method-signature=disabled
-	//
-	//	aip.dev/not-precedent: UpdateSchedule RPC doesn't follow Google API format. --)
 	UpdateSchedule(context.Context, *UpdateScheduleRequest) (*UpdateScheduleResponse, error)
 	// Makes a specific change to a schedule or triggers an immediate action.
-	// (-- api-linter: core::0134::synonyms=disabled
-	//
-	//	aip.dev/not-precedent: we have both patch and update. --)
 	PatchSchedule(context.Context, *PatchScheduleRequest) (*PatchScheduleResponse, error)
 	// Lists matching times within a range.
 	ListScheduleMatchingTimes(context.Context, *ListScheduleMatchingTimesRequest) (*ListScheduleMatchingTimesResponse, error)
 	// Deletes a schedule, removing it from the system.
-	// (-- api-linter: core::0135::method-signature=disabled
-	//
-	//	aip.dev/not-precedent: DeleteSchedule doesn't follow Google API format --)
-	//
-	// (-- api-linter: core::0135::response-message-name=disabled
-	//
-	//	aip.dev/not-precedent: DeleteSchedule doesn't follow Google API format --)
 	DeleteSchedule(context.Context, *DeleteScheduleRequest) (*DeleteScheduleResponse, error)
 	// List all schedules in a namespace.
 	ListSchedules(context.Context, *ListSchedulesRequest) (*ListSchedulesResponse, error)
@@ -1221,15 +1239,15 @@ type WorkflowServiceServer interface {
 	// NOTE: The number of task queues mapped to a single build id is limited by the `limit.taskQueuesPerBuildId`
 	// (default is 20), if this limit is exceeded this API will error with a FailedPrecondition.
 	//
-	// (-- api-linter: core::0134::response-message-name=disabled
+	// (-- api-linter: core::0127::http-annotation=disabled
 	//
-	//	aip.dev/not-precedent: UpdateWorkerBuildIdCompatibility RPC doesn't follow Google API format. --)
-	//
-	// (-- api-linter: core::0134::method-signature=disabled
-	//
-	//	aip.dev/not-precedent: UpdateWorkerBuildIdCompatibility RPC doesn't follow Google API format. --)
+	//	aip.dev/not-precedent: We do yet expose versioning API to HTTP. --)
 	UpdateWorkerBuildIdCompatibility(context.Context, *UpdateWorkerBuildIdCompatibilityRequest) (*UpdateWorkerBuildIdCompatibilityResponse, error)
 	// Fetches the worker build id versioning sets for a task queue.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do yet expose versioning API to HTTP. --)
 	GetWorkerBuildIdCompatibility(context.Context, *GetWorkerBuildIdCompatibilityRequest) (*GetWorkerBuildIdCompatibilityResponse, error)
 	// Fetches task reachability to determine whether a worker may be retired.
 	// The request may specify task queues to query for or let the server fetch all task queues mapped to the given
@@ -1243,19 +1261,21 @@ type WorkflowServiceServer interface {
 	//
 	// Open source users can adjust this limit by setting the server's dynamic config value for
 	// `limit.reachabilityTaskQueueScan` with the caveat that this call can strain the visibility store.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do yet expose versioning API to HTTP. --)
 	GetWorkerTaskReachability(context.Context, *GetWorkerTaskReachabilityRequest) (*GetWorkerTaskReachabilityResponse, error)
 	// Invokes the specified update function on user workflow code.
-	// (-- api-linter: core::0134=disabled
-	//
-	//	aip.dev/not-precedent: UpdateWorkflowExecution doesn't follow Google API format --)
 	UpdateWorkflowExecution(context.Context, *UpdateWorkflowExecutionRequest) (*UpdateWorkflowExecutionResponse, error)
 	// Polls a workflow execution for the outcome of a workflow execution update
 	// previously issued through the UpdateWorkflowExecution RPC. The effective
 	// timeout on this call will be shorter of the the caller-supplied gRPC
 	// timeout and the server's configured long-poll timeout.
-	// (-- api-linter: core::0134=disabled
 	//
-	//	aip.dev/not-precedent: UpdateWorkflowExecution doesn't follow Google API format --)
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We don't expose update polling API to HTTP in favor of a potential future non-blocking form. --)
 	PollWorkflowExecutionUpdate(context.Context, *PollWorkflowExecutionUpdateRequest) (*PollWorkflowExecutionUpdateResponse, error)
 	// StartBatchOperation starts a new batch operation
 	StartBatchOperation(context.Context, *StartBatchOperationRequest) (*StartBatchOperationResponse, error)
