@@ -7,7 +7,7 @@
 </a>
 </p>
 <p align="center">
- <a href="https://packagist.org/packages/roadrunner-server/roadrunner"><img src="https://poser.pugx.org/roadrunner-server/roadrunner/version"></a>
+ <a href="https://packagist.org/packages/spiral/roadrunner"><img src="https://poser.pugx.org/spiral/roadrunner/version"></a>
 	<a href="https://pkg.go.dev/github.com/roadrunner-server/api/v4?tab=doc"><img src="https://godoc.org/github.com/roadrunner-server/api/v4?status.svg"></a>
 	<a href="https://github.com/roadrunner-server/api/actions"><img src="https://github.com/roadrunner-server/api/workflows/Linters/badge.svg" alt=""></a>
 	<a href="https://goreportcard.com/report/github.com/roadrunner-server/api"><img src="https://goreportcard.com/badge/github.com/roadrunner-server/api"></a>
