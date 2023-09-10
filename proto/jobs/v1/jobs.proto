@@ -47,9 +47,6 @@ message Options {
   string metadata = 8;
   int64 offset = 9;
   int32 partition = 10;
-  // -------------
-	// new in 2023.3 (AMQP), temporary solution, will be removed in 2024.0 and replaced by oneof.
-	string routing_key = 11;
 }
 
 // HeaderValue represents []string value for the header (map[string][]string)
