@@ -7,13 +7,13 @@ option php_metadata_namespace = "RoadRunner\\AppLogger\\DTO\\V1\\GPBMetadata";
 option php_namespace = "RoadRunner\\AppLogger\\DTO\\V1";
 
 message LogEntry {
-	string message = 1;
-	repeated LogAttrs log_attrs = 2;
+  string message = 1;
+  repeated LogAttrs log_attrs = 2;
 }
 
 message LogAttrs {
-	string key = 1;
-	string value = 2;
+  string key = 1;
+  string value = 2;
 }
 
 message Response {}

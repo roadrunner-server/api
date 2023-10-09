@@ -1,14 +1,15 @@
 syntax = "proto3";
 
 package temporal.v1;
-option go_package = "temporal/v1";
-option php_metadata_namespace = "RoadRunner\\Temporal\\DTO\\V1\\GPBMetadata";
-option php_namespace = "RoadRunner\\Temporal\\DTO\\V1";
 
 import "common/v1/grpc_status.proto";
 import "temporal/api/common/v1/message.proto";
 import "temporal/api/failure/v1/message.proto";
 import "temporal/api/history/v1/message.proto";
+
+option go_package = "temporal/v1";
+option php_metadata_namespace = "RoadRunner\\Temporal\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Temporal\\DTO\\V1";
 
 message Frame {
   repeated Message messages = 1;
@@ -30,15 +31,15 @@ message Message {
   temporal.api.common.v1.Header header = 6;
   // workflow history length
   int64 history_length = 7;
-	// rr_run id
-	string run_id = 8;
+  // rr_run id
+  string run_id = 8;
 }
 
 message ReplayRequest {
-	temporal.api.common.v1.WorkflowExecution workflow_execution = 1;
-	temporal.api.common.v1.WorkflowType workflow_type = 2;
-	string save_path = 3;
-	int64 last_event_id = 4;
+  temporal.api.common.v1.WorkflowExecution workflow_execution = 1;
+  temporal.api.common.v1.WorkflowType workflow_type = 2;
+  string save_path = 3;
+  int64 last_event_id = 4;
 }
 
 // https://cloud.google.com/apis/design/errors
@@ -48,5 +49,5 @@ message ReplayResponse {
 
 message History {
   temporal.api.history.v1.History history = 1;
-	temporal.api.common.v1.WorkflowType workflow_type = 2;
+  temporal.api.common.v1.WorkflowType workflow_type = 2;
 }

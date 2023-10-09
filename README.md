@@ -34,6 +34,10 @@ func Push(in *jobsv1.PushRequest, out *jobsv1.Empty) error {
 }
 ```
 
+# Centrifugal API
+- [API](https://github.com/centrifugal/centrifugo/blob/master/internal/apiproto/api.proto)
+- [Proxy](https://github.com/centrifugal/centrifugo/blob/master/internal/proxyproto/proxy.proto)
+
 # Building API
 
 - Install buf:  `go install github.com/bufbuild/buf/cmd/buf@latest`.

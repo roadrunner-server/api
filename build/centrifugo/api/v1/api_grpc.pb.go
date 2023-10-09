@@ -19,35 +19,40 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	CentrifugoApi_Batch_FullMethodName                 = "/centrifugal.centrifugo.api.CentrifugoApi/Batch"
-	CentrifugoApi_Publish_FullMethodName               = "/centrifugal.centrifugo.api.CentrifugoApi/Publish"
-	CentrifugoApi_Broadcast_FullMethodName             = "/centrifugal.centrifugo.api.CentrifugoApi/Broadcast"
-	CentrifugoApi_Subscribe_FullMethodName             = "/centrifugal.centrifugo.api.CentrifugoApi/Subscribe"
-	CentrifugoApi_Unsubscribe_FullMethodName           = "/centrifugal.centrifugo.api.CentrifugoApi/Unsubscribe"
-	CentrifugoApi_Disconnect_FullMethodName            = "/centrifugal.centrifugo.api.CentrifugoApi/Disconnect"
-	CentrifugoApi_Presence_FullMethodName              = "/centrifugal.centrifugo.api.CentrifugoApi/Presence"
-	CentrifugoApi_PresenceStats_FullMethodName         = "/centrifugal.centrifugo.api.CentrifugoApi/PresenceStats"
-	CentrifugoApi_History_FullMethodName               = "/centrifugal.centrifugo.api.CentrifugoApi/History"
-	CentrifugoApi_HistoryRemove_FullMethodName         = "/centrifugal.centrifugo.api.CentrifugoApi/HistoryRemove"
-	CentrifugoApi_Info_FullMethodName                  = "/centrifugal.centrifugo.api.CentrifugoApi/Info"
-	CentrifugoApi_RPC_FullMethodName                   = "/centrifugal.centrifugo.api.CentrifugoApi/RPC"
-	CentrifugoApi_Refresh_FullMethodName               = "/centrifugal.centrifugo.api.CentrifugoApi/Refresh"
-	CentrifugoApi_Channels_FullMethodName              = "/centrifugal.centrifugo.api.CentrifugoApi/Channels"
-	CentrifugoApi_Connections_FullMethodName           = "/centrifugal.centrifugo.api.CentrifugoApi/Connections"
-	CentrifugoApi_UpdateUserStatus_FullMethodName      = "/centrifugal.centrifugo.api.CentrifugoApi/UpdateUserStatus"
-	CentrifugoApi_GetUserStatus_FullMethodName         = "/centrifugal.centrifugo.api.CentrifugoApi/GetUserStatus"
-	CentrifugoApi_DeleteUserStatus_FullMethodName      = "/centrifugal.centrifugo.api.CentrifugoApi/DeleteUserStatus"
-	CentrifugoApi_BlockUser_FullMethodName             = "/centrifugal.centrifugo.api.CentrifugoApi/BlockUser"
-	CentrifugoApi_UnblockUser_FullMethodName           = "/centrifugal.centrifugo.api.CentrifugoApi/UnblockUser"
-	CentrifugoApi_RevokeToken_FullMethodName           = "/centrifugal.centrifugo.api.CentrifugoApi/RevokeToken"
-	CentrifugoApi_InvalidateUserTokens_FullMethodName  = "/centrifugal.centrifugo.api.CentrifugoApi/InvalidateUserTokens"
-	CentrifugoApi_DeviceRegister_FullMethodName        = "/centrifugal.centrifugo.api.CentrifugoApi/DeviceRegister"
-	CentrifugoApi_DeviceUpdate_FullMethodName          = "/centrifugal.centrifugo.api.CentrifugoApi/DeviceUpdate"
-	CentrifugoApi_DeviceRemove_FullMethodName          = "/centrifugal.centrifugo.api.CentrifugoApi/DeviceRemove"
-	CentrifugoApi_DeviceList_FullMethodName            = "/centrifugal.centrifugo.api.CentrifugoApi/DeviceList"
-	CentrifugoApi_PushUserChannelList_FullMethodName   = "/centrifugal.centrifugo.api.CentrifugoApi/PushUserChannelList"
-	CentrifugoApi_PushUserChannelUpdate_FullMethodName = "/centrifugal.centrifugo.api.CentrifugoApi/PushUserChannelUpdate"
-	CentrifugoApi_SendPushNotification_FullMethodName  = "/centrifugal.centrifugo.api.CentrifugoApi/SendPushNotification"
+	CentrifugoApi_Batch_FullMethodName                = "/centrifugal.centrifugo.api.CentrifugoApi/Batch"
+	CentrifugoApi_Publish_FullMethodName              = "/centrifugal.centrifugo.api.CentrifugoApi/Publish"
+	CentrifugoApi_Broadcast_FullMethodName            = "/centrifugal.centrifugo.api.CentrifugoApi/Broadcast"
+	CentrifugoApi_Subscribe_FullMethodName            = "/centrifugal.centrifugo.api.CentrifugoApi/Subscribe"
+	CentrifugoApi_Unsubscribe_FullMethodName          = "/centrifugal.centrifugo.api.CentrifugoApi/Unsubscribe"
+	CentrifugoApi_Disconnect_FullMethodName           = "/centrifugal.centrifugo.api.CentrifugoApi/Disconnect"
+	CentrifugoApi_Presence_FullMethodName             = "/centrifugal.centrifugo.api.CentrifugoApi/Presence"
+	CentrifugoApi_PresenceStats_FullMethodName        = "/centrifugal.centrifugo.api.CentrifugoApi/PresenceStats"
+	CentrifugoApi_History_FullMethodName              = "/centrifugal.centrifugo.api.CentrifugoApi/History"
+	CentrifugoApi_HistoryRemove_FullMethodName        = "/centrifugal.centrifugo.api.CentrifugoApi/HistoryRemove"
+	CentrifugoApi_Info_FullMethodName                 = "/centrifugal.centrifugo.api.CentrifugoApi/Info"
+	CentrifugoApi_RPC_FullMethodName                  = "/centrifugal.centrifugo.api.CentrifugoApi/RPC"
+	CentrifugoApi_Refresh_FullMethodName              = "/centrifugal.centrifugo.api.CentrifugoApi/Refresh"
+	CentrifugoApi_Channels_FullMethodName             = "/centrifugal.centrifugo.api.CentrifugoApi/Channels"
+	CentrifugoApi_Connections_FullMethodName          = "/centrifugal.centrifugo.api.CentrifugoApi/Connections"
+	CentrifugoApi_UpdateUserStatus_FullMethodName     = "/centrifugal.centrifugo.api.CentrifugoApi/UpdateUserStatus"
+	CentrifugoApi_GetUserStatus_FullMethodName        = "/centrifugal.centrifugo.api.CentrifugoApi/GetUserStatus"
+	CentrifugoApi_DeleteUserStatus_FullMethodName     = "/centrifugal.centrifugo.api.CentrifugoApi/DeleteUserStatus"
+	CentrifugoApi_BlockUser_FullMethodName            = "/centrifugal.centrifugo.api.CentrifugoApi/BlockUser"
+	CentrifugoApi_UnblockUser_FullMethodName          = "/centrifugal.centrifugo.api.CentrifugoApi/UnblockUser"
+	CentrifugoApi_RevokeToken_FullMethodName          = "/centrifugal.centrifugo.api.CentrifugoApi/RevokeToken"
+	CentrifugoApi_InvalidateUserTokens_FullMethodName = "/centrifugal.centrifugo.api.CentrifugoApi/InvalidateUserTokens"
+	CentrifugoApi_DeviceRegister_FullMethodName       = "/centrifugal.centrifugo.api.CentrifugoApi/DeviceRegister"
+	CentrifugoApi_DeviceUpdate_FullMethodName         = "/centrifugal.centrifugo.api.CentrifugoApi/DeviceUpdate"
+	CentrifugoApi_DeviceRemove_FullMethodName         = "/centrifugal.centrifugo.api.CentrifugoApi/DeviceRemove"
+	CentrifugoApi_DeviceList_FullMethodName           = "/centrifugal.centrifugo.api.CentrifugoApi/DeviceList"
+	CentrifugoApi_DeviceTopicList_FullMethodName      = "/centrifugal.centrifugo.api.CentrifugoApi/DeviceTopicList"
+	CentrifugoApi_DeviceTopicUpdate_FullMethodName    = "/centrifugal.centrifugo.api.CentrifugoApi/DeviceTopicUpdate"
+	CentrifugoApi_UserTopicList_FullMethodName        = "/centrifugal.centrifugo.api.CentrifugoApi/UserTopicList"
+	CentrifugoApi_UserTopicUpdate_FullMethodName      = "/centrifugal.centrifugo.api.CentrifugoApi/UserTopicUpdate"
+	CentrifugoApi_SendPushNotification_FullMethodName = "/centrifugal.centrifugo.api.CentrifugoApi/SendPushNotification"
+	CentrifugoApi_UpdatePushStatus_FullMethodName     = "/centrifugal.centrifugo.api.CentrifugoApi/UpdatePushStatus"
+	CentrifugoApi_CancelPush_FullMethodName           = "/centrifugal.centrifugo.api.CentrifugoApi/CancelPush"
+	CentrifugoApi_RateLimit_FullMethodName            = "/centrifugal.centrifugo.api.CentrifugoApi/RateLimit"
 )
 
 // CentrifugoApiClient is the client API for CentrifugoApi service.
@@ -80,9 +85,14 @@ type CentrifugoApiClient interface {
 	DeviceUpdate(ctx context.Context, in *DeviceUpdateRequest, opts ...grpc.CallOption) (*DeviceUpdateResponse, error)
 	DeviceRemove(ctx context.Context, in *DeviceRemoveRequest, opts ...grpc.CallOption) (*DeviceRemoveResponse, error)
 	DeviceList(ctx context.Context, in *DeviceListRequest, opts ...grpc.CallOption) (*DeviceListResponse, error)
-	PushUserChannelList(ctx context.Context, in *PushUserChannelListRequest, opts ...grpc.CallOption) (*PushUserChannelListResponse, error)
-	PushUserChannelUpdate(ctx context.Context, in *PushUserChannelUpdateRequest, opts ...grpc.CallOption) (*PushUserChannelUpdateResponse, error)
+	DeviceTopicList(ctx context.Context, in *DeviceTopicListRequest, opts ...grpc.CallOption) (*DeviceTopicListResponse, error)
+	DeviceTopicUpdate(ctx context.Context, in *DeviceTopicUpdateRequest, opts ...grpc.CallOption) (*DeviceTopicUpdateResponse, error)
+	UserTopicList(ctx context.Context, in *UserTopicListRequest, opts ...grpc.CallOption) (*UserTopicListResponse, error)
+	UserTopicUpdate(ctx context.Context, in *UserTopicUpdateRequest, opts ...grpc.CallOption) (*UserTopicUpdateResponse, error)
 	SendPushNotification(ctx context.Context, in *SendPushNotificationRequest, opts ...grpc.CallOption) (*SendPushNotificationResponse, error)
+	UpdatePushStatus(ctx context.Context, in *UpdatePushStatusRequest, opts ...grpc.CallOption) (*UpdatePushStatusResponse, error)
+	CancelPush(ctx context.Context, in *CancelPushRequest, opts ...grpc.CallOption) (*CancelPushResponse, error)
+	RateLimit(ctx context.Context, in *RateLimitRequest, opts ...grpc.CallOption) (*RateLimitResponse, error)
 }
 
 type centrifugoApiClient struct {
@@ -327,18 +337,36 @@ func (c *centrifugoApiClient) DeviceList(ctx context.Context, in *DeviceListRequ
 	return out, nil
 }
 
-func (c *centrifugoApiClient) PushUserChannelList(ctx context.Context, in *PushUserChannelListRequest, opts ...grpc.CallOption) (*PushUserChannelListResponse, error) {
-	out := new(PushUserChannelListResponse)
-	err := c.cc.Invoke(ctx, CentrifugoApi_PushUserChannelList_FullMethodName, in, out, opts...)
+func (c *centrifugoApiClient) DeviceTopicList(ctx context.Context, in *DeviceTopicListRequest, opts ...grpc.CallOption) (*DeviceTopicListResponse, error) {
+	out := new(DeviceTopicListResponse)
+	err := c.cc.Invoke(ctx, CentrifugoApi_DeviceTopicList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *centrifugoApiClient) PushUserChannelUpdate(ctx context.Context, in *PushUserChannelUpdateRequest, opts ...grpc.CallOption) (*PushUserChannelUpdateResponse, error) {
-	out := new(PushUserChannelUpdateResponse)
-	err := c.cc.Invoke(ctx, CentrifugoApi_PushUserChannelUpdate_FullMethodName, in, out, opts...)
+func (c *centrifugoApiClient) DeviceTopicUpdate(ctx context.Context, in *DeviceTopicUpdateRequest, opts ...grpc.CallOption) (*DeviceTopicUpdateResponse, error) {
+	out := new(DeviceTopicUpdateResponse)
+	err := c.cc.Invoke(ctx, CentrifugoApi_DeviceTopicUpdate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *centrifugoApiClient) UserTopicList(ctx context.Context, in *UserTopicListRequest, opts ...grpc.CallOption) (*UserTopicListResponse, error) {
+	out := new(UserTopicListResponse)
+	err := c.cc.Invoke(ctx, CentrifugoApi_UserTopicList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *centrifugoApiClient) UserTopicUpdate(ctx context.Context, in *UserTopicUpdateRequest, opts ...grpc.CallOption) (*UserTopicUpdateResponse, error) {
+	out := new(UserTopicUpdateResponse)
+	err := c.cc.Invoke(ctx, CentrifugoApi_UserTopicUpdate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -348,6 +376,33 @@ func (c *centrifugoApiClient) PushUserChannelUpdate(ctx context.Context, in *Pus
 func (c *centrifugoApiClient) SendPushNotification(ctx context.Context, in *SendPushNotificationRequest, opts ...grpc.CallOption) (*SendPushNotificationResponse, error) {
 	out := new(SendPushNotificationResponse)
 	err := c.cc.Invoke(ctx, CentrifugoApi_SendPushNotification_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *centrifugoApiClient) UpdatePushStatus(ctx context.Context, in *UpdatePushStatusRequest, opts ...grpc.CallOption) (*UpdatePushStatusResponse, error) {
+	out := new(UpdatePushStatusResponse)
+	err := c.cc.Invoke(ctx, CentrifugoApi_UpdatePushStatus_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *centrifugoApiClient) CancelPush(ctx context.Context, in *CancelPushRequest, opts ...grpc.CallOption) (*CancelPushResponse, error) {
+	out := new(CancelPushResponse)
+	err := c.cc.Invoke(ctx, CentrifugoApi_CancelPush_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *centrifugoApiClient) RateLimit(ctx context.Context, in *RateLimitRequest, opts ...grpc.CallOption) (*RateLimitResponse, error) {
+	out := new(RateLimitResponse)
+	err := c.cc.Invoke(ctx, CentrifugoApi_RateLimit_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -384,9 +439,14 @@ type CentrifugoApiServer interface {
 	DeviceUpdate(context.Context, *DeviceUpdateRequest) (*DeviceUpdateResponse, error)
 	DeviceRemove(context.Context, *DeviceRemoveRequest) (*DeviceRemoveResponse, error)
 	DeviceList(context.Context, *DeviceListRequest) (*DeviceListResponse, error)
-	PushUserChannelList(context.Context, *PushUserChannelListRequest) (*PushUserChannelListResponse, error)
-	PushUserChannelUpdate(context.Context, *PushUserChannelUpdateRequest) (*PushUserChannelUpdateResponse, error)
+	DeviceTopicList(context.Context, *DeviceTopicListRequest) (*DeviceTopicListResponse, error)
+	DeviceTopicUpdate(context.Context, *DeviceTopicUpdateRequest) (*DeviceTopicUpdateResponse, error)
+	UserTopicList(context.Context, *UserTopicListRequest) (*UserTopicListResponse, error)
+	UserTopicUpdate(context.Context, *UserTopicUpdateRequest) (*UserTopicUpdateResponse, error)
 	SendPushNotification(context.Context, *SendPushNotificationRequest) (*SendPushNotificationResponse, error)
+	UpdatePushStatus(context.Context, *UpdatePushStatusRequest) (*UpdatePushStatusResponse, error)
+	CancelPush(context.Context, *CancelPushRequest) (*CancelPushResponse, error)
+	RateLimit(context.Context, *RateLimitRequest) (*RateLimitResponse, error)
 }
 
 // UnimplementedCentrifugoApiServer should be embedded to have forward compatible implementations.
@@ -471,14 +531,29 @@ func (UnimplementedCentrifugoApiServer) DeviceRemove(context.Context, *DeviceRem
 func (UnimplementedCentrifugoApiServer) DeviceList(context.Context, *DeviceListRequest) (*DeviceListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeviceList not implemented")
 }
-func (UnimplementedCentrifugoApiServer) PushUserChannelList(context.Context, *PushUserChannelListRequest) (*PushUserChannelListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PushUserChannelList not implemented")
+func (UnimplementedCentrifugoApiServer) DeviceTopicList(context.Context, *DeviceTopicListRequest) (*DeviceTopicListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeviceTopicList not implemented")
 }
-func (UnimplementedCentrifugoApiServer) PushUserChannelUpdate(context.Context, *PushUserChannelUpdateRequest) (*PushUserChannelUpdateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PushUserChannelUpdate not implemented")
+func (UnimplementedCentrifugoApiServer) DeviceTopicUpdate(context.Context, *DeviceTopicUpdateRequest) (*DeviceTopicUpdateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeviceTopicUpdate not implemented")
+}
+func (UnimplementedCentrifugoApiServer) UserTopicList(context.Context, *UserTopicListRequest) (*UserTopicListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserTopicList not implemented")
+}
+func (UnimplementedCentrifugoApiServer) UserTopicUpdate(context.Context, *UserTopicUpdateRequest) (*UserTopicUpdateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserTopicUpdate not implemented")
 }
 func (UnimplementedCentrifugoApiServer) SendPushNotification(context.Context, *SendPushNotificationRequest) (*SendPushNotificationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendPushNotification not implemented")
+}
+func (UnimplementedCentrifugoApiServer) UpdatePushStatus(context.Context, *UpdatePushStatusRequest) (*UpdatePushStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePushStatus not implemented")
+}
+func (UnimplementedCentrifugoApiServer) CancelPush(context.Context, *CancelPushRequest) (*CancelPushResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CancelPush not implemented")
+}
+func (UnimplementedCentrifugoApiServer) RateLimit(context.Context, *RateLimitRequest) (*RateLimitResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RateLimit not implemented")
 }
 
 // UnsafeCentrifugoApiServer may be embedded to opt out of forward compatibility for this service.
@@ -960,38 +1035,74 @@ func _CentrifugoApi_DeviceList_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _CentrifugoApi_PushUserChannelList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PushUserChannelListRequest)
+func _CentrifugoApi_DeviceTopicList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeviceTopicListRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CentrifugoApiServer).PushUserChannelList(ctx, in)
+		return srv.(CentrifugoApiServer).DeviceTopicList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: CentrifugoApi_PushUserChannelList_FullMethodName,
+		FullMethod: CentrifugoApi_DeviceTopicList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CentrifugoApiServer).PushUserChannelList(ctx, req.(*PushUserChannelListRequest))
+		return srv.(CentrifugoApiServer).DeviceTopicList(ctx, req.(*DeviceTopicListRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _CentrifugoApi_PushUserChannelUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PushUserChannelUpdateRequest)
+func _CentrifugoApi_DeviceTopicUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeviceTopicUpdateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CentrifugoApiServer).PushUserChannelUpdate(ctx, in)
+		return srv.(CentrifugoApiServer).DeviceTopicUpdate(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: CentrifugoApi_PushUserChannelUpdate_FullMethodName,
+		FullMethod: CentrifugoApi_DeviceTopicUpdate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CentrifugoApiServer).PushUserChannelUpdate(ctx, req.(*PushUserChannelUpdateRequest))
+		return srv.(CentrifugoApiServer).DeviceTopicUpdate(ctx, req.(*DeviceTopicUpdateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CentrifugoApi_UserTopicList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserTopicListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CentrifugoApiServer).UserTopicList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CentrifugoApi_UserTopicList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CentrifugoApiServer).UserTopicList(ctx, req.(*UserTopicListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CentrifugoApi_UserTopicUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserTopicUpdateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CentrifugoApiServer).UserTopicUpdate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CentrifugoApi_UserTopicUpdate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CentrifugoApiServer).UserTopicUpdate(ctx, req.(*UserTopicUpdateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1010,6 +1121,60 @@ func _CentrifugoApi_SendPushNotification_Handler(srv interface{}, ctx context.Co
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CentrifugoApiServer).SendPushNotification(ctx, req.(*SendPushNotificationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CentrifugoApi_UpdatePushStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdatePushStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CentrifugoApiServer).UpdatePushStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CentrifugoApi_UpdatePushStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CentrifugoApiServer).UpdatePushStatus(ctx, req.(*UpdatePushStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CentrifugoApi_CancelPush_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CancelPushRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CentrifugoApiServer).CancelPush(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CentrifugoApi_CancelPush_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CentrifugoApiServer).CancelPush(ctx, req.(*CancelPushRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CentrifugoApi_RateLimit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RateLimitRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CentrifugoApiServer).RateLimit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CentrifugoApi_RateLimit_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CentrifugoApiServer).RateLimit(ctx, req.(*RateLimitRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1126,16 +1291,36 @@ var CentrifugoApi_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _CentrifugoApi_DeviceList_Handler,
 		},
 		{
-			MethodName: "PushUserChannelList",
-			Handler:    _CentrifugoApi_PushUserChannelList_Handler,
+			MethodName: "DeviceTopicList",
+			Handler:    _CentrifugoApi_DeviceTopicList_Handler,
 		},
 		{
-			MethodName: "PushUserChannelUpdate",
-			Handler:    _CentrifugoApi_PushUserChannelUpdate_Handler,
+			MethodName: "DeviceTopicUpdate",
+			Handler:    _CentrifugoApi_DeviceTopicUpdate_Handler,
+		},
+		{
+			MethodName: "UserTopicList",
+			Handler:    _CentrifugoApi_UserTopicList_Handler,
+		},
+		{
+			MethodName: "UserTopicUpdate",
+			Handler:    _CentrifugoApi_UserTopicUpdate_Handler,
 		},
 		{
 			MethodName: "SendPushNotification",
 			Handler:    _CentrifugoApi_SendPushNotification_Handler,
+		},
+		{
+			MethodName: "UpdatePushStatus",
+			Handler:    _CentrifugoApi_UpdatePushStatus_Handler,
+		},
+		{
+			MethodName: "CancelPush",
+			Handler:    _CentrifugoApi_CancelPush_Handler,
+		},
+		{
+			MethodName: "RateLimit",
+			Handler:    _CentrifugoApi_RateLimit_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
