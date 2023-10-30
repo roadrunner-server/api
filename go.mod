@@ -6,7 +6,7 @@ toolchain go1.21.1
 
 require (
 	github.com/gogo/protobuf v1.3.2
-	go.temporal.io/api v1.24.0
+	go.temporal.io/api v1.25.0
 	go.uber.org/zap v1.26.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20231016165738-49dd2c1f3d0b
 	google.golang.org/grpc v1.59.0
