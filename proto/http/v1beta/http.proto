@@ -15,12 +15,13 @@ message Request {
   string uri = 4;
   map<string, HeaderValue> header = 5;
   map<string, HeaderValue> cookies = 6;
-  string raw_query = 7;
-  bool parsed = 8;
-  map<string, HeaderValue> attributes = 9;
+  map<string, HeaderValue> form_query = 7;
   Uploads uploads = 10;
-  bytes body = 11;
-  bytes raw_body = 12;
+  // string raw_query = 7;
+  // bool parsed = 8;
+  // map<string, HeaderValue> attributes = 9;
+  // bytes body = 11;
+  // bytes raw_body = 12;
 }
 
 message Response {

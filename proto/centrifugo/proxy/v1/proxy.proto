@@ -6,13 +6,33 @@ option go_package = "centrifugo/proxy/v1";
 option php_metadata_namespace = "RoadRunner\\Centrifugal\\Proxy\\DTO\\V1\\GPBMetadata";
 option php_namespace = "RoadRunner\\Centrifugal\\Proxy\\DTO\\V1";
 
+
 service CentrifugoProxy {
+  // Connect to proxy connection authentication and communicate initial state.
   rpc Connect(ConnectRequest) returns (ConnectResponse);
+  // Refresh to proxy decision about connection expiration to the app backend.
   rpc Refresh(RefreshRequest) returns (RefreshResponse);
+  // Subscribe to proxy subscription attempts to channels.
   rpc Subscribe(SubscribeRequest) returns (SubscribeResponse);
+  // Publish to proxy publication attempts to channels.
   rpc Publish(PublishRequest) returns (PublishResponse);
+  // RPC to execute custom logic on the backend over request through the real-time connection.
   rpc RPC(RPCRequest) returns (RPCResponse);
+  // SubRefresh to proxy decision about subscription expiration to the app backend.
   rpc SubRefresh(SubRefreshRequest) returns (SubRefreshResponse);
+  // SubscribeUnidirectional is an EXPERIMENTAL method which allows handling unidirectional
+  // subscription streams. Stream starts with SubscribeRequest similar to Subscribe rpc,
+  // then expects StreamSubscribeResponse with SubscribeResponse as first message, and
+  // StreamSubscribeResponse with Publication afterwards.
+  rpc SubscribeUnidirectional(SubscribeRequest) returns (stream StreamSubscribeResponse);
+  // SubscribeBidirectional is an EXPERIMENTAL method which allows handling bidirectional
+  // subscription streams. Stream receives StreamSubscribeRequest. First StreamSubscribeRequest
+  // always contains SubscribeRequest, then StreamSubscribeRequest will contain data published
+  // by client. Reverse direction works the same way as in SubscribeUnidirectional.
+  rpc SubscribeBidirectional(stream StreamSubscribeRequest) returns (stream StreamSubscribeResponse);
+  // NotifyChannelState can be used to receive channel events such as channel "occupied" and "vacated".
+  // This is a feature in a preview state and is only available in Centrifugo PRO.
+  rpc NotifyChannelState(NotifyChannelStateRequest) returns (NotifyChannelStateResponse);
 }
 
 message Disconnect {
@@ -217,3 +237,45 @@ message SubRefreshResponse {
   Error error = 2;
   Disconnect disconnect = 3;
 }
+
+// Publication is an event to be sent to a client.
+// We intentionally make it use the same Protobuf numbers for fields as our client protocol
+// Publication - for now only for consistency.
+message Publication {
+  reserved 1, 2, 3, 5, 6;
+  bytes data = 4;
+  map<string, string> tags = 7;
+}
+
+message StreamSubscribeRequest {
+  // Centrifugo always sends this within the first message upon user subscription request.
+  // It's always not set in the following StreamRequest messages from Centrifugo.
+  SubscribeRequest subscribe_request = 1;
+  // Publication may be set when client publishes to the on-demand stream. If you are using
+  // bidirectional stream then Centrifugo assumes publications from client-side are allowed.
+  Publication publication = 2;
+}
+
+message StreamSubscribeResponse {
+  // SubscribeResponse may optionally be set in the first message from backend to Centrifugo.
+  SubscribeResponse subscribe_response = 1;
+  // Publication goes to client. Can't be set in the first message from backend to Centrifugo.
+  Publication publication = 2;
+}
+
+message NotifyChannelStateRequest {
+  repeated ChannelEvent events = 1;
+}
+
+message ChannelEvent {
+  int64 time_ms = 1;
+  string channel = 2;
+  string type = 3;  // "occupied" | "vacated" | could be more in the future. Not using enums for better JSON interop.
+}
+
+message NotifyChannelStateResponse {
+  NotifyChannelStateResult result = 1;
+  Error error = 2;
+}
+
+message NotifyChannelStateResult {}
