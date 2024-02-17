@@ -1963,6 +1963,383 @@ func (x *SubRefreshResponse) GetDisconnect() *Disconnect {
 	return nil
 }
 
+// Publication is an event to be sent to a client.
+// We intentionally make it use the same Protobuf numbers for fields as our client protocol
+// Publication - for now only for consistency.
+type Publication struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Data []byte            `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"`
+	Tags map[string]string `protobuf:"bytes,7,rep,name=tags,proto3" json:"tags,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+}
+
+func (x *Publication) Reset() {
+	*x = Publication{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_centrifugo_proxy_v1_proxy_proto_msgTypes[25]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Publication) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Publication) ProtoMessage() {}
+
+func (x *Publication) ProtoReflect() protoreflect.Message {
+	mi := &file_centrifugo_proxy_v1_proxy_proto_msgTypes[25]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Publication.ProtoReflect.Descriptor instead.
+func (*Publication) Descriptor() ([]byte, []int) {
+	return file_centrifugo_proxy_v1_proxy_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *Publication) GetData() []byte {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *Publication) GetTags() map[string]string {
+	if x != nil {
+		return x.Tags
+	}
+	return nil
+}
+
+type StreamSubscribeRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Centrifugo always sends this within the first message upon user subscription request.
+	// It's always not set in the following StreamRequest messages from Centrifugo.
+	SubscribeRequest *SubscribeRequest `protobuf:"bytes,1,opt,name=subscribe_request,json=subscribeRequest,proto3" json:"subscribe_request,omitempty"`
+	// Publication may be set when client publishes to the on-demand stream. If you are using
+	// bidirectional stream then Centrifugo assumes publications from client-side are allowed.
+	Publication *Publication `protobuf:"bytes,2,opt,name=publication,proto3" json:"publication,omitempty"`
+}
+
+func (x *StreamSubscribeRequest) Reset() {
+	*x = StreamSubscribeRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_centrifugo_proxy_v1_proxy_proto_msgTypes[26]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *StreamSubscribeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StreamSubscribeRequest) ProtoMessage() {}
+
+func (x *StreamSubscribeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_centrifugo_proxy_v1_proxy_proto_msgTypes[26]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StreamSubscribeRequest.ProtoReflect.Descriptor instead.
+func (*StreamSubscribeRequest) Descriptor() ([]byte, []int) {
+	return file_centrifugo_proxy_v1_proxy_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *StreamSubscribeRequest) GetSubscribeRequest() *SubscribeRequest {
+	if x != nil {
+		return x.SubscribeRequest
+	}
+	return nil
+}
+
+func (x *StreamSubscribeRequest) GetPublication() *Publication {
+	if x != nil {
+		return x.Publication
+	}
+	return nil
+}
+
+type StreamSubscribeResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// SubscribeResponse may optionally be set in the first message from backend to Centrifugo.
+	SubscribeResponse *SubscribeResponse `protobuf:"bytes,1,opt,name=subscribe_response,json=subscribeResponse,proto3" json:"subscribe_response,omitempty"`
+	// Publication goes to client. Can't be set in the first message from backend to Centrifugo.
+	Publication *Publication `protobuf:"bytes,2,opt,name=publication,proto3" json:"publication,omitempty"`
+}
+
+func (x *StreamSubscribeResponse) Reset() {
+	*x = StreamSubscribeResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_centrifugo_proxy_v1_proxy_proto_msgTypes[27]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *StreamSubscribeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StreamSubscribeResponse) ProtoMessage() {}
+
+func (x *StreamSubscribeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_centrifugo_proxy_v1_proxy_proto_msgTypes[27]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StreamSubscribeResponse.ProtoReflect.Descriptor instead.
+func (*StreamSubscribeResponse) Descriptor() ([]byte, []int) {
+	return file_centrifugo_proxy_v1_proxy_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *StreamSubscribeResponse) GetSubscribeResponse() *SubscribeResponse {
+	if x != nil {
+		return x.SubscribeResponse
+	}
+	return nil
+}
+
+func (x *StreamSubscribeResponse) GetPublication() *Publication {
+	if x != nil {
+		return x.Publication
+	}
+	return nil
+}
+
+type NotifyChannelStateRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Events []*ChannelEvent `protobuf:"bytes,1,rep,name=events,proto3" json:"events,omitempty"`
+}
+
+func (x *NotifyChannelStateRequest) Reset() {
+	*x = NotifyChannelStateRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_centrifugo_proxy_v1_proxy_proto_msgTypes[28]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *NotifyChannelStateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NotifyChannelStateRequest) ProtoMessage() {}
+
+func (x *NotifyChannelStateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_centrifugo_proxy_v1_proxy_proto_msgTypes[28]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NotifyChannelStateRequest.ProtoReflect.Descriptor instead.
+func (*NotifyChannelStateRequest) Descriptor() ([]byte, []int) {
+	return file_centrifugo_proxy_v1_proxy_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *NotifyChannelStateRequest) GetEvents() []*ChannelEvent {
+	if x != nil {
+		return x.Events
+	}
+	return nil
+}
+
+type ChannelEvent struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TimeMs  int64  `protobuf:"varint,1,opt,name=time_ms,json=timeMs,proto3" json:"time_ms,omitempty"`
+	Channel string `protobuf:"bytes,2,opt,name=channel,proto3" json:"channel,omitempty"`
+	Type    string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"` // "occupied" | "vacated" | could be more in the future. Not using enums for better JSON interop.
+}
+
+func (x *ChannelEvent) Reset() {
+	*x = ChannelEvent{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_centrifugo_proxy_v1_proxy_proto_msgTypes[29]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ChannelEvent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChannelEvent) ProtoMessage() {}
+
+func (x *ChannelEvent) ProtoReflect() protoreflect.Message {
+	mi := &file_centrifugo_proxy_v1_proxy_proto_msgTypes[29]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChannelEvent.ProtoReflect.Descriptor instead.
+func (*ChannelEvent) Descriptor() ([]byte, []int) {
+	return file_centrifugo_proxy_v1_proxy_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *ChannelEvent) GetTimeMs() int64 {
+	if x != nil {
+		return x.TimeMs
+	}
+	return 0
+}
+
+func (x *ChannelEvent) GetChannel() string {
+	if x != nil {
+		return x.Channel
+	}
+	return ""
+}
+
+func (x *ChannelEvent) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+type NotifyChannelStateResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Result *NotifyChannelStateResult `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"`
+	Error  *Error                    `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *NotifyChannelStateResponse) Reset() {
+	*x = NotifyChannelStateResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_centrifugo_proxy_v1_proxy_proto_msgTypes[30]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *NotifyChannelStateResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NotifyChannelStateResponse) ProtoMessage() {}
+
+func (x *NotifyChannelStateResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_centrifugo_proxy_v1_proxy_proto_msgTypes[30]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NotifyChannelStateResponse.ProtoReflect.Descriptor instead.
+func (*NotifyChannelStateResponse) Descriptor() ([]byte, []int) {
+	return file_centrifugo_proxy_v1_proxy_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *NotifyChannelStateResponse) GetResult() *NotifyChannelStateResult {
+	if x != nil {
+		return x.Result
+	}
+	return nil
+}
+
+func (x *NotifyChannelStateResponse) GetError() *Error {
+	if x != nil {
+		return x.Error
+	}
+	return nil
+}
+
+type NotifyChannelStateResult struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *NotifyChannelStateResult) Reset() {
+	*x = NotifyChannelStateResult{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_centrifugo_proxy_v1_proxy_proto_msgTypes[31]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *NotifyChannelStateResult) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NotifyChannelStateResult) ProtoMessage() {}
+
+func (x *NotifyChannelStateResult) ProtoReflect() protoreflect.Message {
+	mi := &file_centrifugo_proxy_v1_proxy_proto_msgTypes[31]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NotifyChannelStateResult.ProtoReflect.Descriptor instead.
+func (*NotifyChannelStateResult) Descriptor() ([]byte, []int) {
+	return file_centrifugo_proxy_v1_proxy_proto_rawDescGZIP(), []int{31}
+}
+
 var File_centrifugo_proxy_v1_proxy_proto protoreflect.FileDescriptor
 
 var file_centrifugo_proxy_v1_proxy_proto_rawDesc = []byte{
@@ -2272,8 +2649,69 @@ var file_centrifugo_proxy_v1_proxy_proto_rawDesc = []byte{
 	0x63, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x28, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72,
 	0x69, 0x66, 0x75, 0x67, 0x61, 0x6c, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67,
 	0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x44, 0x69, 0x73, 0x63, 0x6f, 0x6e, 0x6e, 0x65,
-	0x63, 0x74, 0x52, 0x0a, 0x64, 0x69, 0x73, 0x63, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x32, 0x84,
-	0x05, 0x0a, 0x0f, 0x43, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x50, 0x72, 0x6f,
+	0x63, 0x74, 0x52, 0x0a, 0x64, 0x69, 0x73, 0x63, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x22, 0xc1,
+	0x01, 0x0a, 0x0b, 0x50, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x12,
+	0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64, 0x61,
+	0x74, 0x61, 0x12, 0x47, 0x0a, 0x04, 0x74, 0x61, 0x67, 0x73, 0x18, 0x07, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x33, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x61, 0x6c, 0x2e, 0x63,
+	0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e,
+	0x50, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x54, 0x61, 0x67, 0x73,
+	0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x04, 0x74, 0x61, 0x67, 0x73, 0x1a, 0x37, 0x0a, 0x09, 0x54,
+	0x61, 0x67, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61,
+	0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65,
+	0x3a, 0x02, 0x38, 0x01, 0x4a, 0x04, 0x08, 0x01, 0x10, 0x02, 0x4a, 0x04, 0x08, 0x02, 0x10, 0x03,
+	0x4a, 0x04, 0x08, 0x03, 0x10, 0x04, 0x4a, 0x04, 0x08, 0x05, 0x10, 0x06, 0x4a, 0x04, 0x08, 0x06,
+	0x10, 0x07, 0x22, 0xc2, 0x01, 0x0a, 0x16, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x53, 0x75, 0x62,
+	0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x5b, 0x0a,
+	0x11, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x5f, 0x72, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2e, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72,
+	0x69, 0x66, 0x75, 0x67, 0x61, 0x6c, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67,
+	0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62,
+	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x10, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72,
+	0x69, 0x62, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x4b, 0x0a, 0x0b, 0x70, 0x75,
+	0x62, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x29, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x61, 0x6c, 0x2e, 0x63, 0x65,
+	0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x50,
+	0x75, 0x62, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0b, 0x70, 0x75, 0x62, 0x6c,
+	0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0xc6, 0x01, 0x0a, 0x17, 0x53, 0x74, 0x72, 0x65,
+	0x61, 0x6d, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x5e, 0x0a, 0x12, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65,
+	0x5f, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x2f, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x61, 0x6c, 0x2e, 0x63, 0x65,
+	0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x53,
+	0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x52, 0x11, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x4b, 0x0a, 0x0b, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x29, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72,
+	0x69, 0x66, 0x75, 0x67, 0x61, 0x6c, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67,
+	0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x50, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x52, 0x0b, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x22, 0x5f, 0x0a, 0x19, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x79, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65,
+	0x6c, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x42, 0x0a,
+	0x06, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x2a, 0x2e,
+	0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x61, 0x6c, 0x2e, 0x63, 0x65, 0x6e, 0x74,
+	0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x43, 0x68, 0x61,
+	0x6e, 0x6e, 0x65, 0x6c, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x06, 0x65, 0x76, 0x65, 0x6e, 0x74,
+	0x73, 0x22, 0x55, 0x0a, 0x0c, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x45, 0x76, 0x65, 0x6e,
+	0x74, 0x12, 0x17, 0x0a, 0x07, 0x74, 0x69, 0x6d, 0x65, 0x5f, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x06, 0x74, 0x69, 0x6d, 0x65, 0x4d, 0x73, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x68,
+	0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x68, 0x61,
+	0x6e, 0x6e, 0x65, 0x6c, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x22, 0xa7, 0x01, 0x0a, 0x1a, 0x4e, 0x6f, 0x74,
+	0x69, 0x66, 0x79, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4e, 0x0a, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c,
+	0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x36, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69,
+	0x66, 0x75, 0x67, 0x61, 0x6c, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x6f,
+	0x2e, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x79, 0x43, 0x68, 0x61,
+	0x6e, 0x6e, 0x65, 0x6c, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x52,
+	0x06, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x12, 0x39, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66,
+	0x75, 0x67, 0x61, 0x6c, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x2e,
+	0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72,
+	0x6f, 0x72, 0x22, 0x1a, 0x0a, 0x18, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x79, 0x43, 0x68, 0x61, 0x6e,
+	0x6e, 0x65, 0x6c, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x32, 0x9f,
+	0x08, 0x0a, 0x0f, 0x43, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x50, 0x72, 0x6f,
 	0x78, 0x79, 0x12, 0x66, 0x0a, 0x07, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x12, 0x2c, 0x2e,
 	0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x61, 0x6c, 0x2e, 0x63, 0x65, 0x6e, 0x74,
 	0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x43, 0x6f, 0x6e,
@@ -2313,14 +2751,40 @@ var file_centrifugo_proxy_v1_proxy_proto_rawDesc = []byte{
 	0x65, 0x73, 0x74, 0x1a, 0x30, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x61,
 	0x6c, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f,
 	0x78, 0x79, 0x2e, 0x53, 0x75, 0x62, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x6d, 0x5a, 0x13, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66,
-	0x75, 0x67, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2f, 0x76, 0x31, 0xca, 0x02, 0x23, 0x52,
-	0x6f, 0x61, 0x64, 0x52, 0x75, 0x6e, 0x6e, 0x65, 0x72, 0x5c, 0x43, 0x65, 0x6e, 0x74, 0x72, 0x69,
-	0x66, 0x75, 0x67, 0x61, 0x6c, 0x5c, 0x50, 0x72, 0x6f, 0x78, 0x79, 0x5c, 0x44, 0x54, 0x4f, 0x5c,
-	0x56, 0x31, 0xe2, 0x02, 0x2f, 0x52, 0x6f, 0x61, 0x64, 0x52, 0x75, 0x6e, 0x6e, 0x65, 0x72, 0x5c,
-	0x43, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x61, 0x6c, 0x5c, 0x50, 0x72, 0x6f, 0x78,
-	0x79, 0x5c, 0x44, 0x54, 0x4f, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61,
-	0x64, 0x61, 0x74, 0x61, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x82, 0x01, 0x0a, 0x17, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72,
+	0x69, 0x62, 0x65, 0x55, 0x6e, 0x69, 0x64, 0x69, 0x72, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x61,
+	0x6c, 0x12, 0x2e, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x61, 0x6c, 0x2e,
+	0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x78, 0x79,
+	0x2e, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x35, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x61, 0x6c, 0x2e,
+	0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x78, 0x79,
+	0x2e, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x30, 0x01, 0x12, 0x89, 0x01, 0x0a, 0x16, 0x53,
+	0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x42, 0x69, 0x64, 0x69, 0x72, 0x65, 0x63, 0x74,
+	0x69, 0x6f, 0x6e, 0x61, 0x6c, 0x12, 0x34, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75,
+	0x67, 0x61, 0x6c, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x2e, 0x70,
+	0x72, 0x6f, 0x78, 0x79, 0x2e, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x53, 0x75, 0x62, 0x73, 0x63,
+	0x72, 0x69, 0x62, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x35, 0x2e, 0x63, 0x65,
+	0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x61, 0x6c, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69,
+	0x66, 0x75, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x53, 0x74, 0x72, 0x65, 0x61,
+	0x6d, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x28, 0x01, 0x30, 0x01, 0x12, 0x87, 0x01, 0x0a, 0x12, 0x4e, 0x6f, 0x74, 0x69, 0x66,
+	0x79, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x53, 0x74, 0x61, 0x74, 0x65, 0x12, 0x37, 0x2e,
+	0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x61, 0x6c, 0x2e, 0x63, 0x65, 0x6e, 0x74,
+	0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x4e, 0x6f, 0x74,
+	0x69, 0x66, 0x79, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x38, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66,
+	0x75, 0x67, 0x61, 0x6c, 0x2e, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x2e,
+	0x70, 0x72, 0x6f, 0x78, 0x79, 0x2e, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x79, 0x43, 0x68, 0x61, 0x6e,
+	0x6e, 0x65, 0x6c, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x42, 0x6d, 0x5a, 0x13, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x6f, 0x2f, 0x70,
+	0x72, 0x6f, 0x78, 0x79, 0x2f, 0x76, 0x31, 0xca, 0x02, 0x23, 0x52, 0x6f, 0x61, 0x64, 0x52, 0x75,
+	0x6e, 0x6e, 0x65, 0x72, 0x5c, 0x43, 0x65, 0x6e, 0x74, 0x72, 0x69, 0x66, 0x75, 0x67, 0x61, 0x6c,
+	0x5c, 0x50, 0x72, 0x6f, 0x78, 0x79, 0x5c, 0x44, 0x54, 0x4f, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x2f,
+	0x52, 0x6f, 0x61, 0x64, 0x52, 0x75, 0x6e, 0x6e, 0x65, 0x72, 0x5c, 0x43, 0x65, 0x6e, 0x74, 0x72,
+	0x69, 0x66, 0x75, 0x67, 0x61, 0x6c, 0x5c, 0x50, 0x72, 0x6f, 0x78, 0x79, 0x5c, 0x44, 0x54, 0x4f,
+	0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2335,38 +2799,46 @@ func file_centrifugo_proxy_v1_proxy_proto_rawDescGZIP() []byte {
 	return file_centrifugo_proxy_v1_proxy_proto_rawDescData
 }
 
-var file_centrifugo_proxy_v1_proxy_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
+var file_centrifugo_proxy_v1_proxy_proto_msgTypes = make([]protoimpl.MessageInfo, 34)
 var file_centrifugo_proxy_v1_proxy_proto_goTypes = []interface{}{
-	(*Disconnect)(nil),              // 0: centrifugal.centrifugo.proxy.Disconnect
-	(*Error)(nil),                   // 1: centrifugal.centrifugo.proxy.Error
-	(*ConnectRequest)(nil),          // 2: centrifugal.centrifugo.proxy.ConnectRequest
-	(*SubscribeOptions)(nil),        // 3: centrifugal.centrifugo.proxy.SubscribeOptions
-	(*ConnectResult)(nil),           // 4: centrifugal.centrifugo.proxy.ConnectResult
-	(*ChannelsCapability)(nil),      // 5: centrifugal.centrifugo.proxy.ChannelsCapability
-	(*ConnectResponse)(nil),         // 6: centrifugal.centrifugo.proxy.ConnectResponse
-	(*RefreshRequest)(nil),          // 7: centrifugal.centrifugo.proxy.RefreshRequest
-	(*RefreshResult)(nil),           // 8: centrifugal.centrifugo.proxy.RefreshResult
-	(*RefreshResponse)(nil),         // 9: centrifugal.centrifugo.proxy.RefreshResponse
-	(*SubscribeRequest)(nil),        // 10: centrifugal.centrifugo.proxy.SubscribeRequest
-	(*BoolValue)(nil),               // 11: centrifugal.centrifugo.proxy.BoolValue
-	(*Int32Value)(nil),              // 12: centrifugal.centrifugo.proxy.Int32Value
-	(*SubscribeOptionOverride)(nil), // 13: centrifugal.centrifugo.proxy.SubscribeOptionOverride
-	(*SubscribeResult)(nil),         // 14: centrifugal.centrifugo.proxy.SubscribeResult
-	(*SubscribeResponse)(nil),       // 15: centrifugal.centrifugo.proxy.SubscribeResponse
-	(*PublishRequest)(nil),          // 16: centrifugal.centrifugo.proxy.PublishRequest
-	(*PublishResult)(nil),           // 17: centrifugal.centrifugo.proxy.PublishResult
-	(*PublishResponse)(nil),         // 18: centrifugal.centrifugo.proxy.PublishResponse
-	(*RPCRequest)(nil),              // 19: centrifugal.centrifugo.proxy.RPCRequest
-	(*RPCResult)(nil),               // 20: centrifugal.centrifugo.proxy.RPCResult
-	(*RPCResponse)(nil),             // 21: centrifugal.centrifugo.proxy.RPCResponse
-	(*SubRefreshRequest)(nil),       // 22: centrifugal.centrifugo.proxy.SubRefreshRequest
-	(*SubRefreshResult)(nil),        // 23: centrifugal.centrifugo.proxy.SubRefreshResult
-	(*SubRefreshResponse)(nil),      // 24: centrifugal.centrifugo.proxy.SubRefreshResponse
-	nil,                             // 25: centrifugal.centrifugo.proxy.ConnectResult.SubsEntry
+	(*Disconnect)(nil),                 // 0: centrifugal.centrifugo.proxy.Disconnect
+	(*Error)(nil),                      // 1: centrifugal.centrifugo.proxy.Error
+	(*ConnectRequest)(nil),             // 2: centrifugal.centrifugo.proxy.ConnectRequest
+	(*SubscribeOptions)(nil),           // 3: centrifugal.centrifugo.proxy.SubscribeOptions
+	(*ConnectResult)(nil),              // 4: centrifugal.centrifugo.proxy.ConnectResult
+	(*ChannelsCapability)(nil),         // 5: centrifugal.centrifugo.proxy.ChannelsCapability
+	(*ConnectResponse)(nil),            // 6: centrifugal.centrifugo.proxy.ConnectResponse
+	(*RefreshRequest)(nil),             // 7: centrifugal.centrifugo.proxy.RefreshRequest
+	(*RefreshResult)(nil),              // 8: centrifugal.centrifugo.proxy.RefreshResult
+	(*RefreshResponse)(nil),            // 9: centrifugal.centrifugo.proxy.RefreshResponse
+	(*SubscribeRequest)(nil),           // 10: centrifugal.centrifugo.proxy.SubscribeRequest
+	(*BoolValue)(nil),                  // 11: centrifugal.centrifugo.proxy.BoolValue
+	(*Int32Value)(nil),                 // 12: centrifugal.centrifugo.proxy.Int32Value
+	(*SubscribeOptionOverride)(nil),    // 13: centrifugal.centrifugo.proxy.SubscribeOptionOverride
+	(*SubscribeResult)(nil),            // 14: centrifugal.centrifugo.proxy.SubscribeResult
+	(*SubscribeResponse)(nil),          // 15: centrifugal.centrifugo.proxy.SubscribeResponse
+	(*PublishRequest)(nil),             // 16: centrifugal.centrifugo.proxy.PublishRequest
+	(*PublishResult)(nil),              // 17: centrifugal.centrifugo.proxy.PublishResult
+	(*PublishResponse)(nil),            // 18: centrifugal.centrifugo.proxy.PublishResponse
+	(*RPCRequest)(nil),                 // 19: centrifugal.centrifugo.proxy.RPCRequest
+	(*RPCResult)(nil),                  // 20: centrifugal.centrifugo.proxy.RPCResult
+	(*RPCResponse)(nil),                // 21: centrifugal.centrifugo.proxy.RPCResponse
+	(*SubRefreshRequest)(nil),          // 22: centrifugal.centrifugo.proxy.SubRefreshRequest
+	(*SubRefreshResult)(nil),           // 23: centrifugal.centrifugo.proxy.SubRefreshResult
+	(*SubRefreshResponse)(nil),         // 24: centrifugal.centrifugo.proxy.SubRefreshResponse
+	(*Publication)(nil),                // 25: centrifugal.centrifugo.proxy.Publication
+	(*StreamSubscribeRequest)(nil),     // 26: centrifugal.centrifugo.proxy.StreamSubscribeRequest
+	(*StreamSubscribeResponse)(nil),    // 27: centrifugal.centrifugo.proxy.StreamSubscribeResponse
+	(*NotifyChannelStateRequest)(nil),  // 28: centrifugal.centrifugo.proxy.NotifyChannelStateRequest
+	(*ChannelEvent)(nil),               // 29: centrifugal.centrifugo.proxy.ChannelEvent
+	(*NotifyChannelStateResponse)(nil), // 30: centrifugal.centrifugo.proxy.NotifyChannelStateResponse
+	(*NotifyChannelStateResult)(nil),   // 31: centrifugal.centrifugo.proxy.NotifyChannelStateResult
+	nil,                                // 32: centrifugal.centrifugo.proxy.ConnectResult.SubsEntry
+	nil,                                // 33: centrifugal.centrifugo.proxy.Publication.TagsEntry
 }
 var file_centrifugo_proxy_v1_proxy_proto_depIdxs = []int32{
 	13, // 0: centrifugal.centrifugo.proxy.SubscribeOptions.override:type_name -> centrifugal.centrifugo.proxy.SubscribeOptionOverride
-	25, // 1: centrifugal.centrifugo.proxy.ConnectResult.subs:type_name -> centrifugal.centrifugo.proxy.ConnectResult.SubsEntry
+	32, // 1: centrifugal.centrifugo.proxy.ConnectResult.subs:type_name -> centrifugal.centrifugo.proxy.ConnectResult.SubsEntry
 	5,  // 2: centrifugal.centrifugo.proxy.ConnectResult.caps:type_name -> centrifugal.centrifugo.proxy.ChannelsCapability
 	4,  // 3: centrifugal.centrifugo.proxy.ConnectResponse.result:type_name -> centrifugal.centrifugo.proxy.ConnectResult
 	1,  // 4: centrifugal.centrifugo.proxy.ConnectResponse.error:type_name -> centrifugal.centrifugo.proxy.Error
@@ -2393,24 +2865,38 @@ var file_centrifugo_proxy_v1_proxy_proto_depIdxs = []int32{
 	23, // 25: centrifugal.centrifugo.proxy.SubRefreshResponse.result:type_name -> centrifugal.centrifugo.proxy.SubRefreshResult
 	1,  // 26: centrifugal.centrifugo.proxy.SubRefreshResponse.error:type_name -> centrifugal.centrifugo.proxy.Error
 	0,  // 27: centrifugal.centrifugo.proxy.SubRefreshResponse.disconnect:type_name -> centrifugal.centrifugo.proxy.Disconnect
-	3,  // 28: centrifugal.centrifugo.proxy.ConnectResult.SubsEntry.value:type_name -> centrifugal.centrifugo.proxy.SubscribeOptions
-	2,  // 29: centrifugal.centrifugo.proxy.CentrifugoProxy.Connect:input_type -> centrifugal.centrifugo.proxy.ConnectRequest
-	7,  // 30: centrifugal.centrifugo.proxy.CentrifugoProxy.Refresh:input_type -> centrifugal.centrifugo.proxy.RefreshRequest
-	10, // 31: centrifugal.centrifugo.proxy.CentrifugoProxy.Subscribe:input_type -> centrifugal.centrifugo.proxy.SubscribeRequest
-	16, // 32: centrifugal.centrifugo.proxy.CentrifugoProxy.Publish:input_type -> centrifugal.centrifugo.proxy.PublishRequest
-	19, // 33: centrifugal.centrifugo.proxy.CentrifugoProxy.RPC:input_type -> centrifugal.centrifugo.proxy.RPCRequest
-	22, // 34: centrifugal.centrifugo.proxy.CentrifugoProxy.SubRefresh:input_type -> centrifugal.centrifugo.proxy.SubRefreshRequest
-	6,  // 35: centrifugal.centrifugo.proxy.CentrifugoProxy.Connect:output_type -> centrifugal.centrifugo.proxy.ConnectResponse
-	9,  // 36: centrifugal.centrifugo.proxy.CentrifugoProxy.Refresh:output_type -> centrifugal.centrifugo.proxy.RefreshResponse
-	15, // 37: centrifugal.centrifugo.proxy.CentrifugoProxy.Subscribe:output_type -> centrifugal.centrifugo.proxy.SubscribeResponse
-	18, // 38: centrifugal.centrifugo.proxy.CentrifugoProxy.Publish:output_type -> centrifugal.centrifugo.proxy.PublishResponse
-	21, // 39: centrifugal.centrifugo.proxy.CentrifugoProxy.RPC:output_type -> centrifugal.centrifugo.proxy.RPCResponse
-	24, // 40: centrifugal.centrifugo.proxy.CentrifugoProxy.SubRefresh:output_type -> centrifugal.centrifugo.proxy.SubRefreshResponse
-	35, // [35:41] is the sub-list for method output_type
-	29, // [29:35] is the sub-list for method input_type
-	29, // [29:29] is the sub-list for extension type_name
-	29, // [29:29] is the sub-list for extension extendee
-	0,  // [0:29] is the sub-list for field type_name
+	33, // 28: centrifugal.centrifugo.proxy.Publication.tags:type_name -> centrifugal.centrifugo.proxy.Publication.TagsEntry
+	10, // 29: centrifugal.centrifugo.proxy.StreamSubscribeRequest.subscribe_request:type_name -> centrifugal.centrifugo.proxy.SubscribeRequest
+	25, // 30: centrifugal.centrifugo.proxy.StreamSubscribeRequest.publication:type_name -> centrifugal.centrifugo.proxy.Publication
+	15, // 31: centrifugal.centrifugo.proxy.StreamSubscribeResponse.subscribe_response:type_name -> centrifugal.centrifugo.proxy.SubscribeResponse
+	25, // 32: centrifugal.centrifugo.proxy.StreamSubscribeResponse.publication:type_name -> centrifugal.centrifugo.proxy.Publication
+	29, // 33: centrifugal.centrifugo.proxy.NotifyChannelStateRequest.events:type_name -> centrifugal.centrifugo.proxy.ChannelEvent
+	31, // 34: centrifugal.centrifugo.proxy.NotifyChannelStateResponse.result:type_name -> centrifugal.centrifugo.proxy.NotifyChannelStateResult
+	1,  // 35: centrifugal.centrifugo.proxy.NotifyChannelStateResponse.error:type_name -> centrifugal.centrifugo.proxy.Error
+	3,  // 36: centrifugal.centrifugo.proxy.ConnectResult.SubsEntry.value:type_name -> centrifugal.centrifugo.proxy.SubscribeOptions
+	2,  // 37: centrifugal.centrifugo.proxy.CentrifugoProxy.Connect:input_type -> centrifugal.centrifugo.proxy.ConnectRequest
+	7,  // 38: centrifugal.centrifugo.proxy.CentrifugoProxy.Refresh:input_type -> centrifugal.centrifugo.proxy.RefreshRequest
+	10, // 39: centrifugal.centrifugo.proxy.CentrifugoProxy.Subscribe:input_type -> centrifugal.centrifugo.proxy.SubscribeRequest
+	16, // 40: centrifugal.centrifugo.proxy.CentrifugoProxy.Publish:input_type -> centrifugal.centrifugo.proxy.PublishRequest
+	19, // 41: centrifugal.centrifugo.proxy.CentrifugoProxy.RPC:input_type -> centrifugal.centrifugo.proxy.RPCRequest
+	22, // 42: centrifugal.centrifugo.proxy.CentrifugoProxy.SubRefresh:input_type -> centrifugal.centrifugo.proxy.SubRefreshRequest
+	10, // 43: centrifugal.centrifugo.proxy.CentrifugoProxy.SubscribeUnidirectional:input_type -> centrifugal.centrifugo.proxy.SubscribeRequest
+	26, // 44: centrifugal.centrifugo.proxy.CentrifugoProxy.SubscribeBidirectional:input_type -> centrifugal.centrifugo.proxy.StreamSubscribeRequest
+	28, // 45: centrifugal.centrifugo.proxy.CentrifugoProxy.NotifyChannelState:input_type -> centrifugal.centrifugo.proxy.NotifyChannelStateRequest
+	6,  // 46: centrifugal.centrifugo.proxy.CentrifugoProxy.Connect:output_type -> centrifugal.centrifugo.proxy.ConnectResponse
+	9,  // 47: centrifugal.centrifugo.proxy.CentrifugoProxy.Refresh:output_type -> centrifugal.centrifugo.proxy.RefreshResponse
+	15, // 48: centrifugal.centrifugo.proxy.CentrifugoProxy.Subscribe:output_type -> centrifugal.centrifugo.proxy.SubscribeResponse
+	18, // 49: centrifugal.centrifugo.proxy.CentrifugoProxy.Publish:output_type -> centrifugal.centrifugo.proxy.PublishResponse
+	21, // 50: centrifugal.centrifugo.proxy.CentrifugoProxy.RPC:output_type -> centrifugal.centrifugo.proxy.RPCResponse
+	24, // 51: centrifugal.centrifugo.proxy.CentrifugoProxy.SubRefresh:output_type -> centrifugal.centrifugo.proxy.SubRefreshResponse
+	27, // 52: centrifugal.centrifugo.proxy.CentrifugoProxy.SubscribeUnidirectional:output_type -> centrifugal.centrifugo.proxy.StreamSubscribeResponse
+	27, // 53: centrifugal.centrifugo.proxy.CentrifugoProxy.SubscribeBidirectional:output_type -> centrifugal.centrifugo.proxy.StreamSubscribeResponse
+	30, // 54: centrifugal.centrifugo.proxy.CentrifugoProxy.NotifyChannelState:output_type -> centrifugal.centrifugo.proxy.NotifyChannelStateResponse
+	46, // [46:55] is the sub-list for method output_type
+	37, // [37:46] is the sub-list for method input_type
+	37, // [37:37] is the sub-list for extension type_name
+	37, // [37:37] is the sub-list for extension extendee
+	0,  // [0:37] is the sub-list for field type_name
 }
 
 func init() { file_centrifugo_proxy_v1_proxy_proto_init() }
@@ -2719,6 +3205,90 @@ func file_centrifugo_proxy_v1_proxy_proto_init() {
 				return nil
 			}
 		}
+		file_centrifugo_proxy_v1_proxy_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Publication); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_centrifugo_proxy_v1_proxy_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*StreamSubscribeRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_centrifugo_proxy_v1_proxy_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*StreamSubscribeResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_centrifugo_proxy_v1_proxy_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*NotifyChannelStateRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_centrifugo_proxy_v1_proxy_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ChannelEvent); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_centrifugo_proxy_v1_proxy_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*NotifyChannelStateResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_centrifugo_proxy_v1_proxy_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*NotifyChannelStateResult); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -2726,7 +3296,7 @@ func file_centrifugo_proxy_v1_proxy_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_centrifugo_proxy_v1_proxy_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   26,
+			NumMessages:   34,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
