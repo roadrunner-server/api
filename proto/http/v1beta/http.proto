@@ -8,6 +8,7 @@ option go_package = "http/v1beta";
 option php_metadata_namespace = "RoadRunner\\HTTP\\DTO\\V1BETA1\\GPBMetadata";
 option php_namespace = "RoadRunner\\HTTP\\DTO\\V1BETA1";
 
+// proto http request
 message Request {
   string remote_addr = 1;
   string protocol = 2;
@@ -15,13 +16,10 @@ message Request {
   string uri = 4;
   map<string, HeaderValue> header = 5;
   map<string, HeaderValue> cookies = 6;
-  map<string, HeaderValue> form_query = 7;
-  Uploads uploads = 10;
-  // string raw_query = 7;
-  // bool parsed = 8;
-  // map<string, HeaderValue> attributes = 9;
-  // bytes body = 11;
-  // bytes raw_body = 12;
+  string raw_query = 7;
+  bool parsed = 8;
+  Uploads uploads = 9;
+  map<string, HeaderValue> attributes = 10;
 }
 
 message Response {
@@ -39,9 +37,20 @@ message FileUpload {
   int64 size = 3;
   int64 error = 4;
   string temp_filename = 5;
-  google.protobuf.Any header = 9;
+  FileHeader header = 6;
+}
+
+message FileHeader {
+	string filename = 1;
+	map<string, HeaderValue> header = 2;
+	int64 size = 3;
 }
 
 message HeaderValue {
   repeated string value = 1;
+}
+
+// backward compatibility
+message Body {
+	bytes body = 1;
 }
