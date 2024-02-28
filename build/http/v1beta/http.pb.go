@@ -21,6 +21,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// proto http request
 type Request struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -439,6 +440,7 @@ func (x *HeaderValue) GetValue() []string {
 	return nil
 }
 
+// backward compatibility
 type Body struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
