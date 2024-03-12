@@ -14,12 +14,16 @@ message Request {
   string protocol = 2;
   string method = 3;
   string uri = 4;
-  map<string, HeaderValue> header = 5;
-  map<string, HeaderValue> cookies = 6;
+  Header header = 5;
+  Header cookies = 6;
   string raw_query = 7;
   bool parsed = 8;
   Uploads uploads = 9;
-  map<string, HeaderValue> attributes = 10;
+  Header attributes = 10;
+}
+
+message Header {
+	map<string, HeaderValue> header = 1;
 }
 
 message Response {
@@ -28,7 +32,11 @@ message Response {
 }
 
 message Uploads {
-  repeated FileUpload list = 1;
+  map<string, FileUploadArray> uploads = 1;
+}
+
+message FileUploadArray {
+	repeated FileUpload tree = 1;
 }
 
 message FileUpload {
@@ -52,5 +60,8 @@ message HeaderValue {
 
 // backward compatibility
 message Body {
-	bytes body = 1;
+	oneof data {
+			Header header = 1;
+			bytes body = 2;
+	}
 }
