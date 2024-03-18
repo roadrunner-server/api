@@ -61,8 +61,8 @@ message HeaderValue {
 
 message BodyHeaderValue {
 	oneof value {
-		string data = 1;
-		BodyArray data = 2;
+		string data_str = 1;
+		BodyArray data_arr = 2;
 	}
 }
 
