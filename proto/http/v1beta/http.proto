@@ -55,13 +55,29 @@ message FileHeader {
 }
 
 message HeaderValue {
-  repeated string value = 1;
+	repeated string value = 1;
+}
+
+
+message BodyHeaderValue {
+	oneof value {
+		string data = 1;
+		BodyArray data = 2;
+	}
+}
+
+message BodyArray {
+	repeated string body_array = 1;
+}
+
+message BodyHeader {
+	map<string, BodyHeaderValue> header = 1;
 }
 
 // backward compatibility
 message Body {
 	oneof data {
-			Header header = 1;
+			BodyHeader header = 1;
 			bytes body = 2;
 	}
 }
