@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package http.v1beta;
+package http.v1;
 
 import "google/protobuf/any.proto";
 
-option go_package = "http/v1beta";
-option php_metadata_namespace = "RoadRunner\\HTTP\\DTO\\V1BETA1\\GPBMetadata";
-option php_namespace = "RoadRunner\\HTTP\\DTO\\V1BETA1";
+option go_package = "http/v1";
+option php_metadata_namespace = "RoadRunner\\HTTP\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\HTTP\\DTO\\V1";
 
 // proto http request
 message Request {
@@ -14,12 +14,12 @@ message Request {
   string protocol = 2;
   string method = 3;
   string uri = 4;
-  Header header = 5;
-  Header cookies = 6;
+  map<string, HeaderValue> header = 5;
+  map<string, HeaderValue> cookies = 6;
   string raw_query = 7;
   bool parsed = 8;
   Uploads uploads = 9;
-  Header attributes = 10;
+  map<string, HeaderValue> attributes = 10;
 }
 
 message Header {
@@ -45,7 +45,7 @@ message FileUpload {
   int64 size = 3;
   int64 error = 4;
   string temp_filename = 5;
-  FileHeader header = 6;
+  FileHeader file_header = 6;
 }
 
 message FileHeader {
@@ -62,19 +62,18 @@ message HeaderValue {
 message BodyHeaderValue {
 	oneof value {
 		string data_str = 1;
-		BodyArray data_arr = 2;
+		Array data_arr = 2;
 	}
 }
 
-message BodyArray {
-	repeated string body_array = 1;
+message Array {
+	repeated string array = 1;
 }
 
 message BodyHeader {
-	map<string, BodyHeaderValue> header = 1;
+	map<string, BodyHeaderValue> body = 1;
 }
 
-// backward compatibility
 message Body {
 	oneof data {
 			BodyHeader header = 1;
