@@ -8,8 +8,8 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
 github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
-go.temporal.io/api v1.30.0 h1:6U/6lgpXf4UCywYxL3YfssqeI7IQnt9yNzwlfozUi2o=
-go.temporal.io/api v1.30.0/go.mod h1:PIZ+UyGTMh3HJFauMysfanNBAh3f0jRf1xydrhTEcSQ=
+go.temporal.io/api v1.30.1 h1:73UCTi+8l+Qy3GdDypW2FB5rj995A3Pi0mXkSu/qedw=
+go.temporal.io/api v1.30.1/go.mod h1:xI9UdP3s07881dgWzG8idIBAnZq3/aop+O682EIDoT0=
 go.uber.org/goleak v1.3.0 h1:2K3zAYmnTNqV73imy9J1T3WC+gmCePx2hEGkimedGto=
 go.uber.org/goleak v1.3.0/go.mod h1:CoHD4mav9JJNrW/WLlf7HGZPjdw8EucARQHekz1X6bE=
 go.uber.org/multierr v1.11.0 h1:blXXJkSxSSfBVBlC76pxqeO+LN3aDfLQo+309xJstO0=

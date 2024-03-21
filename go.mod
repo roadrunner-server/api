@@ -3,7 +3,7 @@ module github.com/roadrunner-server/api/v4
 go 1.22.1
 
 require (
-	go.temporal.io/api v1.30.0
+	go.temporal.io/api v1.30.1
 	go.uber.org/zap v1.27.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20240318140521-94a12d6c2237
 	google.golang.org/grpc v1.62.1
