@@ -58,25 +58,7 @@ message HeaderValue {
 	repeated string value = 1;
 }
 
-
-message BodyHeaderValue {
-	oneof value {
-		string data_str = 1;
-		Array data_arr = 2;
-	}
-}
-
-message Array {
-	repeated string array = 1;
-}
-
-message BodyHeader {
-	map<string, BodyHeaderValue> body = 1;
-}
-
 message Body {
-	oneof data {
-			BodyHeader header = 1;
-			bytes body = 2;
-	}
+	bytes body = 1;	
+	bool raw_data = 2;
 }

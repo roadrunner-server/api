@@ -534,197 +534,19 @@ func (x *HeaderValue) GetValue() []string {
 	return nil
 }
 
-type BodyHeaderValue struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// Types that are assignable to Value:
-	//
-	//	*BodyHeaderValue_DataStr
-	//	*BodyHeaderValue_DataArr
-	Value isBodyHeaderValue_Value `protobuf_oneof:"value"`
-}
-
-func (x *BodyHeaderValue) Reset() {
-	*x = BodyHeaderValue{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_http_v1_http_proto_msgTypes[8]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *BodyHeaderValue) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*BodyHeaderValue) ProtoMessage() {}
-
-func (x *BodyHeaderValue) ProtoReflect() protoreflect.Message {
-	mi := &file_http_v1_http_proto_msgTypes[8]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use BodyHeaderValue.ProtoReflect.Descriptor instead.
-func (*BodyHeaderValue) Descriptor() ([]byte, []int) {
-	return file_http_v1_http_proto_rawDescGZIP(), []int{8}
-}
-
-func (m *BodyHeaderValue) GetValue() isBodyHeaderValue_Value {
-	if m != nil {
-		return m.Value
-	}
-	return nil
-}
-
-func (x *BodyHeaderValue) GetDataStr() string {
-	if x, ok := x.GetValue().(*BodyHeaderValue_DataStr); ok {
-		return x.DataStr
-	}
-	return ""
-}
-
-func (x *BodyHeaderValue) GetDataArr() *Array {
-	if x, ok := x.GetValue().(*BodyHeaderValue_DataArr); ok {
-		return x.DataArr
-	}
-	return nil
-}
-
-type isBodyHeaderValue_Value interface {
-	isBodyHeaderValue_Value()
-}
-
-type BodyHeaderValue_DataStr struct {
-	DataStr string `protobuf:"bytes,1,opt,name=data_str,json=dataStr,proto3,oneof"`
-}
-
-type BodyHeaderValue_DataArr struct {
-	DataArr *Array `protobuf:"bytes,2,opt,name=data_arr,json=dataArr,proto3,oneof"`
-}
-
-func (*BodyHeaderValue_DataStr) isBodyHeaderValue_Value() {}
-
-func (*BodyHeaderValue_DataArr) isBodyHeaderValue_Value() {}
-
-type Array struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Array []string `protobuf:"bytes,1,rep,name=array,proto3" json:"array,omitempty"`
-}
-
-func (x *Array) Reset() {
-	*x = Array{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_http_v1_http_proto_msgTypes[9]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Array) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Array) ProtoMessage() {}
-
-func (x *Array) ProtoReflect() protoreflect.Message {
-	mi := &file_http_v1_http_proto_msgTypes[9]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Array.ProtoReflect.Descriptor instead.
-func (*Array) Descriptor() ([]byte, []int) {
-	return file_http_v1_http_proto_rawDescGZIP(), []int{9}
-}
-
-func (x *Array) GetArray() []string {
-	if x != nil {
-		return x.Array
-	}
-	return nil
-}
-
-type BodyHeader struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Body map[string]*BodyHeaderValue `protobuf:"bytes,1,rep,name=body,proto3" json:"body,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-}
-
-func (x *BodyHeader) Reset() {
-	*x = BodyHeader{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_http_v1_http_proto_msgTypes[10]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *BodyHeader) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*BodyHeader) ProtoMessage() {}
-
-func (x *BodyHeader) ProtoReflect() protoreflect.Message {
-	mi := &file_http_v1_http_proto_msgTypes[10]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use BodyHeader.ProtoReflect.Descriptor instead.
-func (*BodyHeader) Descriptor() ([]byte, []int) {
-	return file_http_v1_http_proto_rawDescGZIP(), []int{10}
-}
-
-func (x *BodyHeader) GetBody() map[string]*BodyHeaderValue {
-	if x != nil {
-		return x.Body
-	}
-	return nil
-}
-
 type Body struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Types that are assignable to Data:
-	//
-	//	*Body_Header
-	//	*Body_Body
-	Data isBody_Data `protobuf_oneof:"data"`
+	Body    []byte `protobuf:"bytes,1,opt,name=body,proto3" json:"body,omitempty"`
+	RawData bool   `protobuf:"varint,2,opt,name=raw_data,json=rawData,proto3" json:"raw_data,omitempty"`
 }
 
 func (x *Body) Reset() {
 	*x = Body{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_http_v1_http_proto_msgTypes[11]
+		mi := &file_http_v1_http_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -737,7 +559,7 @@ func (x *Body) String() string {
 func (*Body) ProtoMessage() {}
 
 func (x *Body) ProtoReflect() protoreflect.Message {
-	mi := &file_http_v1_http_proto_msgTypes[11]
+	mi := &file_http_v1_http_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -750,45 +572,22 @@ func (x *Body) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Body.ProtoReflect.Descriptor instead.
 func (*Body) Descriptor() ([]byte, []int) {
-	return file_http_v1_http_proto_rawDescGZIP(), []int{11}
-}
-
-func (m *Body) GetData() isBody_Data {
-	if m != nil {
-		return m.Data
-	}
-	return nil
-}
-
-func (x *Body) GetHeader() *BodyHeader {
-	if x, ok := x.GetData().(*Body_Header); ok {
-		return x.Header
-	}
-	return nil
+	return file_http_v1_http_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *Body) GetBody() []byte {
-	if x, ok := x.GetData().(*Body_Body); ok {
+	if x != nil {
 		return x.Body
 	}
 	return nil
 }
 
-type isBody_Data interface {
-	isBody_Data()
+func (x *Body) GetRawData() bool {
+	if x != nil {
+		return x.RawData
+	}
+	return false
 }
-
-type Body_Header struct {
-	Header *BodyHeader `protobuf:"bytes,1,opt,name=header,proto3,oneof"`
-}
-
-type Body_Body struct {
-	Body []byte `protobuf:"bytes,2,opt,name=body,proto3,oneof"`
-}
-
-func (*Body_Header) isBody_Data() {}
-
-func (*Body_Body) isBody_Data() {}
 
 var File_http_v1_http_proto protoreflect.FileDescriptor
 
@@ -896,35 +695,15 @@ var file_http_v1_http_proto_rawDesc = []byte{
 	0x64, 0x65, 0x72, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a,
 	0x02, 0x38, 0x01, 0x22, 0x23, 0x0a, 0x0b, 0x48, 0x65, 0x61, 0x64, 0x65, 0x72, 0x56, 0x61, 0x6c,
 	0x75, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x01, 0x20, 0x03, 0x28,
-	0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22, 0x64, 0x0a, 0x0f, 0x42, 0x6f, 0x64, 0x79,
-	0x48, 0x65, 0x61, 0x64, 0x65, 0x72, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x12, 0x1b, 0x0a, 0x08, 0x64,
-	0x61, 0x74, 0x61, 0x5f, 0x73, 0x74, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52,
-	0x07, 0x64, 0x61, 0x74, 0x61, 0x53, 0x74, 0x72, 0x12, 0x2b, 0x0a, 0x08, 0x64, 0x61, 0x74, 0x61,
-	0x5f, 0x61, 0x72, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x68, 0x74, 0x74,
-	0x70, 0x2e, 0x76, 0x31, 0x2e, 0x41, 0x72, 0x72, 0x61, 0x79, 0x48, 0x00, 0x52, 0x07, 0x64, 0x61,
-	0x74, 0x61, 0x41, 0x72, 0x72, 0x42, 0x07, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22, 0x1d,
-	0x0a, 0x05, 0x41, 0x72, 0x72, 0x61, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x61, 0x72, 0x72, 0x61, 0x79,
-	0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x05, 0x61, 0x72, 0x72, 0x61, 0x79, 0x22, 0x92, 0x01,
-	0x0a, 0x0a, 0x42, 0x6f, 0x64, 0x79, 0x48, 0x65, 0x61, 0x64, 0x65, 0x72, 0x12, 0x31, 0x0a, 0x04,
-	0x62, 0x6f, 0x64, 0x79, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x68, 0x74, 0x74,
-	0x70, 0x2e, 0x76, 0x31, 0x2e, 0x42, 0x6f, 0x64, 0x79, 0x48, 0x65, 0x61, 0x64, 0x65, 0x72, 0x2e,
-	0x42, 0x6f, 0x64, 0x79, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x1a,
-	0x51, 0x0a, 0x09, 0x42, 0x6f, 0x64, 0x79, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03,
-	0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x2e,
-	0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e,
-	0x68, 0x74, 0x74, 0x70, 0x2e, 0x76, 0x31, 0x2e, 0x42, 0x6f, 0x64, 0x79, 0x48, 0x65, 0x61, 0x64,
-	0x65, 0x72, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02,
-	0x38, 0x01, 0x22, 0x53, 0x0a, 0x04, 0x42, 0x6f, 0x64, 0x79, 0x12, 0x2d, 0x0a, 0x06, 0x68, 0x65,
-	0x61, 0x64, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x68, 0x74, 0x74,
-	0x70, 0x2e, 0x76, 0x31, 0x2e, 0x42, 0x6f, 0x64, 0x79, 0x48, 0x65, 0x61, 0x64, 0x65, 0x72, 0x48,
-	0x00, 0x52, 0x06, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x12, 0x14, 0x0a, 0x04, 0x62, 0x6f, 0x64,
-	0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0c, 0x48, 0x00, 0x52, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x42,
-	0x06, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x42, 0x47, 0x5a, 0x07, 0x68, 0x74, 0x74, 0x70, 0x2f,
-	0x76, 0x31, 0xca, 0x02, 0x16, 0x52, 0x6f, 0x61, 0x64, 0x52, 0x75, 0x6e, 0x6e, 0x65, 0x72, 0x5c,
-	0x48, 0x54, 0x54, 0x50, 0x5c, 0x44, 0x54, 0x4f, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x22, 0x52, 0x6f,
-	0x61, 0x64, 0x52, 0x75, 0x6e, 0x6e, 0x65, 0x72, 0x5c, 0x48, 0x54, 0x54, 0x50, 0x5c, 0x44, 0x54,
-	0x4f, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22, 0x35, 0x0a, 0x04, 0x42, 0x6f, 0x64, 0x79,
+	0x12, 0x12, 0x0a, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04,
+	0x62, 0x6f, 0x64, 0x79, 0x12, 0x19, 0x0a, 0x08, 0x72, 0x61, 0x77, 0x5f, 0x64, 0x61, 0x74, 0x61,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x72, 0x61, 0x77, 0x44, 0x61, 0x74, 0x61, 0x42,
+	0x47, 0x5a, 0x07, 0x68, 0x74, 0x74, 0x70, 0x2f, 0x76, 0x31, 0xca, 0x02, 0x16, 0x52, 0x6f, 0x61,
+	0x64, 0x52, 0x75, 0x6e, 0x6e, 0x65, 0x72, 0x5c, 0x48, 0x54, 0x54, 0x50, 0x5c, 0x44, 0x54, 0x4f,
+	0x5c, 0x56, 0x31, 0xe2, 0x02, 0x22, 0x52, 0x6f, 0x61, 0x64, 0x52, 0x75, 0x6e, 0x6e, 0x65, 0x72,
+	0x5c, 0x48, 0x54, 0x54, 0x50, 0x5c, 0x44, 0x54, 0x4f, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42,
+	0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -939,7 +718,7 @@ func file_http_v1_http_proto_rawDescGZIP() []byte {
 	return file_http_v1_http_proto_rawDescData
 }
 
-var file_http_v1_http_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
+var file_http_v1_http_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_http_v1_http_proto_goTypes = []interface{}{
 	(*Request)(nil),         // 0: http.v1.Request
 	(*Header)(nil),          // 1: http.v1.Header
@@ -949,46 +728,38 @@ var file_http_v1_http_proto_goTypes = []interface{}{
 	(*FileUpload)(nil),      // 5: http.v1.FileUpload
 	(*FileHeader)(nil),      // 6: http.v1.FileHeader
 	(*HeaderValue)(nil),     // 7: http.v1.HeaderValue
-	(*BodyHeaderValue)(nil), // 8: http.v1.BodyHeaderValue
-	(*Array)(nil),           // 9: http.v1.Array
-	(*BodyHeader)(nil),      // 10: http.v1.BodyHeader
-	(*Body)(nil),            // 11: http.v1.Body
-	nil,                     // 12: http.v1.Request.HeaderEntry
-	nil,                     // 13: http.v1.Request.CookiesEntry
-	nil,                     // 14: http.v1.Request.AttributesEntry
-	nil,                     // 15: http.v1.Header.HeaderEntry
-	nil,                     // 16: http.v1.Response.HeadersEntry
-	nil,                     // 17: http.v1.Uploads.UploadsEntry
-	nil,                     // 18: http.v1.FileHeader.HeaderEntry
-	nil,                     // 19: http.v1.BodyHeader.BodyEntry
+	(*Body)(nil),            // 8: http.v1.Body
+	nil,                     // 9: http.v1.Request.HeaderEntry
+	nil,                     // 10: http.v1.Request.CookiesEntry
+	nil,                     // 11: http.v1.Request.AttributesEntry
+	nil,                     // 12: http.v1.Header.HeaderEntry
+	nil,                     // 13: http.v1.Response.HeadersEntry
+	nil,                     // 14: http.v1.Uploads.UploadsEntry
+	nil,                     // 15: http.v1.FileHeader.HeaderEntry
 }
 var file_http_v1_http_proto_depIdxs = []int32{
-	12, // 0: http.v1.Request.header:type_name -> http.v1.Request.HeaderEntry
-	13, // 1: http.v1.Request.cookies:type_name -> http.v1.Request.CookiesEntry
+	9,  // 0: http.v1.Request.header:type_name -> http.v1.Request.HeaderEntry
+	10, // 1: http.v1.Request.cookies:type_name -> http.v1.Request.CookiesEntry
 	3,  // 2: http.v1.Request.uploads:type_name -> http.v1.Uploads
-	14, // 3: http.v1.Request.attributes:type_name -> http.v1.Request.AttributesEntry
-	15, // 4: http.v1.Header.header:type_name -> http.v1.Header.HeaderEntry
-	16, // 5: http.v1.Response.headers:type_name -> http.v1.Response.HeadersEntry
-	17, // 6: http.v1.Uploads.uploads:type_name -> http.v1.Uploads.UploadsEntry
+	11, // 3: http.v1.Request.attributes:type_name -> http.v1.Request.AttributesEntry
+	12, // 4: http.v1.Header.header:type_name -> http.v1.Header.HeaderEntry
+	13, // 5: http.v1.Response.headers:type_name -> http.v1.Response.HeadersEntry
+	14, // 6: http.v1.Uploads.uploads:type_name -> http.v1.Uploads.UploadsEntry
 	5,  // 7: http.v1.FileUploadArray.tree:type_name -> http.v1.FileUpload
 	6,  // 8: http.v1.FileUpload.file_header:type_name -> http.v1.FileHeader
-	18, // 9: http.v1.FileHeader.header:type_name -> http.v1.FileHeader.HeaderEntry
-	9,  // 10: http.v1.BodyHeaderValue.data_arr:type_name -> http.v1.Array
-	19, // 11: http.v1.BodyHeader.body:type_name -> http.v1.BodyHeader.BodyEntry
-	10, // 12: http.v1.Body.header:type_name -> http.v1.BodyHeader
-	7,  // 13: http.v1.Request.HeaderEntry.value:type_name -> http.v1.HeaderValue
-	7,  // 14: http.v1.Request.CookiesEntry.value:type_name -> http.v1.HeaderValue
-	7,  // 15: http.v1.Request.AttributesEntry.value:type_name -> http.v1.HeaderValue
-	7,  // 16: http.v1.Header.HeaderEntry.value:type_name -> http.v1.HeaderValue
-	7,  // 17: http.v1.Response.HeadersEntry.value:type_name -> http.v1.HeaderValue
-	4,  // 18: http.v1.Uploads.UploadsEntry.value:type_name -> http.v1.FileUploadArray
-	7,  // 19: http.v1.FileHeader.HeaderEntry.value:type_name -> http.v1.HeaderValue
-	8,  // 20: http.v1.BodyHeader.BodyEntry.value:type_name -> http.v1.BodyHeaderValue
-	21, // [21:21] is the sub-list for method output_type
-	21, // [21:21] is the sub-list for method input_type
-	21, // [21:21] is the sub-list for extension type_name
-	21, // [21:21] is the sub-list for extension extendee
-	0,  // [0:21] is the sub-list for field type_name
+	15, // 9: http.v1.FileHeader.header:type_name -> http.v1.FileHeader.HeaderEntry
+	7,  // 10: http.v1.Request.HeaderEntry.value:type_name -> http.v1.HeaderValue
+	7,  // 11: http.v1.Request.CookiesEntry.value:type_name -> http.v1.HeaderValue
+	7,  // 12: http.v1.Request.AttributesEntry.value:type_name -> http.v1.HeaderValue
+	7,  // 13: http.v1.Header.HeaderEntry.value:type_name -> http.v1.HeaderValue
+	7,  // 14: http.v1.Response.HeadersEntry.value:type_name -> http.v1.HeaderValue
+	4,  // 15: http.v1.Uploads.UploadsEntry.value:type_name -> http.v1.FileUploadArray
+	7,  // 16: http.v1.FileHeader.HeaderEntry.value:type_name -> http.v1.HeaderValue
+	17, // [17:17] is the sub-list for method output_type
+	17, // [17:17] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_http_v1_http_proto_init() }
@@ -1094,42 +865,6 @@ func file_http_v1_http_proto_init() {
 			}
 		}
 		file_http_v1_http_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BodyHeaderValue); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_http_v1_http_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Array); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_http_v1_http_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BodyHeader); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_http_v1_http_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Body); i {
 			case 0:
 				return &v.state
@@ -1142,21 +877,13 @@ func file_http_v1_http_proto_init() {
 			}
 		}
 	}
-	file_http_v1_http_proto_msgTypes[8].OneofWrappers = []interface{}{
-		(*BodyHeaderValue_DataStr)(nil),
-		(*BodyHeaderValue_DataArr)(nil),
-	}
-	file_http_v1_http_proto_msgTypes[11].OneofWrappers = []interface{}{
-		(*Body_Header)(nil),
-		(*Body_Body)(nil),
-	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_http_v1_http_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   20,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
