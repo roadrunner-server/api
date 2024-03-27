@@ -34,7 +34,3 @@ message Response {
 message HeaderValue {
 	repeated string value = 1;
 }
-
-message Body {
-	bytes body = 1;	
-}
