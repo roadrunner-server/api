@@ -24,7 +24,7 @@ type Job interface {
 	// Nack discards the item
 	Nack() error
 	// NackWithOptions discards the item with an optional requeue flag
-	NackWithOptions(requeue bool, delay int)
+	NackWithOptions(requeue bool, delay int) error
 	// Requeue puts the message back to the queue with an optional delay
 	Requeue(headers map[string][]string, delay int) error
 	// Body returns the payload associated with the item
