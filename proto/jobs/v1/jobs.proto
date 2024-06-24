@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package jobs.v1;
 
-option go_package = "jobs/v1";
+option go_package = "github.com/roadrunner-server/api/v4/build/jobs/v1;jobsV1";
 option php_metadata_namespace = "RoadRunner\\Jobs\\DTO\\V1\\GPBMetadata";
 option php_namespace = "RoadRunner\\Jobs\\DTO\\V1";
 

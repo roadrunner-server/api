@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package applogger.v1;
 
-option go_package = "applogger/v1";
+option go_package = "github.com/roadrunner-server/api/v4/build/applogger/v1";
 option php_metadata_namespace = "RoadRunner\\AppLogger\\DTO\\V1\\GPBMetadata";
 option php_namespace = "RoadRunner\\AppLogger\\DTO\\V1";
 
