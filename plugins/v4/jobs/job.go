@@ -13,7 +13,7 @@ type Queue interface {
 	// ExtractMin returns the item with the highest priority (less value is the highest priority)
 	ExtractMin() Job
 	// Len returns the number of items in the queue
-	Len() uint
+	Len() uint64
 }
 
 // Job represents a binary heap item
@@ -44,12 +44,12 @@ type Message interface {
 	// Payload returns the data associated with the job
 	Payload() []byte
 	// Delay returns the delay time for the Job (not supported by all drivers)
-	Delay() int
+	Delay() int64
 	// AutoAck returns the autocommit status for the Job
 	AutoAck() bool
 	// UpdatePriority sets the priority of the Job. Priority is optional but cannot be set to 0.
 	// The default priority is 10
-	UpdatePriority(int)
+	UpdatePriority(int64)
 	// Headers returns the metadata for the item
 	Headers() map[string][]string
 }
@@ -57,9 +57,9 @@ type Message interface {
 // KAFKA options (leave them empty for other drivers)
 type KafkaOptions interface {
 	// Offset returns the offset associated with the Job
-	Offset() int
+	Offset() int64
 	// Partition returns the partition associated with the Job
-	Partition() int
+	Partition() int32
 	// Topic returns the topic associated with the Job
 	Topic() string
 	// Metadata returns the metadata associated with the Job
