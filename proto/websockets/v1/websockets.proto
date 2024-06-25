@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package websockets.v1;
 
-option go_package = "websockets/v1";
+option go_package = "github.com/roadrunner-server/api/v4/build/websockets/v1;websocketsV1";
 option php_metadata_namespace = "RoadRunner\\Websockets\\DTO\\V1\\GPBMetadata";
 option php_namespace = "RoadRunner\\Websockets\\DTO\\V1";
 

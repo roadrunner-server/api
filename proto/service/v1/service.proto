@@ -4,7 +4,7 @@ package service.v1;
 
 import "common/v1/grpc_status.proto";
 
-option go_package = "service/v1";
+option go_package = "github.com/roadrunner-server/api/v4/build/service/v1;serviceV1";
 option php_metadata_namespace = "RoadRunner\\Service\\DTO\\V1\\GPBMetadata";
 option php_namespace = "RoadRunner\\Service\\DTO\\V1";
 

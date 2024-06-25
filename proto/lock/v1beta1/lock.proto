@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package lock.v1beta1;
 
-option go_package = "lock/v1beta1";
+option go_package = "github.com/roadrunner-server/api/v4/build/lock/v1beta1;lockV1Beta1";
 option php_metadata_namespace = "RoadRunner\\Lock\\DTO\\V1BETA1\\GPBMetadata";
 option php_namespace = "RoadRunner\\Lock\\DTO\\V1BETA1";
 
