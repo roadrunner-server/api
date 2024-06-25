@@ -85,7 +85,7 @@ type Pipeline interface {
 	// This might be used for SQS attributes or tags, for example
 	Map(name string, out map[string]string) error
 	// Priority returns the default pipeline priority
-	Priority() int
+	Priority() int64
 	// Get is used to retrieve the data associated with a key
 	Get(key string) interface{}
 }
