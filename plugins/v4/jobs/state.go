@@ -11,12 +11,6 @@ const (
 	RRAutoAck  string = "rr_auto_ack"
 )
 
-type Command string
-
-const (
-	Stop Command = "stop"
-)
-
 // State represents job's state
 type State struct {
 	// Pipeline name

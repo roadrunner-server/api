@@ -2,6 +2,9 @@ module github.com/roadrunner-server/api/v4
 
 go 1.22.4
 
+// Removed cmder API
+retract v4.13.0
+
 require (
 	go.temporal.io/api v1.34.0
 	go.uber.org/zap v1.27.0
