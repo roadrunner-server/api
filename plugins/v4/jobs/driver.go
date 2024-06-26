@@ -20,20 +20,12 @@ type Driver interface {
 	State(ctx context.Context) (*State, error)
 }
 
-// Commander provides the ability to send a command to the Jobs plugin
-type Commander interface {
-	// Command returns the command name
-	Command() Command
-	// Pipeline returns the associated command pipeline
-	Pipeline() string
-}
-
 // Constructor constructs Consumer interface. Endure abstraction.
 type Constructor interface {
 	// Name returns the name of the driver
 	Name() string
 	// DriverFromConfig constructs a driver (e.g. kafka, amqp) from the configuration using the provided configKey
-	DriverFromConfig(configKey string, queue Queue, pipeline Pipeline, cmder chan<- Commander) (Driver, error)
+	DriverFromConfig(configKey string, queue Queue, pipeline Pipeline) (Driver, error)
 	// DriverFromPipeline constructs a driver (e.g. kafka, amqp) from the pipeline. All configuration is provided by the pipeline
-	DriverFromPipeline(pipe Pipeline, queue Queue, cmder chan<- Commander) (Driver, error)
+	DriverFromPipeline(pipe Pipeline, queue Queue) (Driver, error)
 }
