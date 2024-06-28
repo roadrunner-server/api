@@ -818,6 +818,7 @@ type EndpointSpec struct {
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	// Markdown description serialized as a single JSON string.
 	// If the Payload is encrypted, the UI and CLI may decrypt with the configured codec server endpoint.
+	// By default, the server enforces a limit of 20,000 bytes for this entire payload.
 	Description *v1.Payload `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
 	// Target to route requests to.
 	Target *EndpointTarget `protobuf:"bytes,3,opt,name=target,proto3" json:"target,omitempty"`
