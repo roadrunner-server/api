@@ -6,7 +6,7 @@ import (
 
 // Queue represents JOBS plugin queue with it's elements types inside
 type Queue interface {
-	// Remove removes element with provided ID (if exists) and returns that elements
+	// Remove removes an element with provided ID (if exists) and returns that element
 	Remove(id string) []Job
 	// Insert adds an item to the queue
 	Insert(item Job)
@@ -31,7 +31,7 @@ type Job interface {
 	Body() []byte
 	// Context returns any meta-information associated with the item
 	Context() ([]byte, error)
-	// Headers returns the metadata for the item
+	// Headers return the metadata for the item
 	Headers() map[string][]string
 }
 
@@ -50,11 +50,11 @@ type Message interface {
 	// UpdatePriority sets the priority of the Job. Priority is optional but cannot be set to 0.
 	// The default priority is 10
 	UpdatePriority(int64)
-	// Headers returns the metadata for the item
+	// Headers return the metadata for the item
 	Headers() map[string][]string
 }
 
-// KAFKA options (leave them empty for other drivers)
+// KafkaOptions - options (leave them empty for other drivers)
 type KafkaOptions interface {
 	// Offset returns the offset associated with the Job
 	Offset() int64

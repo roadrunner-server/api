@@ -19,7 +19,7 @@ type State struct {
 	Driver string
 	// Queue name (tube for the beanstalk)
 	Queue string
-	// Active jobs which are consumed from the driver but not handled by the PHP worker yet
+	// Active jobs which are consumed by the driver but not handled by the PHP worker yet
 	Active int64
 	// Delayed jobs
 	Delayed int64
