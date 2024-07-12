@@ -1,6 +1,11 @@
 version: v2
 modules:
-  - path: proto
-  - path: third_party/api
+    - path: proto
+    - path: third_party/api
 lint:
-  disallow_comment_ignores: true
+    disallow_comment_ignores: true
+    ignore:
+        # This is a third-party API, so we ignore them for linters.
+        - third_party/api
+        - proto/centrifugo/api
+        - proto/centrifugo/proxy

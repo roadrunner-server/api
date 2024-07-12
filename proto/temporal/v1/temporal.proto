@@ -33,6 +33,17 @@ message Message {
   int64 history_length = 7;
   // rr_run id
   string run_id = 8;
+  // task queue name
+  string task_queue = 9;
+  // tick time
+  string tick_time = 10;
+  // replay flag
+  bool replay = 11;
+  // continue as new flag
+  bool continue_as_new_suggested = 12;
+  // returns the current length of history when called.
+  // This value may change throughout the life of the workflow.
+  int64 history_size = 13;
 }
 
 message ReplayRequest {
