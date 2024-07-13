@@ -21,7 +21,7 @@ message Request {
 }
 
 message Header {
-	map<string, HeaderValue> header = 1;
+  map<string, HeaderValue> header = 1;
 }
 
 message Response {
@@ -30,5 +30,5 @@ message Response {
 }
 
 message HeaderValue {
-	repeated string value = 1;
+  repeated string value = 1;
 }

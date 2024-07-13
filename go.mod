@@ -6,7 +6,7 @@ go 1.22.5
 retract v4.13.0
 
 require (
-	go.temporal.io/api v1.35.0
+	go.temporal.io/api v1.36.0
 	go.uber.org/zap v1.27.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20240711142825-46eb208f015d
 	google.golang.org/grpc v1.65.0
