@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package http.v1;
 
-import "google/protobuf/any.proto";
-
 option go_package = "github.com/roadrunner-server/api/v4/build/http/v1;httpV1";
 option php_metadata_namespace = "RoadRunner\\HTTP\\DTO\\V1\\GPBMetadata";
 option php_namespace = "RoadRunner\\HTTP\\DTO\\V1";
@@ -23,7 +21,7 @@ message Request {
 }
 
 message Header {
-	map<string, HeaderValue> header = 1;
+  map<string, HeaderValue> header = 1;
 }
 
 message Response {
@@ -32,5 +30,5 @@ message Response {
 }
 
 message HeaderValue {
-	repeated string value = 1;
+  repeated string value = 1;
 }

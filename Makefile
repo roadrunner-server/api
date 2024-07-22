@@ -6,5 +6,10 @@ PATH := $(GOBIN):$(PATH)
 
 generate:
 	buf generate
+clean:
+	rm -rf build
+
+regenerate: clean generate
+
 install:
 	@go install github.com/bufbuild/buf/cmd/buf@latest

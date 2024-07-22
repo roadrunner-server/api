@@ -19,7 +19,7 @@ ij_wrap_on_typing = false
 [*.proto]
 tab_width = 2
 indent_size = 2
-indent_style = tab
+indent_style = space
 insert_final_newline = true
 ij_continuation_indent_size = 4
 ij_protobuf_keep_blank_lines_in_code = 2
