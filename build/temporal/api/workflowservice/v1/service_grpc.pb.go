@@ -77,6 +77,7 @@ const (
 	WorkflowService_GetSearchAttributes_FullMethodName                = "/temporal.api.workflowservice.v1.WorkflowService/GetSearchAttributes"
 	WorkflowService_RespondQueryTaskCompleted_FullMethodName          = "/temporal.api.workflowservice.v1.WorkflowService/RespondQueryTaskCompleted"
 	WorkflowService_ResetStickyTaskQueue_FullMethodName               = "/temporal.api.workflowservice.v1.WorkflowService/ResetStickyTaskQueue"
+	WorkflowService_ShutdownWorker_FullMethodName                     = "/temporal.api.workflowservice.v1.WorkflowService/ShutdownWorker"
 	WorkflowService_QueryWorkflow_FullMethodName                      = "/temporal.api.workflowservice.v1.WorkflowService/QueryWorkflow"
 	WorkflowService_DescribeWorkflowExecution_FullMethodName          = "/temporal.api.workflowservice.v1.WorkflowService/DescribeWorkflowExecution"
 	WorkflowService_DescribeTaskQueue_FullMethodName                  = "/temporal.api.workflowservice.v1.WorkflowService/DescribeTaskQueue"
@@ -95,6 +96,11 @@ const (
 	WorkflowService_UpdateWorkerVersioningRules_FullMethodName        = "/temporal.api.workflowservice.v1.WorkflowService/UpdateWorkerVersioningRules"
 	WorkflowService_GetWorkerVersioningRules_FullMethodName           = "/temporal.api.workflowservice.v1.WorkflowService/GetWorkerVersioningRules"
 	WorkflowService_GetWorkerTaskReachability_FullMethodName          = "/temporal.api.workflowservice.v1.WorkflowService/GetWorkerTaskReachability"
+	WorkflowService_DescribeDeployment_FullMethodName                 = "/temporal.api.workflowservice.v1.WorkflowService/DescribeDeployment"
+	WorkflowService_ListDeployments_FullMethodName                    = "/temporal.api.workflowservice.v1.WorkflowService/ListDeployments"
+	WorkflowService_GetDeploymentReachability_FullMethodName          = "/temporal.api.workflowservice.v1.WorkflowService/GetDeploymentReachability"
+	WorkflowService_GetCurrentDeployment_FullMethodName               = "/temporal.api.workflowservice.v1.WorkflowService/GetCurrentDeployment"
+	WorkflowService_SetCurrentDeployment_FullMethodName               = "/temporal.api.workflowservice.v1.WorkflowService/SetCurrentDeployment"
 	WorkflowService_UpdateWorkflowExecution_FullMethodName            = "/temporal.api.workflowservice.v1.WorkflowService/UpdateWorkflowExecution"
 	WorkflowService_PollWorkflowExecutionUpdate_FullMethodName        = "/temporal.api.workflowservice.v1.WorkflowService/PollWorkflowExecutionUpdate"
 	WorkflowService_StartBatchOperation_FullMethodName                = "/temporal.api.workflowservice.v1.WorkflowService/StartBatchOperation"
@@ -104,6 +110,11 @@ const (
 	WorkflowService_PollNexusTaskQueue_FullMethodName                 = "/temporal.api.workflowservice.v1.WorkflowService/PollNexusTaskQueue"
 	WorkflowService_RespondNexusTaskCompleted_FullMethodName          = "/temporal.api.workflowservice.v1.WorkflowService/RespondNexusTaskCompleted"
 	WorkflowService_RespondNexusTaskFailed_FullMethodName             = "/temporal.api.workflowservice.v1.WorkflowService/RespondNexusTaskFailed"
+	WorkflowService_UpdateActivityOptionsById_FullMethodName          = "/temporal.api.workflowservice.v1.WorkflowService/UpdateActivityOptionsById"
+	WorkflowService_UpdateWorkflowExecutionOptions_FullMethodName     = "/temporal.api.workflowservice.v1.WorkflowService/UpdateWorkflowExecutionOptions"
+	WorkflowService_PauseActivityById_FullMethodName                  = "/temporal.api.workflowservice.v1.WorkflowService/PauseActivityById"
+	WorkflowService_UnpauseActivityById_FullMethodName                = "/temporal.api.workflowservice.v1.WorkflowService/UnpauseActivityById"
+	WorkflowService_ResetActivityById_FullMethodName                  = "/temporal.api.workflowservice.v1.WorkflowService/ResetActivityById"
 )
 
 // WorkflowServiceClient is the client API for WorkflowService service.
@@ -368,10 +379,29 @@ type WorkflowServiceClient interface {
 	// 1. StickyTaskQueue
 	// 2. StickyScheduleToStartTimeout
 	//
+	// When possible, ShutdownWorker should be preferred over
+	// ResetStickyTaskQueue (particularly when a worker is shutting down or
+	// cycling).
+	//
 	// (-- api-linter: core::0127::http-annotation=disabled
 	//
 	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	ResetStickyTaskQueue(ctx context.Context, in *ResetStickyTaskQueueRequest, opts ...grpc.CallOption) (*ResetStickyTaskQueueResponse, error)
+	// ShutdownWorker is used to indicate that the given sticky task
+	// queue is no longer being polled by its worker. Following the completion of
+	// ShutdownWorker, newly-added workflow tasks will instead be placed
+	// in the normal task queue, eligible for any worker to pick up.
+	//
+	// ShutdownWorker should be called by workers while shutting down,
+	// after they've shut down their pollers. If another sticky poll
+	// request is issued, the sticky task queue will be revived.
+	//
+	// As of Temporal Server v1.25.0, ShutdownWorker hasn't yet been implemented.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
+	ShutdownWorker(ctx context.Context, in *ShutdownWorkerRequest, opts ...grpc.CallOption) (*ShutdownWorkerResponse, error)
 	// QueryWorkflow requests a query be executed for a specified workflow execution.
 	QueryWorkflow(ctx context.Context, in *QueryWorkflowRequest, opts ...grpc.CallOption) (*QueryWorkflowResponse, error)
 	// DescribeWorkflowExecution returns information about the specified workflow execution.
@@ -469,9 +499,31 @@ type WorkflowServiceClient interface {
 	// Open source users can adjust this limit by setting the server's dynamic config value for
 	// `limit.reachabilityTaskQueueScan` with the caveat that this call can strain the visibility store.
 	GetWorkerTaskReachability(ctx context.Context, in *GetWorkerTaskReachabilityRequest, opts ...grpc.CallOption) (*GetWorkerTaskReachabilityResponse, error)
-	// Invokes the specified update function on user workflow code.
+	// Describes a worker deployment.
+	// Experimental. This API might significantly change or be removed in a future release.
+	DescribeDeployment(ctx context.Context, in *DescribeDeploymentRequest, opts ...grpc.CallOption) (*DescribeDeploymentResponse, error)
+	// Lists worker deployments in the namespace. Optionally can filter based on deployment series
+	// name.
+	// Experimental. This API might significantly change or be removed in a future release.
+	ListDeployments(ctx context.Context, in *ListDeploymentsRequest, opts ...grpc.CallOption) (*ListDeploymentsResponse, error)
+	// Returns the reachability level of a worker deployment to help users decide when it is time
+	// to decommission a deployment. Reachability level is calculated based on the deployment's
+	// `status` and existing workflows that depend on the given deployment for their execution.
+	// Calculating reachability is relatively expensive. Therefore, server might return a recently
+	// cached value. In such a case, the `last_update_time` will inform you about the actual
+	// reachability calculation time.
+	// Experimental. This API might significantly change or be removed in a future release.
+	GetDeploymentReachability(ctx context.Context, in *GetDeploymentReachabilityRequest, opts ...grpc.CallOption) (*GetDeploymentReachabilityResponse, error)
+	// Returns the current deployment (and its info) for a given deployment series.
+	// Experimental. This API might significantly change or be removed in a future release.
+	GetCurrentDeployment(ctx context.Context, in *GetCurrentDeploymentRequest, opts ...grpc.CallOption) (*GetCurrentDeploymentResponse, error)
+	// Sets a deployment as the current deployment for its deployment series. Can optionally update
+	// the metadata of the deployment as well.
+	// Experimental. This API might significantly change or be removed in a future release.
+	SetCurrentDeployment(ctx context.Context, in *SetCurrentDeploymentRequest, opts ...grpc.CallOption) (*SetCurrentDeploymentResponse, error)
+	// Invokes the specified Update function on user Workflow code.
 	UpdateWorkflowExecution(ctx context.Context, in *UpdateWorkflowExecutionRequest, opts ...grpc.CallOption) (*UpdateWorkflowExecutionResponse, error)
-	// Polls a workflow execution for the outcome of a workflow execution update
+	// Polls a Workflow Execution for the outcome of a Workflow Update
 	// previously issued through the UpdateWorkflowExecution RPC. The effective
 	// timeout on this call will be shorter of the the caller-supplied gRPC
 	// timeout and the server's configured long-poll timeout.
@@ -503,6 +555,63 @@ type WorkflowServiceClient interface {
 	//
 	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	RespondNexusTaskFailed(ctx context.Context, in *RespondNexusTaskFailedRequest, opts ...grpc.CallOption) (*RespondNexusTaskFailedResponse, error)
+	// UpdateActivityOptionsById is called by the client to update the options of an activity
+	// (-- api-linter: core::0136::prepositions=disabled
+	//
+	//	aip.dev/not-precedent: "By" is used to indicate request type. --)
+	UpdateActivityOptionsById(ctx context.Context, in *UpdateActivityOptionsByIdRequest, opts ...grpc.CallOption) (*UpdateActivityOptionsByIdResponse, error)
+	// UpdateWorkflowExecutionOptions partially updates the WorkflowExecutionOptions of an existing workflow execution.
+	UpdateWorkflowExecutionOptions(ctx context.Context, in *UpdateWorkflowExecutionOptionsRequest, opts ...grpc.CallOption) (*UpdateWorkflowExecutionOptionsResponse, error)
+	// PauseActivityById pauses the execution of an activity specified by its ID.
+	// Returns a `NotFound` error if there is no pending activity with the provided ID.
+	//
+	// Pausing an activity means:
+	//   - If the activity is currently waiting for a retry or is running and subsequently fails,
+	//     it will not be rescheduled until it is unpaused.
+	//   - If the activity is already paused, calling this method will have no effect.
+	//   - If the activity is running and finishes successfully, the activity will be completed.
+	//   - If the activity is running and finishes with failure:
+	//   - if there is no retry left - the activity will be completed.
+	//   - if there are more retries left - the activity will be paused.
+	//
+	// For long-running activities:
+	// - activities in paused state will send a cancellation with "activity_paused" set to 'true' in response to 'RecordActivityTaskHeartbeat'.
+	// - The activity should respond to the cancellation accordingly.
+	// (-- api-linter: core::0136::prepositions=disabled
+	//
+	//	aip.dev/not-precedent: "By" is used to indicate request type. --)
+	PauseActivityById(ctx context.Context, in *PauseActivityByIdRequest, opts ...grpc.CallOption) (*PauseActivityByIdResponse, error)
+	// UnpauseActivityById unpauses the execution of an activity specified by its ID.
+	// Returns a `NotFound` error if there is no pending activity with the provided ID.
+	// There are two 'modes' of unpausing an activity:
+	// 'resume' - If the activity is paused, it will be resumed and scheduled for execution.
+	//   - If the activity is currently running Unpause with 'resume' has no effect.
+	//   - if 'no_wait' flag is set and the activity is waiting, the activity will be scheduled immediately.
+	//
+	// 'reset' - If the activity is paused, it will be reset to its initial state and (depending on parameters) scheduled for execution.
+	//   - If the activity is currently running, Unpause with 'reset' will reset the number of attempts.
+	//   - if 'no_wait' flag is set, the activity will be scheduled immediately.
+	//   - if 'reset_heartbeats' flag is set, the activity heartbeat timer and heartbeats will be reset.
+	//
+	// If the activity is in waiting for retry and past it retry timeout, it will be scheduled immediately.
+	// Once the activity is unpaused, all timeout timers will be regenerated.
+	// (-- api-linter: core::0136::prepositions=disabled
+	//
+	//	aip.dev/not-precedent: "By" is used to indicate request type. --)
+	UnpauseActivityById(ctx context.Context, in *UnpauseActivityByIdRequest, opts ...grpc.CallOption) (*UnpauseActivityByIdResponse, error)
+	// ResetActivityById unpauses the execution of an activity specified by its ID.
+	// Returns a `NotFound` error if there is no pending activity with the provided ID.
+	// Resetting an activity means:
+	// * number of attempts will be reset to 0.
+	// * activity timeouts will be resetted.
+	// If the activity currently running:
+	// *  if 'no_wait' flag is provided, a new instance of the activity will be scheduled immediately.
+	// *  if 'no_wait' flag is not provided, a new instance of the  activity will be scheduled after current instance completes if needed.
+	// If 'reset_heartbeats' flag is set, the activity heartbeat timer and heartbeats will be reset.
+	// (-- api-linter: core::0136::prepositions=disabled
+	//
+	//	aip.dev/not-precedent: "By" is used to indicate request type. --)
+	ResetActivityById(ctx context.Context, in *ResetActivityByIdRequest, opts ...grpc.CallOption) (*ResetActivityByIdResponse, error)
 }
 
 type workflowServiceClient struct {
@@ -873,6 +982,16 @@ func (c *workflowServiceClient) ResetStickyTaskQueue(ctx context.Context, in *Re
 	return out, nil
 }
 
+func (c *workflowServiceClient) ShutdownWorker(ctx context.Context, in *ShutdownWorkerRequest, opts ...grpc.CallOption) (*ShutdownWorkerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ShutdownWorkerResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_ShutdownWorker_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *workflowServiceClient) QueryWorkflow(ctx context.Context, in *QueryWorkflowRequest, opts ...grpc.CallOption) (*QueryWorkflowResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(QueryWorkflowResponse)
@@ -1053,6 +1172,56 @@ func (c *workflowServiceClient) GetWorkerTaskReachability(ctx context.Context, i
 	return out, nil
 }
 
+func (c *workflowServiceClient) DescribeDeployment(ctx context.Context, in *DescribeDeploymentRequest, opts ...grpc.CallOption) (*DescribeDeploymentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DescribeDeploymentResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_DescribeDeployment_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) ListDeployments(ctx context.Context, in *ListDeploymentsRequest, opts ...grpc.CallOption) (*ListDeploymentsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListDeploymentsResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_ListDeployments_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) GetDeploymentReachability(ctx context.Context, in *GetDeploymentReachabilityRequest, opts ...grpc.CallOption) (*GetDeploymentReachabilityResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetDeploymentReachabilityResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_GetDeploymentReachability_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) GetCurrentDeployment(ctx context.Context, in *GetCurrentDeploymentRequest, opts ...grpc.CallOption) (*GetCurrentDeploymentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetCurrentDeploymentResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_GetCurrentDeployment_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) SetCurrentDeployment(ctx context.Context, in *SetCurrentDeploymentRequest, opts ...grpc.CallOption) (*SetCurrentDeploymentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetCurrentDeploymentResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_SetCurrentDeployment_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *workflowServiceClient) UpdateWorkflowExecution(ctx context.Context, in *UpdateWorkflowExecutionRequest, opts ...grpc.CallOption) (*UpdateWorkflowExecutionResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UpdateWorkflowExecutionResponse)
@@ -1137,6 +1306,56 @@ func (c *workflowServiceClient) RespondNexusTaskFailed(ctx context.Context, in *
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(RespondNexusTaskFailedResponse)
 	err := c.cc.Invoke(ctx, WorkflowService_RespondNexusTaskFailed_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) UpdateActivityOptionsById(ctx context.Context, in *UpdateActivityOptionsByIdRequest, opts ...grpc.CallOption) (*UpdateActivityOptionsByIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateActivityOptionsByIdResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_UpdateActivityOptionsById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) UpdateWorkflowExecutionOptions(ctx context.Context, in *UpdateWorkflowExecutionOptionsRequest, opts ...grpc.CallOption) (*UpdateWorkflowExecutionOptionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateWorkflowExecutionOptionsResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_UpdateWorkflowExecutionOptions_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) PauseActivityById(ctx context.Context, in *PauseActivityByIdRequest, opts ...grpc.CallOption) (*PauseActivityByIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PauseActivityByIdResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_PauseActivityById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) UnpauseActivityById(ctx context.Context, in *UnpauseActivityByIdRequest, opts ...grpc.CallOption) (*UnpauseActivityByIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UnpauseActivityByIdResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_UnpauseActivityById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) ResetActivityById(ctx context.Context, in *ResetActivityByIdRequest, opts ...grpc.CallOption) (*ResetActivityByIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ResetActivityByIdResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_ResetActivityById_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1405,10 +1624,29 @@ type WorkflowServiceServer interface {
 	// 1. StickyTaskQueue
 	// 2. StickyScheduleToStartTimeout
 	//
+	// When possible, ShutdownWorker should be preferred over
+	// ResetStickyTaskQueue (particularly when a worker is shutting down or
+	// cycling).
+	//
 	// (-- api-linter: core::0127::http-annotation=disabled
 	//
 	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	ResetStickyTaskQueue(context.Context, *ResetStickyTaskQueueRequest) (*ResetStickyTaskQueueResponse, error)
+	// ShutdownWorker is used to indicate that the given sticky task
+	// queue is no longer being polled by its worker. Following the completion of
+	// ShutdownWorker, newly-added workflow tasks will instead be placed
+	// in the normal task queue, eligible for any worker to pick up.
+	//
+	// ShutdownWorker should be called by workers while shutting down,
+	// after they've shut down their pollers. If another sticky poll
+	// request is issued, the sticky task queue will be revived.
+	//
+	// As of Temporal Server v1.25.0, ShutdownWorker hasn't yet been implemented.
+	//
+	// (-- api-linter: core::0127::http-annotation=disabled
+	//
+	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
+	ShutdownWorker(context.Context, *ShutdownWorkerRequest) (*ShutdownWorkerResponse, error)
 	// QueryWorkflow requests a query be executed for a specified workflow execution.
 	QueryWorkflow(context.Context, *QueryWorkflowRequest) (*QueryWorkflowResponse, error)
 	// DescribeWorkflowExecution returns information about the specified workflow execution.
@@ -1506,9 +1744,31 @@ type WorkflowServiceServer interface {
 	// Open source users can adjust this limit by setting the server's dynamic config value for
 	// `limit.reachabilityTaskQueueScan` with the caveat that this call can strain the visibility store.
 	GetWorkerTaskReachability(context.Context, *GetWorkerTaskReachabilityRequest) (*GetWorkerTaskReachabilityResponse, error)
-	// Invokes the specified update function on user workflow code.
+	// Describes a worker deployment.
+	// Experimental. This API might significantly change or be removed in a future release.
+	DescribeDeployment(context.Context, *DescribeDeploymentRequest) (*DescribeDeploymentResponse, error)
+	// Lists worker deployments in the namespace. Optionally can filter based on deployment series
+	// name.
+	// Experimental. This API might significantly change or be removed in a future release.
+	ListDeployments(context.Context, *ListDeploymentsRequest) (*ListDeploymentsResponse, error)
+	// Returns the reachability level of a worker deployment to help users decide when it is time
+	// to decommission a deployment. Reachability level is calculated based on the deployment's
+	// `status` and existing workflows that depend on the given deployment for their execution.
+	// Calculating reachability is relatively expensive. Therefore, server might return a recently
+	// cached value. In such a case, the `last_update_time` will inform you about the actual
+	// reachability calculation time.
+	// Experimental. This API might significantly change or be removed in a future release.
+	GetDeploymentReachability(context.Context, *GetDeploymentReachabilityRequest) (*GetDeploymentReachabilityResponse, error)
+	// Returns the current deployment (and its info) for a given deployment series.
+	// Experimental. This API might significantly change or be removed in a future release.
+	GetCurrentDeployment(context.Context, *GetCurrentDeploymentRequest) (*GetCurrentDeploymentResponse, error)
+	// Sets a deployment as the current deployment for its deployment series. Can optionally update
+	// the metadata of the deployment as well.
+	// Experimental. This API might significantly change or be removed in a future release.
+	SetCurrentDeployment(context.Context, *SetCurrentDeploymentRequest) (*SetCurrentDeploymentResponse, error)
+	// Invokes the specified Update function on user Workflow code.
 	UpdateWorkflowExecution(context.Context, *UpdateWorkflowExecutionRequest) (*UpdateWorkflowExecutionResponse, error)
-	// Polls a workflow execution for the outcome of a workflow execution update
+	// Polls a Workflow Execution for the outcome of a Workflow Update
 	// previously issued through the UpdateWorkflowExecution RPC. The effective
 	// timeout on this call will be shorter of the the caller-supplied gRPC
 	// timeout and the server's configured long-poll timeout.
@@ -1540,6 +1800,63 @@ type WorkflowServiceServer interface {
 	//
 	//	aip.dev/not-precedent: We do not expose worker API to HTTP. --)
 	RespondNexusTaskFailed(context.Context, *RespondNexusTaskFailedRequest) (*RespondNexusTaskFailedResponse, error)
+	// UpdateActivityOptionsById is called by the client to update the options of an activity
+	// (-- api-linter: core::0136::prepositions=disabled
+	//
+	//	aip.dev/not-precedent: "By" is used to indicate request type. --)
+	UpdateActivityOptionsById(context.Context, *UpdateActivityOptionsByIdRequest) (*UpdateActivityOptionsByIdResponse, error)
+	// UpdateWorkflowExecutionOptions partially updates the WorkflowExecutionOptions of an existing workflow execution.
+	UpdateWorkflowExecutionOptions(context.Context, *UpdateWorkflowExecutionOptionsRequest) (*UpdateWorkflowExecutionOptionsResponse, error)
+	// PauseActivityById pauses the execution of an activity specified by its ID.
+	// Returns a `NotFound` error if there is no pending activity with the provided ID.
+	//
+	// Pausing an activity means:
+	//   - If the activity is currently waiting for a retry or is running and subsequently fails,
+	//     it will not be rescheduled until it is unpaused.
+	//   - If the activity is already paused, calling this method will have no effect.
+	//   - If the activity is running and finishes successfully, the activity will be completed.
+	//   - If the activity is running and finishes with failure:
+	//   - if there is no retry left - the activity will be completed.
+	//   - if there are more retries left - the activity will be paused.
+	//
+	// For long-running activities:
+	// - activities in paused state will send a cancellation with "activity_paused" set to 'true' in response to 'RecordActivityTaskHeartbeat'.
+	// - The activity should respond to the cancellation accordingly.
+	// (-- api-linter: core::0136::prepositions=disabled
+	//
+	//	aip.dev/not-precedent: "By" is used to indicate request type. --)
+	PauseActivityById(context.Context, *PauseActivityByIdRequest) (*PauseActivityByIdResponse, error)
+	// UnpauseActivityById unpauses the execution of an activity specified by its ID.
+	// Returns a `NotFound` error if there is no pending activity with the provided ID.
+	// There are two 'modes' of unpausing an activity:
+	// 'resume' - If the activity is paused, it will be resumed and scheduled for execution.
+	//   - If the activity is currently running Unpause with 'resume' has no effect.
+	//   - if 'no_wait' flag is set and the activity is waiting, the activity will be scheduled immediately.
+	//
+	// 'reset' - If the activity is paused, it will be reset to its initial state and (depending on parameters) scheduled for execution.
+	//   - If the activity is currently running, Unpause with 'reset' will reset the number of attempts.
+	//   - if 'no_wait' flag is set, the activity will be scheduled immediately.
+	//   - if 'reset_heartbeats' flag is set, the activity heartbeat timer and heartbeats will be reset.
+	//
+	// If the activity is in waiting for retry and past it retry timeout, it will be scheduled immediately.
+	// Once the activity is unpaused, all timeout timers will be regenerated.
+	// (-- api-linter: core::0136::prepositions=disabled
+	//
+	//	aip.dev/not-precedent: "By" is used to indicate request type. --)
+	UnpauseActivityById(context.Context, *UnpauseActivityByIdRequest) (*UnpauseActivityByIdResponse, error)
+	// ResetActivityById unpauses the execution of an activity specified by its ID.
+	// Returns a `NotFound` error if there is no pending activity with the provided ID.
+	// Resetting an activity means:
+	// * number of attempts will be reset to 0.
+	// * activity timeouts will be resetted.
+	// If the activity currently running:
+	// *  if 'no_wait' flag is provided, a new instance of the activity will be scheduled immediately.
+	// *  if 'no_wait' flag is not provided, a new instance of the  activity will be scheduled after current instance completes if needed.
+	// If 'reset_heartbeats' flag is set, the activity heartbeat timer and heartbeats will be reset.
+	// (-- api-linter: core::0136::prepositions=disabled
+	//
+	//	aip.dev/not-precedent: "By" is used to indicate request type. --)
+	ResetActivityById(context.Context, *ResetActivityByIdRequest) (*ResetActivityByIdResponse, error)
 }
 
 // UnimplementedWorkflowServiceServer should be embedded to have forward compatible implementations.
@@ -1654,6 +1971,9 @@ func (UnimplementedWorkflowServiceServer) RespondQueryTaskCompleted(context.Cont
 func (UnimplementedWorkflowServiceServer) ResetStickyTaskQueue(context.Context, *ResetStickyTaskQueueRequest) (*ResetStickyTaskQueueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ResetStickyTaskQueue not implemented")
 }
+func (UnimplementedWorkflowServiceServer) ShutdownWorker(context.Context, *ShutdownWorkerRequest) (*ShutdownWorkerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ShutdownWorker not implemented")
+}
 func (UnimplementedWorkflowServiceServer) QueryWorkflow(context.Context, *QueryWorkflowRequest) (*QueryWorkflowResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryWorkflow not implemented")
 }
@@ -1708,6 +2028,21 @@ func (UnimplementedWorkflowServiceServer) GetWorkerVersioningRules(context.Conte
 func (UnimplementedWorkflowServiceServer) GetWorkerTaskReachability(context.Context, *GetWorkerTaskReachabilityRequest) (*GetWorkerTaskReachabilityResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetWorkerTaskReachability not implemented")
 }
+func (UnimplementedWorkflowServiceServer) DescribeDeployment(context.Context, *DescribeDeploymentRequest) (*DescribeDeploymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DescribeDeployment not implemented")
+}
+func (UnimplementedWorkflowServiceServer) ListDeployments(context.Context, *ListDeploymentsRequest) (*ListDeploymentsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListDeployments not implemented")
+}
+func (UnimplementedWorkflowServiceServer) GetDeploymentReachability(context.Context, *GetDeploymentReachabilityRequest) (*GetDeploymentReachabilityResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDeploymentReachability not implemented")
+}
+func (UnimplementedWorkflowServiceServer) GetCurrentDeployment(context.Context, *GetCurrentDeploymentRequest) (*GetCurrentDeploymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCurrentDeployment not implemented")
+}
+func (UnimplementedWorkflowServiceServer) SetCurrentDeployment(context.Context, *SetCurrentDeploymentRequest) (*SetCurrentDeploymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetCurrentDeployment not implemented")
+}
 func (UnimplementedWorkflowServiceServer) UpdateWorkflowExecution(context.Context, *UpdateWorkflowExecutionRequest) (*UpdateWorkflowExecutionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateWorkflowExecution not implemented")
 }
@@ -1734,6 +2069,21 @@ func (UnimplementedWorkflowServiceServer) RespondNexusTaskCompleted(context.Cont
 }
 func (UnimplementedWorkflowServiceServer) RespondNexusTaskFailed(context.Context, *RespondNexusTaskFailedRequest) (*RespondNexusTaskFailedResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RespondNexusTaskFailed not implemented")
+}
+func (UnimplementedWorkflowServiceServer) UpdateActivityOptionsById(context.Context, *UpdateActivityOptionsByIdRequest) (*UpdateActivityOptionsByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateActivityOptionsById not implemented")
+}
+func (UnimplementedWorkflowServiceServer) UpdateWorkflowExecutionOptions(context.Context, *UpdateWorkflowExecutionOptionsRequest) (*UpdateWorkflowExecutionOptionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateWorkflowExecutionOptions not implemented")
+}
+func (UnimplementedWorkflowServiceServer) PauseActivityById(context.Context, *PauseActivityByIdRequest) (*PauseActivityByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PauseActivityById not implemented")
+}
+func (UnimplementedWorkflowServiceServer) UnpauseActivityById(context.Context, *UnpauseActivityByIdRequest) (*UnpauseActivityByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UnpauseActivityById not implemented")
+}
+func (UnimplementedWorkflowServiceServer) ResetActivityById(context.Context, *ResetActivityByIdRequest) (*ResetActivityByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ResetActivityById not implemented")
 }
 
 // UnsafeWorkflowServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -2395,6 +2745,24 @@ func _WorkflowService_ResetStickyTaskQueue_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkflowService_ShutdownWorker_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ShutdownWorkerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).ShutdownWorker(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_ShutdownWorker_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).ShutdownWorker(ctx, req.(*ShutdownWorkerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _WorkflowService_QueryWorkflow_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(QueryWorkflowRequest)
 	if err := dec(in); err != nil {
@@ -2719,6 +3087,96 @@ func _WorkflowService_GetWorkerTaskReachability_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkflowService_DescribeDeployment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DescribeDeploymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).DescribeDeployment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_DescribeDeployment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).DescribeDeployment(ctx, req.(*DescribeDeploymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowService_ListDeployments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListDeploymentsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).ListDeployments(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_ListDeployments_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).ListDeployments(ctx, req.(*ListDeploymentsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowService_GetDeploymentReachability_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDeploymentReachabilityRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).GetDeploymentReachability(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_GetDeploymentReachability_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).GetDeploymentReachability(ctx, req.(*GetDeploymentReachabilityRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowService_GetCurrentDeployment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCurrentDeploymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).GetCurrentDeployment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_GetCurrentDeployment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).GetCurrentDeployment(ctx, req.(*GetCurrentDeploymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowService_SetCurrentDeployment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetCurrentDeploymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).SetCurrentDeployment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_SetCurrentDeployment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).SetCurrentDeployment(ctx, req.(*SetCurrentDeploymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _WorkflowService_UpdateWorkflowExecution_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateWorkflowExecutionRequest)
 	if err := dec(in); err != nil {
@@ -2881,6 +3339,96 @@ func _WorkflowService_RespondNexusTaskFailed_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkflowService_UpdateActivityOptionsById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateActivityOptionsByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).UpdateActivityOptionsById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_UpdateActivityOptionsById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).UpdateActivityOptionsById(ctx, req.(*UpdateActivityOptionsByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowService_UpdateWorkflowExecutionOptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateWorkflowExecutionOptionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).UpdateWorkflowExecutionOptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_UpdateWorkflowExecutionOptions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).UpdateWorkflowExecutionOptions(ctx, req.(*UpdateWorkflowExecutionOptionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowService_PauseActivityById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PauseActivityByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).PauseActivityById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_PauseActivityById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).PauseActivityById(ctx, req.(*PauseActivityByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowService_UnpauseActivityById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UnpauseActivityByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).UnpauseActivityById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_UnpauseActivityById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).UnpauseActivityById(ctx, req.(*UnpauseActivityByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowService_ResetActivityById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ResetActivityByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).ResetActivityById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_ResetActivityById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).ResetActivityById(ctx, req.(*ResetActivityByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WorkflowService_ServiceDesc is the grpc.ServiceDesc for WorkflowService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -3033,6 +3581,10 @@ var WorkflowService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _WorkflowService_ResetStickyTaskQueue_Handler,
 		},
 		{
+			MethodName: "ShutdownWorker",
+			Handler:    _WorkflowService_ShutdownWorker_Handler,
+		},
+		{
 			MethodName: "QueryWorkflow",
 			Handler:    _WorkflowService_QueryWorkflow_Handler,
 		},
@@ -3105,6 +3657,26 @@ var WorkflowService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _WorkflowService_GetWorkerTaskReachability_Handler,
 		},
 		{
+			MethodName: "DescribeDeployment",
+			Handler:    _WorkflowService_DescribeDeployment_Handler,
+		},
+		{
+			MethodName: "ListDeployments",
+			Handler:    _WorkflowService_ListDeployments_Handler,
+		},
+		{
+			MethodName: "GetDeploymentReachability",
+			Handler:    _WorkflowService_GetDeploymentReachability_Handler,
+		},
+		{
+			MethodName: "GetCurrentDeployment",
+			Handler:    _WorkflowService_GetCurrentDeployment_Handler,
+		},
+		{
+			MethodName: "SetCurrentDeployment",
+			Handler:    _WorkflowService_SetCurrentDeployment_Handler,
+		},
+		{
 			MethodName: "UpdateWorkflowExecution",
 			Handler:    _WorkflowService_UpdateWorkflowExecution_Handler,
 		},
@@ -3139,6 +3711,26 @@ var WorkflowService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RespondNexusTaskFailed",
 			Handler:    _WorkflowService_RespondNexusTaskFailed_Handler,
+		},
+		{
+			MethodName: "UpdateActivityOptionsById",
+			Handler:    _WorkflowService_UpdateActivityOptionsById_Handler,
+		},
+		{
+			MethodName: "UpdateWorkflowExecutionOptions",
+			Handler:    _WorkflowService_UpdateWorkflowExecutionOptions_Handler,
+		},
+		{
+			MethodName: "PauseActivityById",
+			Handler:    _WorkflowService_PauseActivityById_Handler,
+		},
+		{
+			MethodName: "UnpauseActivityById",
+			Handler:    _WorkflowService_UnpauseActivityById_Handler,
+		},
+		{
+			MethodName: "ResetActivityById",
+			Handler:    _WorkflowService_ResetActivityById_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
