@@ -51,7 +51,8 @@ type Failure struct {
 
 	Message  string            `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
 	Metadata map[string]string `protobuf:"bytes,2,rep,name=metadata,proto3" json:"metadata,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Details  []byte            `protobuf:"bytes,3,opt,name=details,proto3" json:"details,omitempty"`
+	// UTF-8 encoded JSON serializable details.
+	Details []byte `protobuf:"bytes,3,opt,name=details,proto3" json:"details,omitempty"`
 }
 
 func (x *Failure) Reset() {
