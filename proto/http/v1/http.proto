@@ -30,5 +30,5 @@ message Response {
 }
 
 message HeaderValue {
-  bytes value = 1;
+ repeated bytes value = 1;
 }
