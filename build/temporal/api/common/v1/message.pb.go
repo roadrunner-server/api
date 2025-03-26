@@ -717,6 +717,7 @@ func (x *WorkerVersionStamp) GetUseVersioning() bool {
 // Identifies the version that a worker is compatible with when polling or identifying itself,
 // and whether or not this worker is opting into the build-id based versioning feature. This is
 // used by matching to determine which workers ought to receive what tasks.
+// Deprecated. Use WorkerDeploymentOptions instead.
 type WorkerVersionCapabilities struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
