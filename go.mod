@@ -2,7 +2,7 @@ module github.com/roadrunner-server/api/v4
 
 go 1.24
 
-toolchain go1.24.1
+toolchain go1.24.2
 
 // Removed cmder API
 retract v4.13.0
