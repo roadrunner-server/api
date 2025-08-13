@@ -111,6 +111,7 @@ const (
 	WorkflowService_UpdateTaskQueueConfig_FullMethodName                 = "/temporal.api.workflowservice.v1.WorkflowService/UpdateTaskQueueConfig"
 	WorkflowService_FetchWorkerConfig_FullMethodName                     = "/temporal.api.workflowservice.v1.WorkflowService/FetchWorkerConfig"
 	WorkflowService_UpdateWorkerConfig_FullMethodName                    = "/temporal.api.workflowservice.v1.WorkflowService/UpdateWorkerConfig"
+	WorkflowService_DescribeWorker_FullMethodName                        = "/temporal.api.workflowservice.v1.WorkflowService/DescribeWorker"
 )
 
 // WorkflowServiceClient is the client API for WorkflowService service.
@@ -679,6 +680,8 @@ type WorkflowServiceClient interface {
 	// Can be used to partially update the worker configuration.
 	// Can be used to update the configuration of multiple workers.
 	UpdateWorkerConfig(ctx context.Context, in *UpdateWorkerConfigRequest, opts ...grpc.CallOption) (*UpdateWorkerConfigResponse, error)
+	// DescribeWorker returns information about the specified worker.
+	DescribeWorker(ctx context.Context, in *DescribeWorkerRequest, opts ...grpc.CallOption) (*DescribeWorkerResponse, error)
 }
 
 type workflowServiceClient struct {
@@ -1609,6 +1612,16 @@ func (c *workflowServiceClient) UpdateWorkerConfig(ctx context.Context, in *Upda
 	return out, nil
 }
 
+func (c *workflowServiceClient) DescribeWorker(ctx context.Context, in *DescribeWorkerRequest, opts ...grpc.CallOption) (*DescribeWorkerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DescribeWorkerResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_DescribeWorker_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WorkflowServiceServer is the server API for WorkflowService service.
 // All implementations should embed UnimplementedWorkflowServiceServer
 // for forward compatibility.
@@ -2175,6 +2188,8 @@ type WorkflowServiceServer interface {
 	// Can be used to partially update the worker configuration.
 	// Can be used to update the configuration of multiple workers.
 	UpdateWorkerConfig(context.Context, *UpdateWorkerConfigRequest) (*UpdateWorkerConfigResponse, error)
+	// DescribeWorker returns information about the specified worker.
+	DescribeWorker(context.Context, *DescribeWorkerRequest) (*DescribeWorkerResponse, error)
 }
 
 // UnimplementedWorkflowServiceServer should be embedded to have
@@ -2459,6 +2474,9 @@ func (UnimplementedWorkflowServiceServer) FetchWorkerConfig(context.Context, *Fe
 }
 func (UnimplementedWorkflowServiceServer) UpdateWorkerConfig(context.Context, *UpdateWorkerConfigRequest) (*UpdateWorkerConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateWorkerConfig not implemented")
+}
+func (UnimplementedWorkflowServiceServer) DescribeWorker(context.Context, *DescribeWorkerRequest) (*DescribeWorkerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DescribeWorker not implemented")
 }
 func (UnimplementedWorkflowServiceServer) testEmbeddedByValue() {}
 
@@ -4136,6 +4154,24 @@ func _WorkflowService_UpdateWorkerConfig_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkflowService_DescribeWorker_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DescribeWorkerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).DescribeWorker(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_DescribeWorker_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).DescribeWorker(ctx, req.(*DescribeWorkerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WorkflowService_ServiceDesc is the grpc.ServiceDesc for WorkflowService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -4510,6 +4546,10 @@ var WorkflowService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateWorkerConfig",
 			Handler:    _WorkflowService_UpdateWorkerConfig_Handler,
+		},
+		{
+			MethodName: "DescribeWorker",
+			Handler:    _WorkflowService_DescribeWorker_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
