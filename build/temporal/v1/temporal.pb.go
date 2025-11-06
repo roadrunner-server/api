@@ -98,7 +98,9 @@ type Message struct {
 	ContinueAsNewSuggested bool `protobuf:"varint,12,opt,name=continue_as_new_suggested,json=continueAsNewSuggested,proto3" json:"continue_as_new_suggested,omitempty"`
 	// returns the current length of history when called.
 	// This value may change throughout the life of the workflow.
-	HistorySize   int64 `protobuf:"varint,13,opt,name=history_size,json=historySize,proto3" json:"history_size,omitempty"`
+	HistorySize int64 `protobuf:"varint,13,opt,name=history_size,json=historySize,proto3" json:"history_size,omitempty"`
+	// workflow worker pid
+	Wwpid         uint64 `protobuf:"varint,14,opt,name=wwpid,proto3" json:"wwpid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -220,6 +222,13 @@ func (x *Message) GetContinueAsNewSuggested() bool {
 func (x *Message) GetHistorySize() int64 {
 	if x != nil {
 		return x.HistorySize
+	}
+	return 0
+}
+
+func (x *Message) GetWwpid() uint64 {
+	if x != nil {
+		return x.Wwpid
 	}
 	return 0
 }
@@ -395,7 +404,7 @@ const file_temporal_v1_temporal_proto_rawDesc = "" +
 	"\n" +
 	"\x1atemporal/v1/temporal.proto\x12\vtemporal.v1\x1a\x1bcommon/v1/grpc_status.proto\x1a$temporal/api/common/v1/message.proto\x1a%temporal/api/failure/v1/message.proto\x1a%temporal/api/history/v1/message.proto\"9\n" +
 	"\x05Frame\x120\n" +
-	"\bmessages\x18\x01 \x03(\v2\x14.temporal.v1.MessageR\bmessages\"\xef\x03\n" +
+	"\bmessages\x18\x01 \x03(\v2\x14.temporal.v1.MessageR\bmessages\"\x85\x04\n" +
 	"\aMessage\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x18\n" +
 	"\acommand\x18\x02 \x01(\tR\acommand\x12\x18\n" +
@@ -411,7 +420,8 @@ const file_temporal_v1_temporal_proto_rawDesc = "" +
 	" \x01(\tR\btickTime\x12\x16\n" +
 	"\x06replay\x18\v \x01(\bR\x06replay\x129\n" +
 	"\x19continue_as_new_suggested\x18\f \x01(\bR\x16continueAsNewSuggested\x12!\n" +
-	"\fhistory_size\x18\r \x01(\x03R\vhistorySize\"\xf5\x01\n" +
+	"\fhistory_size\x18\r \x01(\x03R\vhistorySize\x12\x14\n" +
+	"\x05wwpid\x18\x0e \x01(\x04R\x05wwpid\"\xf5\x01\n" +
 	"\rReplayRequest\x12X\n" +
 	"\x12workflow_execution\x18\x01 \x01(\v2).temporal.api.common.v1.WorkflowExecutionR\x11workflowExecution\x12I\n" +
 	"\rworkflow_type\x18\x02 \x01(\v2$.temporal.api.common.v1.WorkflowTypeR\fworkflowType\x12\x1b\n" +

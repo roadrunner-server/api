@@ -44,6 +44,8 @@ message Message {
   // returns the current length of history when called.
   // This value may change throughout the life of the workflow.
   int64 history_size = 13;
+  // workflow worker pid
+  uint64 wwpid = 14;
 }
 
 message ReplayRequest {
