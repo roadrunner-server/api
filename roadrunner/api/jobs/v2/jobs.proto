@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package jobs.v2;
+
+option go_package = "github.com/roadrunner-server/api-go/v5/build/jobs/v2/jobs;jobsV2";
+option php_metadata_namespace = "RoadRunner\\Jobs\\DTO\\V2\\GPBMetadata";
+option php_namespace = "RoadRunner\\Jobs\\DTO\\V2";
+
+// Job is a main message which user might send to the RR jobs plugin
+message Job {
+  // job name, usually PHP class
+  string job = 1;
+  // unique job id
+  string id = 2;
+  // payload, might be embedded json or just byte-string
+  bytes payload = 3;
+  // headers map[string][]string
+  map<string, JobHeaderValue> headers = 4;
+  // job options, contains common and driver specific fields
+  Options options = 5;
+}
+
+// Options message represents all Jobs' options
+message Options {
+  int64 priority = 1;
+  string pipeline = 2;
+  int64 delay = 3;
+  reserved 4, 5;
+  // new in 2.10
+  bool auto_ack = 6;
+  //--------------
+  // new in 2.11 (kafka related)
+  string topic = 7;
+  string metadata = 8;
+  int64 offset = 9;
+  int32 partition = 10;
+}
+
+// JobHeaderValue represents []string value for the header (map[string][]string)
+message JobHeaderValue {
+  repeated string values = 1;
+}
+
+message Stats {
+  repeated Stat stats = 1;
+}
+
+// Stat used as a response for the Stats RPC call
+message Stat {
+  string pipeline = 1;
+  string driver = 2;
+  string queue = 3;
+  int64 active = 4;
+  int64 delayed = 5;
+  int64 reserved = 6;
+  bool ready = 7;
+  // new in 2.10.5
+  uint64 priority = 8;
+}
+
+// request to pause/resume/list/destroy/declare
+message Pipelines {
+  repeated string pipelines = 1;
+}

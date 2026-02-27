@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package jobs.v2;
+
+import "jobs/v2/jobs.proto";
+
+option go_package = "github.com/roadrunner-server/api-go/v5/build/jobs/v2/jobs;jobsV2";
+option php_metadata_namespace = "RoadRunner\\Jobs\\DTO\\V2\\GPBMetadata";
+option php_namespace = "RoadRunner\\Jobs\\DTO\\V2";
+
+message PushRequest {
+  Job job = 1;
+}
+
+message PushBatchRequest {
+  repeated Job jobs = 1;
+  // request headers
+  map<string, JobHeaderValue> headers = 2;
+}
+
+message DeclareRequest {
+  map<string, string> pipeline = 1;
+}

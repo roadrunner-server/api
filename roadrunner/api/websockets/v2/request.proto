@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package websockets.v2;
+
+import "websockets/v2/websockets.proto";
+
+option go_package = "github.com/roadrunner-server/api-go/v5/build/websockets/v2;websocketsV2";
+option php_metadata_namespace = "RoadRunner\\Websockets\\DTO\\V2\\GPBMetadata";
+option php_namespace = "RoadRunner\\Websockets\\DTO\\V2";
+
+message WebsocketRequest {
+  repeated WebsocketMessage messages = 1;
+}

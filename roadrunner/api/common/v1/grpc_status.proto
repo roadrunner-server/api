@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package common.v1;
+
+import "google/protobuf/any.proto";
+
+option go_package = "github.com/roadrunner-server/api-go/v5/build/common/v1;commonV1";
+option php_metadata_namespace = "RoadRunner\\Common\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Common\\DTO\\V1";
+
+// The `Status` type defines a logical error model that is suitable for
+// different programming environments, including REST APIs and RPC APIs.
+message Status {
+  // A simple error code that can be easily handled by the client. The
+  // actual error code is defined by `google.rpc.Code`.
+  int32 code = 1;
+
+  // A developer-facing human-readable error message in English. It should
+  // both explain the error and offer an actionable resolution to it.
+  string message = 2;
+
+  // Additional error information that the client code can use to handle
+  // the error, such as retry info or a help link.
+  repeated google.protobuf.Any details = 3;
+}

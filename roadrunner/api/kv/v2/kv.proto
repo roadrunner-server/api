@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package kv.v2;
+
+import "google/protobuf/duration.proto";
+
+option go_package = "github.com/roadrunner-server/api-go/v5/build/kv/v2;kvV2";
+option php_metadata_namespace = "RoadRunner\\KV\\DTO\\V2\\GPBMetadata";
+option php_namespace = "RoadRunner\\KV\\DTO\\V2";
+
+message KvItem {
+  string key = 1;
+  bytes value = 2;
+  google.protobuf.Duration ttl = 3;
+}
