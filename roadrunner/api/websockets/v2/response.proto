@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package websockets.v2;
+
+option go_package = "github.com/roadrunner-server/api-go/v5/build/websockets/v2;websocketsV2";
+option php_metadata_namespace = "RoadRunner\\Websockets\\DTO\\V2\\GPBMetadata";
+option php_namespace = "RoadRunner\\Websockets\\DTO\\V2";
+
+message WebsocketResponse {
+  bool ok = 1;
+}

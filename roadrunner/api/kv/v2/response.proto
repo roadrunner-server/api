@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package kv.v2;
+
+import "kv/v2/kv.proto";
+
+option go_package = "github.com/roadrunner-server/api-go/v5/build/kv/v2;kvV2";
+option php_metadata_namespace = "RoadRunner\\KV\\DTO\\V2\\GPBMetadata";
+option php_namespace = "RoadRunner\\KV\\DTO\\V2";
+
+message KvResponse {
+  repeated KvItem items = 1;
+}

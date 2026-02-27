@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package http.v2;
+
+option go_package = "github.com/roadrunner-server/api-go/v5/build/http/v2;httpV2";
+option php_metadata_namespace = "RoadRunner\\HTTP\\DTO\\V2\\GPBMetadata";
+option php_namespace = "RoadRunner\\HTTP\\DTO\\V2";
+
+message HttpHeader {
+  map<string, HttpHeaderValue> header = 1;
+}
+
+message HttpHeaderValue {
+  repeated bytes values = 1;
+}

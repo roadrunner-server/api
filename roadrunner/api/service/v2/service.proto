@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package service.v2;
+
+import "common/v1/grpc_status.proto";
+
+option go_package = "github.com/roadrunner-server/api-go/v5/build/service/v2;serviceV2";
+option php_metadata_namespace = "RoadRunner\\Service\\DTO\\V2\\GPBMetadata";
+option php_namespace = "RoadRunner\\Service\\DTO\\V2";
+
+message ProcessStatus {
+  float cpu_percent = 1;
+  int32 pid = 2;
+  uint64 memory_usage = 3;
+  string command = 4;
+  common.v1.Status status = 5;
+}

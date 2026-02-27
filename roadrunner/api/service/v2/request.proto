@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package service.v2;
+
+option go_package = "github.com/roadrunner-server/api-go/v5/build/service/v2;serviceV2";
+option php_metadata_namespace = "RoadRunner\\Service\\DTO\\V2\\GPBMetadata";
+option php_namespace = "RoadRunner\\Service\\DTO\\V2";
+
+message ServiceCreateRequest {
+  string name = 1;
+  string command = 2;
+  int64 process_num = 3;
+  int64 exec_timeout = 4;
+  bool remain_after_exit = 5;
+  map<string, string> env = 6;
+  uint64 restart_sec = 7;
+  bool service_name_in_logs = 8;
+  uint64 timeout_stop_sec = 9;
+}
+
+message ServiceInfoRequest {
+  string name = 1;
+}

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package lock.v1;
+
+option go_package = "github.com/roadrunner-server/api-go/v5/build/lock/v1;lockV1";
+option php_metadata_namespace = "RoadRunner\\Lock\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Lock\\DTO\\V1";
+
+message LockRequest {
+  string resource = 1;
+  string id = 2;
+  optional int64 ttl = 3;
+  optional int64 wait = 4;
+}
+
+message LockResponse {
+  bool ok = 1;
+}

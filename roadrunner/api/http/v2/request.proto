@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package http.v2;
+
+import "http/v2/http.proto";
+
+option go_package = "github.com/roadrunner-server/api-go/v5/build/http/v2;httpV2";
+option php_metadata_namespace = "RoadRunner\\HTTP\\DTO\\V2\\GPBMetadata";
+option php_namespace = "RoadRunner\\HTTP\\DTO\\V2";
+
+message HttpRequest {
+  string remote_addr = 1;
+  string protocol = 2;
+  string method = 3;
+  string uri = 4;
+  map<string, HttpHeaderValue> header = 5;
+  map<string, HttpHeaderValue> cookies = 6;
+  string raw_query = 7;
+  bool parsed = 8;
+  bytes uploads = 9;
+  map<string, HttpHeaderValue> attributes = 10;
+}

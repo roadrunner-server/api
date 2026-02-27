@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package http.v2;
+
+import "http/v2/http.proto";
+
+option go_package = "github.com/roadrunner-server/api-go/v5/build/http/v2;httpV2";
+option php_metadata_namespace = "RoadRunner\\HTTP\\DTO\\V2\\GPBMetadata";
+option php_namespace = "RoadRunner\\HTTP\\DTO\\V2";
+
+message HttpResponse {
+  int64 status = 1;
+  map<string, HttpHeaderValue> headers = 2;
+}
