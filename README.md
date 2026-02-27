@@ -32,11 +32,13 @@ buf.gen.yaml      — Buf code generation configuration
 ## Using generated Go packages
 
 Install a package from the [`api-go`](https://github.com/roadrunner-server/api-go) repository:
+
 ```bash
 go get github.com/roadrunner-server/api-go/v5/build/<module>/<version>
 ```
 
 Example usage:
+
 ```go
 package foo
 
@@ -52,6 +54,7 @@ func Push(in *jobsv1.PushRequest, out *jobsv1.Empty) error {
 ## Auto-generation
 
 Pushing to `master` in this repo triggers a GitHub Actions workflow in [`api-go`](https://github.com/roadrunner-server/api-go) that:
+
 1. Pulls the latest proto definitions via a git submodule.
 2. Runs `buf generate` to produce Go code.
 3. Commits and pushes the result.
@@ -61,20 +64,24 @@ You do not need to run code generation manually — CI handles it automatically.
 ## Local development
 
 Install [Buf](https://buf.build/docs/installation):
+
 ```bash
 go install github.com/bufbuild/buf/cmd/buf@latest
 ```
 
 Lint proto files:
+
 ```bash
 buf lint
 ```
 
 Generate code locally (output goes to `build/`):
+
 ```bash
 buf generate
 ```
 
 ## Centrifugal API
+
 - [API](https://github.com/centrifugal/centrifugo/blob/master/internal/apiproto/api.proto)
 - [Proxy](https://github.com/centrifugal/centrifugo/blob/master/internal/proxyproto/proxy.proto)
