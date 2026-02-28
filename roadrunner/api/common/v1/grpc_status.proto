@@ -4,7 +4,7 @@ package common.v1;
 
 import "google/protobuf/any.proto";
 
-option go_package = "github.com/roadrunner-server/api-go/v5/build/common/v1;commonV1";
+option go_package = "github.com/roadrunner-server/api-go/v5/common/v1;commonV1";
 option php_metadata_namespace = "RoadRunner\\Common\\DTO\\V1\\GPBMetadata";
 option php_namespace = "RoadRunner\\Common\\DTO\\V1";
 

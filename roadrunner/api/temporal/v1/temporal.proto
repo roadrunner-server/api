@@ -7,7 +7,7 @@ import "temporal/api/common/v1/message.proto";
 import "temporal/api/failure/v1/message.proto";
 import "temporal/api/history/v1/message.proto";
 
-option go_package = "github.com/roadrunner-server/api-go/v5/build/temporal/v1;temporalV1";
+option go_package = "github.com/roadrunner-server/api-go/v5/temporal/v1;temporalV1";
 option php_metadata_namespace = "RoadRunner\\Temporal\\DTO\\V1\\GPBMetadata";
 option php_namespace = "RoadRunner\\Temporal\\DTO\\V1";
 
