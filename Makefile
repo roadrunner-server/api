@@ -1,4 +1,3 @@
-# Disable cgo by default.
 CGO_ENABLED ?= 0
 
 GOBIN := $(if $(shell go env GOBIN),$(shell go env GOBIN),$(GOPATH)/bin)
