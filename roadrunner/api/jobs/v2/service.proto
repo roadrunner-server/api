@@ -2,10 +2,13 @@ syntax = "proto3";
 
 package jobs.v2;
 
+import "jobs/v2/request.proto";
+import "jobs/v2/response.proto";
+
 option go_package = "github.com/roadrunner-server/api-go/v6/jobs/v2;jobsV2";
 option php_metadata_namespace = "RoadRunner\\Jobs\\DTO\\V2\\GPBMetadata";
 option php_namespace = "RoadRunner\\Jobs\\DTO\\V2";
 
-// some endpoints receives nothing
-// all endpoints returns nothing, except error
-message JobsHandlerResponse {}
+service JobsProxyService {
+  rpc JobsHandler(JobsHandlerRequest) returns (JobsHandlerResponse);
+}

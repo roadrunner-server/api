@@ -8,7 +8,7 @@ option go_package = "github.com/roadrunner-server/api-go/v6/jobs/v2;jobsV2";
 option php_metadata_namespace = "RoadRunner\\Jobs\\DTO\\V2\\GPBMetadata";
 option php_namespace = "RoadRunner\\Jobs\\DTO\\V2";
 
-message PushRequest {
+message JobsHandlerRequest {
   Job job = 1;
 }
 
