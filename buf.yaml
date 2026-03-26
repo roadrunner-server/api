@@ -3,7 +3,6 @@ modules:
   - path: roadrunner/api
   - path: third_party/api
 lint:
-  disallow_comment_ignores: true
   ignore:
     - third_party/api
     - roadrunner/api/centrifugo/api

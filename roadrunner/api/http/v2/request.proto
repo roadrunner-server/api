@@ -9,16 +9,17 @@ option php_metadata_namespace = "RoadRunner\\HTTP\\DTO\\V2\\GPBMetadata";
 option php_namespace = "RoadRunner\\HTTP\\DTO\\V2";
 
 message HttpHandlerRequest {
-  string remote_addr = 1;
-  string protocol = 2;
-  string method = 3;
-  string uri = 4;
-  map<string, HttpHeaderValue> header = 5;
-  map<string, HttpHeaderValue> cookies = 6;
-  string raw_query = 7;
-  bool parsed = 8;
-  bytes uploads = 9;
-  map<string, HttpHeaderValue> attributes = 10;
+  string id = 1;
+  string remote_addr = 2;
+  string protocol = 3;
+  string method = 4;
+  string uri = 5;
+  map<string, HttpHeaderValue> header = 6;
+  map<string, HttpHeaderValue> cookies = 7;
+  string raw_query = 8;
+  bool parsed = 9;
+  bytes uploads = 10;
+  map<string, HttpHeaderValue> attributes = 11;
 }
 
 message HttpHandlerFetchRequest {
