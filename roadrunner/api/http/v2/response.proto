@@ -10,5 +10,6 @@ option php_namespace = "RoadRunner\\HTTP\\DTO\\V2";
 
 message HttpHandlerResponse {
   int64 status = 1;
-  map<string, HttpHeaderValue> headers = 2;
+  bytes body = 2;
+  map<string, HttpHeaderValue> headers = 3;
 }
