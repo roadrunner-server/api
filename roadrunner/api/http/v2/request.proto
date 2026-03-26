@@ -20,3 +20,11 @@ message HttpHandlerRequest {
   bytes uploads = 9;
   map<string, HttpHeaderValue> attributes = 10;
 }
+
+message HttpHandlerFetchRequest {
+  int64 batch_size = 1;
+}
+
+message HttpHandlerRequests {
+  repeated HttpHandlerRequest requests = 1;
+}
