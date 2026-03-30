@@ -11,8 +11,17 @@ option php_metadata_namespace = "RoadRunner\\HTTP\\DTO\\V2\\GPBMetadata";
 option php_namespace = "RoadRunner\\HTTP\\DTO\\V2";
 
 service HttpProxyService {
+  // buf:lint:ignore RPC_REQUEST_RESPONSE_UNIQUE
+  // buf:lint:ignore RPC_REQUEST_STANDARD_NAME
+  // buf:lint:ignore RPC_RESPONSE_STANDARD_NAME
   rpc FetchRequest(google.protobuf.Empty) returns (HttpHandlerRequest);
+  // buf:lint:ignore RPC_REQUEST_STANDARD_NAME
+  // buf:lint:ignore RPC_RESPONSE_STANDARD_NAME
   rpc FetchRequests(HttpHandlerFetchRequest) returns (HttpHandlerRequests);
+  // buf:lint:ignore RPC_REQUEST_RESPONSE_UNIQUE
   rpc HttpHandler(HttpHandlerRequest) returns (HttpHandlerResponse);
+  // buf:lint:ignore RPC_REQUEST_RESPONSE_UNIQUE
+  // buf:lint:ignore RPC_REQUEST_STANDARD_NAME
+  // buf:lint:ignore RPC_RESPONSE_STANDARD_NAME
   rpc HttpResponse(HttpHandlerResponse) returns (google.protobuf.Empty);
 }

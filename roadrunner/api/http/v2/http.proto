@@ -11,5 +11,5 @@ message HttpHeader {
 }
 
 message HttpHeaderValue {
-  repeated bytes values = 1;
+  repeated string values = 1;
 }
