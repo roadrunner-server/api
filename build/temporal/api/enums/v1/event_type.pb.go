@@ -183,6 +183,12 @@ const (
 	EventType_EVENT_TYPE_NEXUS_OPERATION_CANCEL_REQUEST_COMPLETED EventType = 56
 	// A cancellation request for a Nexus operation resulted in an error.
 	EventType_EVENT_TYPE_NEXUS_OPERATION_CANCEL_REQUEST_FAILED EventType = 57
+	// An event that indicates that the workflow execution has been paused.
+	EventType_EVENT_TYPE_WORKFLOW_EXECUTION_PAUSED EventType = 58
+	// An event that indicates that the previously paused workflow execution has been unpaused.
+	EventType_EVENT_TYPE_WORKFLOW_EXECUTION_UNPAUSED EventType = 59
+	// An event that indicates time skipping advanced time or was disabled automatically after a bound was reached.
+	EventType_EVENT_TYPE_WORKFLOW_EXECUTION_TIME_SKIPPING_TRANSITIONED EventType = 60
 )
 
 // Enum value maps for EventType.
@@ -246,6 +252,9 @@ var (
 		55: "EVENT_TYPE_WORKFLOW_EXECUTION_OPTIONS_UPDATED",
 		56: "EVENT_TYPE_NEXUS_OPERATION_CANCEL_REQUEST_COMPLETED",
 		57: "EVENT_TYPE_NEXUS_OPERATION_CANCEL_REQUEST_FAILED",
+		58: "EVENT_TYPE_WORKFLOW_EXECUTION_PAUSED",
+		59: "EVENT_TYPE_WORKFLOW_EXECUTION_UNPAUSED",
+		60: "EVENT_TYPE_WORKFLOW_EXECUTION_TIME_SKIPPING_TRANSITIONED",
 	}
 	EventType_value = map[string]int32{
 		"EVENT_TYPE_UNSPECIFIED":                                          0,
@@ -306,6 +315,9 @@ var (
 		"EVENT_TYPE_WORKFLOW_EXECUTION_OPTIONS_UPDATED":                   55,
 		"EVENT_TYPE_NEXUS_OPERATION_CANCEL_REQUEST_COMPLETED":             56,
 		"EVENT_TYPE_NEXUS_OPERATION_CANCEL_REQUEST_FAILED":                57,
+		"EVENT_TYPE_WORKFLOW_EXECUTION_PAUSED":                            58,
+		"EVENT_TYPE_WORKFLOW_EXECUTION_UNPAUSED":                          59,
+		"EVENT_TYPE_WORKFLOW_EXECUTION_TIME_SKIPPING_TRANSITIONED":        60,
 	}
 )
 
@@ -340,7 +352,7 @@ var File_temporal_api_enums_v1_event_type_proto protoreflect.FileDescriptor
 
 const file_temporal_api_enums_v1_event_type_proto_rawDesc = "" +
 	"\n" +
-	"&temporal/api/enums/v1/event_type.proto\x12\x15temporal.api.enums.v1*\x8a\x15\n" +
+	"&temporal/api/enums/v1/event_type.proto\x12\x15temporal.api.enums.v1*\x9e\x16\n" +
 	"\tEventType\x12\x1a\n" +
 	"\x16EVENT_TYPE_UNSPECIFIED\x10\x00\x12)\n" +
 	"%EVENT_TYPE_WORKFLOW_EXECUTION_STARTED\x10\x01\x12+\n" +
@@ -400,7 +412,10 @@ const file_temporal_api_enums_v1_event_type_proto_rawDesc = "" +
 	"+EVENT_TYPE_NEXUS_OPERATION_CANCEL_REQUESTED\x106\x121\n" +
 	"-EVENT_TYPE_WORKFLOW_EXECUTION_OPTIONS_UPDATED\x107\x127\n" +
 	"3EVENT_TYPE_NEXUS_OPERATION_CANCEL_REQUEST_COMPLETED\x108\x124\n" +
-	"0EVENT_TYPE_NEXUS_OPERATION_CANCEL_REQUEST_FAILED\x109B\x86\x01\n" +
+	"0EVENT_TYPE_NEXUS_OPERATION_CANCEL_REQUEST_FAILED\x109\x12(\n" +
+	"$EVENT_TYPE_WORKFLOW_EXECUTION_PAUSED\x10:\x12*\n" +
+	"&EVENT_TYPE_WORKFLOW_EXECUTION_UNPAUSED\x10;\x12<\n" +
+	"8EVENT_TYPE_WORKFLOW_EXECUTION_TIME_SKIPPING_TRANSITIONED\x10<B\x86\x01\n" +
 	"\x18io.temporal.api.enums.v1B\x0eEventTypeProtoP\x01Z!go.temporal.io/api/enums/v1;enums\xaa\x02\x17Temporalio.Api.Enums.V1\xea\x02\x1aTemporalio::Api::Enums::V1b\x06proto3"
 
 var (
