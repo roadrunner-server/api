@@ -3,6 +3,13 @@ modules:
   - path: roadrunner/api
   - path: third_party/api
 lint:
+  except:
+    # RR plugin RPCs share request/response types across methods (e.g. all
+    # LockService RPCs use LockRequest/LockResponse) and use domain-object
+    # names rather than the <Method>Request/<Method>Response convention.
+    - RPC_REQUEST_RESPONSE_UNIQUE
+    - RPC_REQUEST_STANDARD_NAME
+    - RPC_RESPONSE_STANDARD_NAME
   ignore:
     - third_party/api
     - roadrunner/api/centrifugo/api
