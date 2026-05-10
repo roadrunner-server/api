@@ -10,6 +10,9 @@ lint:
     - RPC_REQUEST_RESPONSE_UNIQUE
     - RPC_REQUEST_STANDARD_NAME
     - RPC_RESPONSE_STANDARD_NAME
+    # ServiceManager (service plugin RPC service) intentionally drops the
+    # "Service" suffix for readability.
+    - SERVICE_SUFFIX
   ignore:
     - third_party/api
     - roadrunner/api/centrifugo/api

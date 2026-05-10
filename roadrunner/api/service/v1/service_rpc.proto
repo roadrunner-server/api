@@ -11,8 +11,6 @@ option php_namespace = "RoadRunner\\Service\\DTO\\V1";
 // ServiceManager exposes lifecycle and status RPCs for the service plugin.
 // RPC method names are prefixed (CreateService, GetStatus, …) to avoid
 // collisions with same-named messages in this package (Create, Status, …).
-//
-// buf:lint:ignore SERVICE_SUFFIX
 service ServiceManager {
   rpc CreateService(Create) returns (Response);
   rpc Terminate(Service) returns (Response);
