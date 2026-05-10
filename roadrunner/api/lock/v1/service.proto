@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package lock.v1;
+
+import "lock/v1/lock.proto";
+
+option go_package = "github.com/roadrunner-server/api-go/v6/lock/v1;lockV1";
+option php_metadata_namespace = "RoadRunner\\Lock\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Lock\\DTO\\V1";
+
+service LockService {
+  rpc Lock(LockRequest) returns (LockResponse);
+  rpc LockRead(LockRequest) returns (LockResponse);
+  rpc Release(LockRequest) returns (LockResponse);
+  rpc ForceRelease(LockRequest) returns (LockResponse);
+  rpc Exists(LockRequest) returns (LockResponse);
+  rpc UpdateTTL(LockRequest) returns (LockResponse);
+}

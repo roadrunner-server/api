@@ -12,6 +12,12 @@ message JobsHandlerRequest {
   Job job = 1;
 }
 
+// PushRequest is the single-job variant of PushBatchRequest, used by JobsService.Push.
+// Proto-shape enforces single-job semantics; no runtime guard needed.
+message PushRequest {
+  Job job = 1;
+}
+
 message PushBatchRequest {
   repeated Job jobs = 1;
   // request headers
