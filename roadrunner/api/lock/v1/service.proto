@@ -13,6 +13,8 @@ service LockService {
   rpc LockRead(LockRequest) returns (LockResponse);
   rpc Release(LockRequest) returns (LockResponse);
   rpc ForceRelease(LockRequest) returns (LockResponse);
-  rpc Exists(LockRequest) returns (LockResponse);
+  rpc Exists(LockRequest) returns (LockResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
   rpc UpdateTTL(LockRequest) returns (LockResponse);
 }
