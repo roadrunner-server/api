@@ -15,7 +15,13 @@ service ServiceManager {
   rpc CreateService(Create) returns (Response);
   rpc Terminate(Service) returns (Response);
   rpc Restart(Service) returns (Response);
-  rpc GetStatus(Service) returns (Status);
-  rpc GetStatuses(Service) returns (Statuses);
-  rpc ListServices(Service) returns (List);
+  rpc GetStatus(Service) returns (Status) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+  rpc GetStatuses(Service) returns (Statuses) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+  rpc ListServices(Service) returns (List) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
 }
