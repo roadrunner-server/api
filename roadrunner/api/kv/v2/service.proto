@@ -10,11 +10,17 @@ option php_metadata_namespace = "RoadRunner\\KV\\DTO\\V2\\GPBMetadata";
 option php_namespace = "RoadRunner\\KV\\DTO\\V2";
 
 service KvService {
-  rpc Has(KvRequest) returns (KvResponse);
+  rpc Has(KvRequest) returns (KvResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
   rpc Set(KvRequest) returns (KvResponse);
-  rpc MGet(KvRequest) returns (KvResponse);
+  rpc MGet(KvRequest) returns (KvResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
   rpc MExpire(KvRequest) returns (KvResponse);
-  rpc TTL(KvRequest) returns (KvResponse);
+  rpc TTL(KvRequest) returns (KvResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
   rpc Delete(KvRequest) returns (KvResponse);
   rpc Clear(KvRequest) returns (KvResponse);
 }
