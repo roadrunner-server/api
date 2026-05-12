@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package resetter.v1;
+
+option go_package = "github.com/roadrunner-server/api-go/v6/resetter/v1;resetterV1";
+option php_metadata_namespace = "RoadRunner\\Resetter\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Resetter\\DTO\\V1";
+
+message ListPluginsRequest {}
+message PluginsList {
+  repeated string plugins = 1;
+}
+
+message ResetRequest {
+  string plugin = 1;
+}
+
+message Response {
+  bool ok = 1;
+}
+
+// ResetterService exposes the runtime reset surface for plugins that opt into
+// the resetter contract (jobs, service, etc.). Listing is read-only; Reset
+// triggers a per-plugin lifecycle reset.
+service ResetterService {
+  rpc ListPlugins(ListPluginsRequest) returns (PluginsList) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+  rpc Reset(ResetRequest) returns (Response);
+}

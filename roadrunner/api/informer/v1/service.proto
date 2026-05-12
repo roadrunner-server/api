@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package informer.v1;
+
+option go_package = "github.com/roadrunner-server/api-go/v6/informer/v1;informerV1";
+option php_metadata_namespace = "RoadRunner\\Informer\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Informer\\DTO\\V1";
+
+// ProcessState mirrors github.com/roadrunner-server/pool/v2/state/process.State —
+// one entry per OS-level worker process managed by a plugin.
+message ProcessState {
+  int64  pid          = 1;
+  int64  status       = 2;
+  uint64 num_execs    = 3;
+  int64  created      = 4;
+  uint64 memory_usage = 5;
+  double cpu_percent  = 6;
+  string command      = 7;
+  string status_str   = 8;
+}
+
+// JobState mirrors github.com/roadrunner-server/api-plugins/v6/jobs.State —
+// one entry per consumer pipeline registered with the jobs plugin.
+message JobState {
+  string pipeline      = 1;
+  string driver        = 2;
+  string queue         = 3;
+  int64  active        = 4;
+  int64  delayed       = 5;
+  int64  reserved      = 6;
+  bool   ready         = 7;
+  uint64 priority      = 8;
+  string error_message = 9;
+}
+
+message ListPluginsRequest {}
+message PluginsList {
+  repeated string plugins = 1;
+}
+
+message GetWorkersRequest {
+  string plugin = 1;
+}
+message WorkersList {
+  repeated ProcessState workers = 1;
+}
+
+message GetJobsRequest {
+  string plugin = 1;
+}
+message JobsList {
+  repeated JobState states = 1;
+}
+
+message AddWorkerRequest {
+  string plugin = 1;
+}
+message RemoveWorkerRequest {
+  string plugin = 1;
+}
+
+message Response {
+  bool ok = 1;
+}
+
+// InformerService exposes introspection RPCs for plugins that manage workers
+// (jobs, service, kv, etc.) and lets callers add or remove workers at runtime.
+service InformerService {
+  rpc ListPlugins(ListPluginsRequest) returns (PluginsList) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+  rpc GetWorkers(GetWorkersRequest) returns (WorkersList) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+  rpc GetJobs(GetJobsRequest) returns (JobsList) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+  rpc AddWorker(AddWorkerRequest) returns (Response);
+  rpc RemoveWorker(RemoveWorkerRequest) returns (Response);
+}

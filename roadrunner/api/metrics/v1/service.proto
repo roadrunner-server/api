@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package metrics.v1;
+
+option go_package = "github.com/roadrunner-server/api-go/v6/metrics/v1;metricsV1";
+option php_metadata_namespace = "RoadRunner\\Metrics\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Metrics\\DTO\\V1";
+
+// CollectorType enumerates the supported Prometheus collector kinds. The
+// numeric values are stable; do not reuse or renumber.
+enum CollectorType {
+  COLLECTOR_TYPE_UNSPECIFIED = 0;
+  COLLECTOR_TYPE_HISTOGRAM   = 1;
+  COLLECTOR_TYPE_GAUGE       = 2;
+  COLLECTOR_TYPE_COUNTER     = 3;
+  COLLECTOR_TYPE_SUMMARY     = 4;
+}
+
+// Objective is a single (quantile, error) pair for Prometheus summary
+// collectors. proto3 forbids float-keyed maps, so summary objectives are
+// modelled as a repeated message rather than `map<double, double>`.
+message Objective {
+  double quantile = 1;
+  double error    = 2;
+}
+
+// Collector describes the shape of a single application-defined metric.
+// Mirrors github.com/roadrunner-server/metrics/v6.Collector.
+message Collector {
+  string             namespace  = 1;
+  string             subsystem  = 2;
+  CollectorType      type       = 3;
+  string             help       = 4;
+  repeated string    labels     = 5;
+  repeated double    buckets    = 6;
+  repeated Objective objectives = 7;
+}
+
+// Metric is a single observation against an already-declared collector.
+message Metric {
+  string          name   = 1;
+  double          value  = 2;
+  repeated string labels = 3;
+}
+
+// NamedCollector wraps a Collector with its registry name; used only by
+// Declare to register a new collector under that name.
+message NamedCollector {
+  string    name      = 1;
+  Collector collector = 2;
+}
+
+message AddRequest     { Metric metric = 1; }
+message SubRequest     { Metric metric = 1; }
+message ObserveRequest { Metric metric = 1; }
+message SetRequest     { Metric metric = 1; }
+
+message DeclareRequest {
+  NamedCollector collector = 1;
+}
+
+message UnregisterRequest {
+  string name = 1;
+}
+
+message Response {
+  bool ok = 1;
+}
+
+// MetricsService exposes runtime metric mutation. All methods are write-side;
+// scraping happens on the separate Prometheus HTTP endpoint configured under
+// `metrics.address` and is not part of this RPC surface.
+service MetricsService {
+  rpc Add(AddRequest)               returns (Response);
+  rpc Sub(SubRequest)               returns (Response);
+  rpc Observe(ObserveRequest)       returns (Response);
+  rpc Set(SetRequest)               returns (Response);
+  rpc Declare(DeclareRequest)       returns (Response);
+  rpc Unregister(UnregisterRequest) returns (Response);
+}
