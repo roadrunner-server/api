@@ -7,14 +7,17 @@ option php_metadata_namespace = "RoadRunner\\Informer\\DTO\\V1\\GPBMetadata";
 option php_namespace = "RoadRunner\\Informer\\DTO\\V1";
 
 // ProcessState mirrors github.com/roadrunner-server/pool/v2/state/process.State —
-// one entry per OS-level worker process managed by a plugin.
+// one entry per OS-level worker process managed by a plugin. Field widths match
+// the existing service.v1.Status convention (int32 pid, float cpu_percent)
+// rather than the Go-source int64/float64; PIDs fit in int32 per POSIX, and a
+// percentage value comfortably fits in float32.
 message ProcessState {
-  int64  pid          = 1;
+  int32  pid          = 1;
   int64  status       = 2;
   uint64 num_execs    = 3;
   int64  created      = 4;
   uint64 memory_usage = 5;
-  double cpu_percent  = 6;
+  float  cpu_percent  = 6;
   string command      = 7;
   string status_str   = 8;
 }

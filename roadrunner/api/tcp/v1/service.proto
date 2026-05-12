@@ -3,8 +3,8 @@ syntax = "proto3";
 package tcp.v1;
 
 option go_package = "github.com/roadrunner-server/api-go/v6/tcp/v1;tcpV1";
-option php_metadata_namespace = "RoadRunner\\Tcp\\DTO\\V1\\GPBMetadata";
-option php_namespace = "RoadRunner\\Tcp\\DTO\\V1";
+option php_metadata_namespace = "RoadRunner\\TCP\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\TCP\\DTO\\V1";
 
 message CloseRequest {
   string uuid = 1;
