@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package tcp.v1;
+
+option go_package = "github.com/roadrunner-server/api-go/v6/tcp/v1;tcpV1";
+option php_metadata_namespace = "RoadRunner\\TCP\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\TCP\\DTO\\V1";
+
+message CloseRequest {
+  string uuid = 1;
+}
+
+message Response {
+  bool ok = 1;
+}
+
+// TCPService exposes runtime control over open TCP connections handled by the
+// tcp plugin. Close terminates a single connection identified by its UUID.
+service TCPService {
+  rpc Close(CloseRequest) returns (Response);
+}
