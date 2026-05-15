@@ -4,7 +4,6 @@ package http.v2;
 
 import "google/protobuf/empty.proto";
 import "http/v2/request.proto";
-import "http/v2/response.proto";
 
 option go_package = "github.com/roadrunner-server/api-go/v6/http/v2;httpV2";
 option php_metadata_namespace = "RoadRunner\\HTTP\\DTO\\V2\\GPBMetadata";
@@ -13,6 +12,4 @@ option php_namespace = "RoadRunner\\HTTP\\DTO\\V2";
 service HttpProxyService {
   rpc FetchRequest(google.protobuf.Empty) returns (HttpHandlerRequest);
   rpc FetchRequests(HttpHandlerFetchRequest) returns (HttpHandlerRequests);
-  rpc HttpHandler(HttpHandlerRequest) returns (HttpHandlerResponse);
-  rpc HttpResponse(HttpHandlerResponse) returns (google.protobuf.Empty);
 }
