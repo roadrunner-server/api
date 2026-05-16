@@ -20,6 +20,7 @@ message HttpHandlerRequest {
   bool parsed = 9;
   bytes uploads = 10;
   map<string, HttpHeaderValue> attributes = 11;
+  bytes body = 12;
 }
 
 message HttpHandlerFetchRequest {
