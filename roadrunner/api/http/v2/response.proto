@@ -9,7 +9,8 @@ option php_metadata_namespace = "RoadRunner\\HTTP\\DTO\\V2\\GPBMetadata";
 option php_namespace = "RoadRunner\\HTTP\\DTO\\V2";
 
 message HttpHandlerResponse {
-  int64 status = 1;
-  bytes body = 2;
-  map<string, HttpHeaderValue> headers = 3;
+  string id = 1;
+  int64 status = 2;
+  bytes body = 3;
+  map<string, HttpHeaderValue> headers = 4;
 }
