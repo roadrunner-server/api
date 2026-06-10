@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package temporal.v1;
+
+import "temporal/v1/temporal.proto";
+
+option go_package = "github.com/roadrunner-server/api-go/v6/temporal/v1;temporalV1";
+option php_metadata_namespace = "RoadRunner\\Temporal\\DTO\\V1\\GPBMetadata";
+option php_namespace = "RoadRunner\\Temporal\\DTO\\V1";
+
+// RecordHeartbeatRequest is sent by an activity to record its current progress.
+message RecordHeartbeatRequest {
+  // value of the binary "TaskToken" field of the "ActivityInfo" struct
+  // retrieved inside the activity
+  bytes task_token = 1;
+  // progress recorded along with the heartbeat
+  bytes details = 2;
+}
+
+message RecordHeartbeatResponse {
+  // the activity was requested to cancel
+  bool canceled = 1;
+  // the activity was paused
+  bool paused = 2;
+}
+
+message GetNamesRequest {}
+
+message NamesList {
+  repeated string names = 1;
+}
+
+message UpdateAPIKeyRequest {
+  string api_key = 1;
+}
+
+message UpdateAPIKeyResponse {
+  bool ok = 1;
+}
+
+// TemporalService exposes the temporal plugin control RPCs: activity
+// heartbeats, registered workflow/activity introspection, workflow replay
+// tooling, and API key rotation.
+service TemporalService {
+  rpc RecordActivityHeartbeat(RecordHeartbeatRequest) returns (RecordHeartbeatResponse);
+  rpc GetActivityNames(GetNamesRequest) returns (NamesList) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+  rpc GetWorkflowNames(GetNamesRequest) returns (NamesList) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+  rpc ReplayWorkflow(ReplayRequest) returns (ReplayResponse);
+  rpc DownloadWorkflowHistory(ReplayRequest) returns (ReplayResponse);
+  rpc ReplayFromJSON(ReplayRequest) returns (ReplayResponse);
+  rpc ReplayWorkflowHistory(History) returns (ReplayResponse);
+  rpc UpdateAPIKey(UpdateAPIKeyRequest) returns (UpdateAPIKeyResponse);
+}
