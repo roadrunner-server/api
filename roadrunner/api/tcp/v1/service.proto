@@ -13,9 +13,3 @@ message CloseRequest {
 message Response {
   bool ok = 1;
 }
-
-// TCPService exposes runtime control over open TCP connections handled by the
-// tcp plugin. Close terminates a single connection identified by its UUID.
-service TCPService {
-  rpc Close(CloseRequest) returns (Response);
-}

@@ -18,13 +18,3 @@ message ResetRequest {
 message Response {
   bool ok = 1;
 }
-
-// ResetterService exposes the runtime reset surface for plugins that opt into
-// the resetter contract (jobs, service, etc.). Listing is read-only; Reset
-// triggers a per-plugin lifecycle reset.
-service ResetterService {
-  rpc ListPlugins(ListPluginsRequest) returns (PluginsList) {
-    option idempotency_level = NO_SIDE_EFFECTS;
-  }
-  rpc Reset(ResetRequest) returns (Response);
-}

@@ -66,15 +66,3 @@ message UnregisterRequest {
 message Response {
   bool ok = 1;
 }
-
-// MetricsService exposes runtime metric mutation. All methods are write-side;
-// scraping happens on the separate Prometheus HTTP endpoint configured under
-// `metrics.address` and is not part of this RPC surface.
-service MetricsService {
-  rpc Add(AddRequest)               returns (Response);
-  rpc Sub(SubRequest)               returns (Response);
-  rpc Observe(ObserveRequest)       returns (Response);
-  rpc Set(SetRequest)               returns (Response);
-  rpc Declare(DeclareRequest)       returns (Response);
-  rpc Unregister(UnregisterRequest) returns (Response);
-}
