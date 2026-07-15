@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package centrifugal.centrifugo.proxy;
 
-option go_package = "centrifugo/proxy/v1";
+option go_package = "github.com/roadrunner-server/api-go/v6/centrifugo/proxy/v1;proxyV1";
 option php_metadata_namespace = "RoadRunner\\Centrifugal\\Proxy\\DTO\\V1\\GPBMetadata";
 option php_namespace = "RoadRunner\\Centrifugal\\Proxy\\DTO\\V1";
 

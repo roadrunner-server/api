@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package applogger.v2;
 
-import "applogger/v2/applogger.proto";
-
 option go_package = "github.com/roadrunner-server/api-go/v6/applogger/v2;apploggerV2";
 option php_metadata_namespace = "RoadRunner\\AppLogger\\DTO\\V2\\GPBMetadata";
 option php_namespace = "RoadRunner\\AppLogger\\DTO\\V2";
@@ -12,17 +10,4 @@ option php_namespace = "RoadRunner\\AppLogger\\DTO\\V2";
 // Domain-specific so future fields (level, caller skip, etc.) can be added without breaking the wire.
 message LogMessage {
   string message = 1;
-}
-
-service AppLoggerService {
-  rpc Error(LogMessage) returns (LogResponse);
-  rpc ErrorWithContext(LogEntry) returns (LogResponse);
-  rpc Info(LogMessage) returns (LogResponse);
-  rpc InfoWithContext(LogEntry) returns (LogResponse);
-  rpc Warning(LogMessage) returns (LogResponse);
-  rpc WarningWithContext(LogEntry) returns (LogResponse);
-  rpc Debug(LogMessage) returns (LogResponse);
-  rpc DebugWithContext(LogEntry) returns (LogResponse);
-  rpc Log(LogMessage) returns (LogResponse);
-  rpc LogWithContext(LogEntry) returns (LogResponse);
 }

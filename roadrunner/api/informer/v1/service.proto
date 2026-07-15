@@ -65,19 +65,3 @@ message RemoveWorkerRequest {
 message Response {
   bool ok = 1;
 }
-
-// InformerService exposes introspection RPCs for plugins that manage workers
-// (jobs, service, kv, etc.) and lets callers add or remove workers at runtime.
-service InformerService {
-  rpc ListPlugins(ListPluginsRequest) returns (PluginsList) {
-    option idempotency_level = NO_SIDE_EFFECTS;
-  }
-  rpc GetWorkers(GetWorkersRequest) returns (WorkersList) {
-    option idempotency_level = NO_SIDE_EFFECTS;
-  }
-  rpc GetJobs(GetJobsRequest) returns (JobsList) {
-    option idempotency_level = NO_SIDE_EFFECTS;
-  }
-  rpc AddWorker(AddWorkerRequest) returns (Response);
-  rpc RemoveWorker(RemoveWorkerRequest) returns (Response);
-}
