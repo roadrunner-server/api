@@ -6,13 +6,13 @@ option go_package = "github.com/roadrunner-server/api-go/v6/lock/v1;lockV1";
 option php_metadata_namespace = "RoadRunner\\Lock\\DTO\\V1\\GPBMetadata";
 option php_namespace = "RoadRunner\\Lock\\DTO\\V1";
 
-message LockRequest {
+message Request {
   string resource = 1;
   string id = 2;
   optional int64 ttl = 3;
   optional int64 wait = 4;
 }
 
-message LockResponse {
+message Response {
   bool ok = 1;
 }
