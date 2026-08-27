@@ -47,6 +47,7 @@ message Options {
   string metadata = 8;
   int64 offset = 9;
   int32 partition = 10;
+  optional string key = 11;
 }
 
 // HeaderValue represents []string value for the header (map[string][]string)
