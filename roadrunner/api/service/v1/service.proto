@@ -27,6 +27,41 @@ message Create {
   uint64 timeout_stop_sec = 9;
 }
 
+// Update stores configuration for subsequent executions of an existing service.
+// Current processes keep their execution settings. Omitted fields keep their stored values.
+// A name-only update succeeds. Response.ok confirms that the configuration was accepted.
+message Update {
+  string name = 1;
+
+  // Desired process count, at least 1. Changes apply at the next restart opportunity.
+  // Excess processes finish their current execution before removal.
+  optional int64 process_num = 2;
+
+  // Maximum execution time in seconds, at least 0. Zero means unlimited.
+  optional int64 exec_timeout = 3;
+
+  // Whether to restart after exit. The latest value controls subsequent starts.
+  optional bool remain_after_exit = 4;
+
+  // Replaces the service environment overrides. A present empty message clears them.
+  // Processes also inherit the RoadRunner environment.
+  Environment env = 5;
+
+  // Delay in seconds for the next scheduled restart. Zero selects 30 seconds.
+  optional uint64 restart_sec = 6;
+
+  // Whether subsequent executions include the service name in log attributes.
+  optional bool service_name_in_logs = 7;
+
+  // Stop timeout in seconds for subsequent executions. Zero selects 5 seconds.
+  optional uint64 timeout_stop_sec = 8;
+}
+
+// Environment contains the complete set of service environment overrides.
+message Environment {
+  map<string, string> values = 1;
+}
+
 message Statuses {
   repeated Status status = 1;
 }
