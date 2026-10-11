@@ -72,392 +72,465 @@ message ScanReply {
 // Strings and counters
 
 message GetRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 // ex is the TTL in seconds, px in milliseconds. nx and xx are mutually exclusive.
 message SetRequest {
-  string key = 1;
-  bytes value = 2;
-  optional int64 ex = 3;
-  optional int64 px = 4;
-  bool nx = 5;
-  bool xx = 6;
-  bool keep_ttl = 7;
+  string connection = 1;
+  string key = 2;
+  bytes value = 3;
+  optional int64 ex = 4;
+  optional int64 px = 5;
+  bool nx = 6;
+  bool xx = 7;
+  bool keep_ttl = 8;
 }
 
 message MGetRequest {
-  repeated string keys = 1;
+  string connection = 1;
+  repeated string keys = 2;
 }
 
 message MSetRequest {
-  map<string, bytes> values = 1;
+  string connection = 1;
+  map<string, bytes> values = 2;
 }
 
 message GetDelRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message AppendRequest {
-  string key = 1;
-  bytes value = 2;
+  string connection = 1;
+  string key = 2;
+  bytes value = 3;
 }
 
 message StrLenRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message IncrRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message IncrByRequest {
-  string key = 1;
-  int64 increment = 2;
+  string connection = 1;
+  string key = 2;
+  int64 increment = 3;
 }
 
 message IncrByFloatRequest {
-  string key = 1;
-  double increment = 2;
+  string connection = 1;
+  string key = 2;
+  double increment = 3;
 }
 
 message DecrRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message DecrByRequest {
-  string key = 1;
-  int64 decrement = 2;
+  string connection = 1;
+  string key = 2;
+  int64 decrement = 3;
 }
 
 // Keys
 
 message DelRequest {
-  repeated string keys = 1;
+  string connection = 1;
+  repeated string keys = 2;
 }
 
 message UnlinkRequest {
-  repeated string keys = 1;
+  string connection = 1;
+  repeated string keys = 2;
 }
 
 message ExistsRequest {
-  repeated string keys = 1;
+  string connection = 1;
+  repeated string keys = 2;
 }
 
 message ExpireRequest {
-  string key = 1;
-  int64 seconds = 2;
+  string connection = 1;
+  string key = 2;
+  int64 seconds = 3;
 }
 
 message PExpireRequest {
-  string key = 1;
-  int64 milliseconds = 2;
+  string connection = 1;
+  string key = 2;
+  int64 milliseconds = 3;
 }
 
 message ExpireAtRequest {
-  string key = 1;
-  int64 unix_seconds = 2;
+  string connection = 1;
+  string key = 2;
+  int64 unix_seconds = 3;
 }
 
 message TTLRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message PTTLRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message PersistRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message TypeRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message RenameRequest {
-  string key = 1;
-  string new_key = 2;
+  string connection = 1;
+  string key = 2;
+  string new_key = 3;
 }
 
 // match is a glob pattern, count a hint, type filters by key type. Empty values are not sent.
 message ScanRequest {
-  uint64 cursor = 1;
-  string match = 2;
-  int64 count = 3;
-  string type = 4;
+  string connection = 1;
+  uint64 cursor = 2;
+  string match = 3;
+  int64 count = 4;
+  string type = 5;
 }
 
 // Hashes
 
 message HSetRequest {
-  string key = 1;
-  map<string, bytes> fields = 2;
+  string connection = 1;
+  string key = 2;
+  map<string, bytes> fields = 3;
 }
 
 message HSetNXRequest {
-  string key = 1;
-  string field = 2;
-  bytes value = 3;
+  string connection = 1;
+  string key = 2;
+  string field = 3;
+  bytes value = 4;
 }
 
 message HGetRequest {
-  string key = 1;
-  string field = 2;
+  string connection = 1;
+  string key = 2;
+  string field = 3;
 }
 
 message HMGetRequest {
-  string key = 1;
-  repeated string fields = 2;
+  string connection = 1;
+  string key = 2;
+  repeated string fields = 3;
 }
 
 message HGetAllRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message HDelRequest {
-  string key = 1;
-  repeated string fields = 2;
+  string connection = 1;
+  string key = 2;
+  repeated string fields = 3;
 }
 
 message HExistsRequest {
-  string key = 1;
-  string field = 2;
+  string connection = 1;
+  string key = 2;
+  string field = 3;
 }
 
 message HLenRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message HKeysRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message HValsRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message HIncrByRequest {
-  string key = 1;
-  string field = 2;
-  int64 increment = 3;
+  string connection = 1;
+  string key = 2;
+  string field = 3;
+  int64 increment = 4;
 }
 
 message HIncrByFloatRequest {
-  string key = 1;
-  string field = 2;
-  double increment = 3;
+  string connection = 1;
+  string key = 2;
+  string field = 3;
+  double increment = 4;
 }
 
 // Lists
 
 message LPushRequest {
-  string key = 1;
-  repeated bytes elements = 2;
+  string connection = 1;
+  string key = 2;
+  repeated bytes elements = 3;
 }
 
 message RPushRequest {
-  string key = 1;
-  repeated bytes elements = 2;
+  string connection = 1;
+  string key = 2;
+  repeated bytes elements = 3;
 }
 
 // count 0 pops one element.
 message LPopRequest {
-  string key = 1;
-  int64 count = 2;
+  string connection = 1;
+  string key = 2;
+  int64 count = 3;
 }
 
 // count 0 pops one element.
 message RPopRequest {
-  string key = 1;
-  int64 count = 2;
+  string connection = 1;
+  string key = 2;
+  int64 count = 3;
 }
 
 message LRangeRequest {
-  string key = 1;
-  int64 start = 2;
-  int64 stop = 3;
+  string connection = 1;
+  string key = 2;
+  int64 start = 3;
+  int64 stop = 4;
 }
 
 message LLenRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message LIndexRequest {
-  string key = 1;
-  int64 index = 2;
+  string connection = 1;
+  string key = 2;
+  int64 index = 3;
 }
 
 message LSetRequest {
-  string key = 1;
-  int64 index = 2;
-  bytes element = 3;
+  string connection = 1;
+  string key = 2;
+  int64 index = 3;
+  bytes element = 4;
 }
 
 message LRemRequest {
-  string key = 1;
-  int64 count = 2;
-  bytes element = 3;
+  string connection = 1;
+  string key = 2;
+  int64 count = 3;
+  bytes element = 4;
 }
 
 message LTrimRequest {
-  string key = 1;
-  int64 start = 2;
-  int64 stop = 3;
+  string connection = 1;
+  string key = 2;
+  int64 start = 3;
+  int64 stop = 4;
 }
 
 // where_from and where_to are LEFT or RIGHT.
 message LMoveRequest {
-  string source = 1;
-  string destination = 2;
-  string where_from = 3;
-  string where_to = 4;
+  string connection = 1;
+  string source = 2;
+  string destination = 3;
+  string where_from = 4;
+  string where_to = 5;
 }
 
 // Sets
 
 message SAddRequest {
-  string key = 1;
-  repeated bytes members = 2;
+  string connection = 1;
+  string key = 2;
+  repeated bytes members = 3;
 }
 
 message SRemRequest {
-  string key = 1;
-  repeated bytes members = 2;
+  string connection = 1;
+  string key = 2;
+  repeated bytes members = 3;
 }
 
 message SMembersRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message SIsMemberRequest {
-  string key = 1;
-  bytes member = 2;
+  string connection = 1;
+  string key = 2;
+  bytes member = 3;
 }
 
 message SMIsMemberRequest {
-  string key = 1;
-  repeated bytes members = 2;
+  string connection = 1;
+  string key = 2;
+  repeated bytes members = 3;
 }
 
 message SCardRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message SPopRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message SPopNRequest {
-  string key = 1;
-  int64 count = 2;
+  string connection = 1;
+  string key = 2;
+  int64 count = 3;
 }
 
 message SRandMemberRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 message SRandMemberNRequest {
-  string key = 1;
-  int64 count = 2;
+  string connection = 1;
+  string key = 2;
+  int64 count = 3;
 }
 
 message SDiffRequest {
-  repeated string keys = 1;
+  string connection = 1;
+  repeated string keys = 2;
 }
 
 message SInterRequest {
-  repeated string keys = 1;
+  string connection = 1;
+  repeated string keys = 2;
 }
 
 message SUnionRequest {
-  repeated string keys = 1;
+  string connection = 1;
+  repeated string keys = 2;
 }
 
 // Sorted sets
 
 message ZAddRequest {
-  string key = 1;
-  repeated ScoredMember members = 2;
-  bool nx = 3;
-  bool xx = 4;
-  bool gt = 5;
-  bool lt = 6;
-  bool ch = 7;
+  string connection = 1;
+  string key = 2;
+  repeated ScoredMember members = 3;
+  bool nx = 4;
+  bool xx = 5;
+  bool gt = 6;
+  bool lt = 7;
+  bool ch = 8;
 }
 
 message ZRemRequest {
-  string key = 1;
-  repeated bytes members = 2;
+  string connection = 1;
+  string key = 2;
+  repeated bytes members = 3;
 }
 
 message ZScoreRequest {
-  string key = 1;
-  bytes member = 2;
-}
-
-message ZIncrByRequest {
-  string key = 1;
-  double increment = 2;
+  string connection = 1;
+  string key = 2;
   bytes member = 3;
 }
 
+message ZIncrByRequest {
+  string connection = 1;
+  string key = 2;
+  double increment = 3;
+  bytes member = 4;
+}
+
 message ZCardRequest {
-  string key = 1;
+  string connection = 1;
+  string key = 2;
 }
 
 // min and max are score strings: -inf, +inf, 10, (1.5
 message ZCountRequest {
-  string key = 1;
-  string min = 2;
-  string max = 3;
+  string connection = 1;
+  string key = 2;
+  string min = 3;
+  string max = 4;
 }
 
 message ZRankRequest {
-  string key = 1;
-  bytes member = 2;
+  string connection = 1;
+  string key = 2;
+  bytes member = 3;
 }
 
 message ZRevRankRequest {
-  string key = 1;
-  bytes member = 2;
+  string connection = 1;
+  string key = 2;
+  bytes member = 3;
 }
 
 // start and stop are index strings by default, score strings (-inf, (1.5, 10) with by_score,
 // lex strings (-, +, [a, (b) with by_lex. LIMIT offset count is sent when offset or count is not 0.
 message ZRangeRequest {
-  string key = 1;
-  string start = 2;
-  string stop = 3;
-  bool by_score = 4;
-  bool by_lex = 5;
-  bool rev = 6;
-  int64 offset = 7;
-  int64 count = 8;
-  bool with_scores = 9;
+  string connection = 1;
+  string key = 2;
+  string start = 3;
+  string stop = 4;
+  bool by_score = 5;
+  bool by_lex = 6;
+  bool rev = 7;
+  int64 offset = 8;
+  int64 count = 9;
+  bool with_scores = 10;
 }
 
 // count 0 pops one member.
 message ZPopMinRequest {
-  string key = 1;
-  int64 count = 2;
+  string connection = 1;
+  string key = 2;
+  int64 count = 3;
 }
 
 // count 0 pops one member.
 message ZPopMaxRequest {
-  string key = 1;
-  int64 count = 2;
+  string connection = 1;
+  string key = 2;
+  int64 count = 3;
 }
 
 message ZRemRangeByRankRequest {
-  string key = 1;
-  int64 start = 2;
-  int64 stop = 3;
+  string connection = 1;
+  string key = 2;
+  int64 start = 3;
+  int64 stop = 4;
 }
 
 // min and max are score strings: -inf, +inf, 10, (1.5
 message ZRemRangeByScoreRequest {
-  string key = 1;
-  string min = 2;
-  string max = 3;
+  string connection = 1;
+  string key = 2;
+  string min = 3;
+  string max = 4;
 }
